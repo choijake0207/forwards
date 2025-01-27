@@ -1,0 +1,12 @@
+
+.protected_layout {
+    border: 1px solid white;
+    display: flex;
+    height: 100vh;
+}
+.navbar {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
