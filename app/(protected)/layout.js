@@ -6,11 +6,10 @@ import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 
 export default function ProtectedLayout({children}) {
-  const {authUser} = useContext(AuthContext)
+  const {authUser, loading} = useContext(AuthContext)
   const router = useRouter()
-
   useEffect(() => {
-    if (!authUser.status) {
+    if (!authUser.status && !loading) {
       router.push("/login")
     }
   }, [authUser])
