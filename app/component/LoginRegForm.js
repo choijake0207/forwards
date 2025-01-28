@@ -19,7 +19,6 @@ const LoginRegForm = ({type}) => {
         e.preventDefault()
         try {
             const response = await register(firstName, lastName, username, password)
-            console.log(response)
             setFirstName("")
             setLastName("")
             setUsername("")
@@ -34,7 +33,6 @@ const LoginRegForm = ({type}) => {
         e.preventDefault()
         try {
             const response = await login(username, password)
-            console.log(response)
             setUsername("")
             setPassword("")
             router.push("/")
