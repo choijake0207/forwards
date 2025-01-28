@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import styles from "../styles/logreg.module.css"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { login, register } from '../api/auth/AuthCalls'
 
 
 const LoginRegForm = ({type}) => {
@@ -16,25 +17,13 @@ const LoginRegForm = ({type}) => {
     const handleRegister = async(e) => {
         e.preventDefault()
         try {
-            const response = await fetch("/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({firstName, lastName, username, password})
-            })
-            const result = response.json()
-            if (response.ok) {
-                console.log(result.message)
-                setFirstName("")
-                setLastName("")
-                setUsername("")
-                setPassword("")
-                router.push("/")
-
-            } else {
-                console.log("error")
-            }
+            const response = await register(firstName, lastName, username, password)
+            console.log(response)
+            setFirstName("")
+            setLastName("")
+            setUsername("")
+            setPassword("")
+            router.push("/")
         } catch (error) {
             console.error("Error submitting form:", error)
         }
@@ -43,22 +32,11 @@ const LoginRegForm = ({type}) => {
     const handleLogin = async(e) => {
         e.preventDefault()
         try {
-            const response = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({username, password})
-            })
-            const result = response.json()
-            if (response.ok) {
-                console.log(result.message)
-                setUsername("")
-                setPassword("")
-                router.push("/")
-            } else {
-                console.log("error")
-            }
+            const response = await login(username, password)
+            console.log(response)
+            setUsername("")
+            setPassword("")
+            router.push("/")
         } catch (error) {
             console.error("Error logging in:", error)
         }
