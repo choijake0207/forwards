@@ -1,7 +1,8 @@
+"use client"
 import React, {useState} from 'react'
 import styles from "../styles/logreg.module.css"
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 
 const LoginRegForm = ({type}) => {
@@ -10,6 +11,7 @@ const LoginRegForm = ({type}) => {
     const [username, setUsername] = useState("")
     const [lastName, setLastName] = useState("")
     const [password, setPassword] = useState("")
+    const router = useRouter()
 
     const handleRegister = async(e) => {
         e.preventDefault()
@@ -28,19 +30,44 @@ const LoginRegForm = ({type}) => {
                 setLastName("")
                 setUsername("")
                 setPassword("")
+                router.push("/")
+
             } else {
                 console.log("error")
             }
-           
         } catch (error) {
             console.error("Error submitting form:", error)
+        }
+    }
+
+    const handleLogin = async(e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({username, password})
+            })
+            const result = response.json()
+            if (response.ok) {
+                console.log(result.message)
+                setUsername("")
+                setPassword("")
+                router.push("/")
+            } else {
+                console.log("error")
+            }
+        } catch (error) {
+            console.error("Error logging in:", error)
         }
     }
 
   return (
     type === "login" ? 
 
-        <form className={`${styles.logreg_form} ${styles.login_form}`}>
+        <form className={`${styles.logreg_form} ${styles.login_form}`} onSubmit={handleLogin}>
             <label>Username</label>
             <input 
                 type="text"
