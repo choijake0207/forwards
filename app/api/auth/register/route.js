@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 import { PrismaClient } from "@prisma/client";
+import { sign } from "jsonwebtoken";
+require("dotenv").config()
 
 // register request
 
@@ -29,10 +31,18 @@ export async function POST(request) {
             password: hash
             }
         })
-        return NextResponse.json({
-            message: "Succesfully Created Account",
-            newUser
-        }, {status: 201})
+        const token = sign({username: username, firstName: firstName, id: newUser.id}, process.env.JWT_SECRET)
+        return NextResponse.json(
+            {      
+                auth: {
+                    username: newUser.username,
+                    id: newUser.id,
+                    firstName: newUser.firstName
+                },
+                token
+            },
+            {status: 201}
+        )
 
     } catch (error) {
         console.error("Failed To Create Account", error)

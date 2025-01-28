@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt"
 import { PrismaClient } from "@prisma/client";
+import { sign } from "jsonwebtoken";
+require("dotenv").config()
 
 export async function POST (request) {
     try {
@@ -17,9 +19,18 @@ export async function POST (request) {
         if (!match) {
             return NextResponse.json({error: "Incorrect Password"}, {status: 401})
         }
-        return NextResponse.json({
-            message: "Logged In",
-        }, {status: 201})
+        const token = sign({username: username, firstName: exists.firstName, id: exists.id }, process.env.JWT_SECRET)
+        return NextResponse.json(
+            {
+                auth: {
+                    username: exists.username,
+                    id: exists.id,
+                    firstName: exists.firstName
+                },
+                token
+            }, 
+            {status: 201}
+        )
 
 
     } catch (error) {
