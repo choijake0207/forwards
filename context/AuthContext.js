@@ -23,7 +23,15 @@ export const AuthProvider = ({children}) => {
                 const errorData = await response.json()
                 throw new Error(errorData.error)
             }
-            return await response.json()
+            const {token, auth} =  await response.json()
+            localStorage.setItem("token", token)
+            setAuthUser({
+                id: auth.id,
+                username: auth.username,
+                firstName: auth.firstName,
+                status: true
+            })
+           
         } catch (error) {
             console.error("Error logging in:", error)
             throw error
@@ -44,7 +52,14 @@ export const AuthProvider = ({children}) => {
                 throw new Error(errorData.error)
             
             }
-            return await response.json()
+            const {token, auth} =  await response.json()
+            localStorage.setItem("token", token)
+            setAuthUser({
+                id: auth.id,
+                username: auth.username,
+                firstName: auth.firstName,
+                status: true
+            })
         } catch (error) {
             console.error("Error submitting form:", error)
             throw error
