@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) => {
         username: "",
         status: false
     })
+    const [loading, setLoading] = useState(true)
 
     const login = async (username, password) => {
         try {
@@ -65,8 +66,48 @@ export const AuthProvider = ({children}) => {
             throw error
         }
     }
+
+    useEffect(() => {
+        const verifyUser = async () => {
+            try {
+                const token = localStorage.getItem("token")
+                if (!token) {
+                    throw new Error("No Token Found")
+                }
+                const response = await fetch("/api/auth/check", {
+                    method: "POST",
+                    headers: {
+                        Authorization: token
+                    }
+                })
+                if (!response.ok) {
+                    throw new Error("Unauthorized")
+                }
+                const data = await response.json()
+                
+                setAuthUser({
+                    id: data.user.id,
+                    firstName: data.user.firstName,
+                    username: data.user.username,
+                    status: true
+                })
+            } catch (error) {
+                console.error("User Verification Failed", error)
+                setAuthUser({
+                    id: "",
+                    firstName: "",
+                    username: "",
+                    status: false,
+                })
+            } finally {
+                setLoading(false)
+            }
+        }
+        verifyUser()
+    }, [])
+
     return (
-        <AuthContext.Provider value={{authUser, login, register}}>
+        <AuthContext.Provider value={{authUser, login, register, loading}}>
             {children}
         </AuthContext.Provider>
     )
