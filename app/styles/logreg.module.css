@@ -1,0 +1,13 @@
+.logreg_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logreg_form {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
