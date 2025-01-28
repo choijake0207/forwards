@@ -1,8 +1,20 @@
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styles from "../styles/protected.module.css"
+import { AuthContext } from '@/context/AuthContext'
+import { useRouter } from 'next/navigation'
 
 export default function ProtectedLayout({children}) {
+  const {authUser} = useContext(AuthContext)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!authUser.status) {
+      router.push("/login")
+    }
+  }, [authUser])
+
   return (
     <div className={styles.protected_layout}>
       <nav className={styles.navbar}>
