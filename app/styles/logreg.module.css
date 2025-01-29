@@ -1,13 +1,48 @@
 .logreg_page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 30px;
     height: 100vh;
+    background: vaR(--bg);
+    padding-top: 75px;
 }
-
+.logreg_header {
+    text-align: center;
+    width: 300px;
+}
 .logreg_form {
-    border: 1px solid white;
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 300px;
+    gap: 10px;
+}
+.logreg_form input {
+    border-radius: 5px;
+    padding: 9px;
+    outline: none;
+    border: none;
+    background: var(--secondary-bg);
+    color: vaR(--primary-text)
+}
+.logreg_form label {
+    color: var(--secondary-text);
+    font-size: 13px;
+}
+
+.logreg_form button {
+    margin-top: 15px;
+    padding: 7px;
+    background: vaR(--primary-theme);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 5px;
+}
+.logreg_form_message {
+    color: vaR(--secondary-text);
+    font-size: 13px;
+}
+.logreg_form a {
+    color: var(--primary-theme);
+    font-weight: 500;
 }
