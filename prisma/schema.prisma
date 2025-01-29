@@ -14,9 +14,54 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   username String @unique
   firstName String
   lastName String
   password String
+  createdAt DateTime @default(now())
+  habits Habit[]
+  checkIns CheckIn[]
+}
+
+model Habit {
+ id String @id @default(uuid())
+ userId String
+ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ name String
+ color String
+ type Type
+ frequency Frequency 
+ daysOfWeek Json?
+ weeklyGoal Int?
+ status Status @default(LIVE)
+ createdAt DateTime @default(now())
+ checkIns CheckIn[]
+}
+
+model CheckIn {
+  id String @id @default(uuid())
+  habitId String
+  userId String
+  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date DateTime
+  @@unique([habitId, date])
+
+}
+
+enum Frequency {
+  DAILY
+  WEEKLY
+  CUSTOM
+}
+
+enum Status {
+  LIVE
+  COMPLETED
+}
+
+enum Type {
+  START
+  QUIT
 }
