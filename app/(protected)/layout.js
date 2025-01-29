@@ -5,6 +5,7 @@ import styles from "../styles/protected.module.css"
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import ClientLoading from '../component/ClientLoading'
+import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie   } from 'phosphor-react'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading} = useContext(AuthContext)
@@ -15,23 +16,23 @@ export default function ProtectedLayout({children}) {
     }
   }, [authUser])
 
-  if (loading) {
-    return (
-      <ClientLoading/>
-    )
-  }
 
   return (
     <div className={styles.protected_layout}>
-      <nav className={styles.navbar}>
-        <Link href="/">Dashboard</Link>
-        <Link href="myhabits">My Habits</Link>
-        <Link href="friends">Friends</Link>
-        <Link href="/analytics">Analytics</Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/settings">Settings</Link>
-      </nav>
-      <main className="protected-layout-outlets">{children}</main>
+      <aside className={styles.protected_aside}>
+        <nav className={styles.navbar}>
+          <Link href="/"><House/>Dashboard</Link>
+          <Link href="myhabits"><SquaresFour/>My Habits</Link>
+          <Link href="friends"><Users/>Friends</Link>
+          <Link href="/analytics"><ChartPie/>Analytics</Link>
+          <Link href="/profile"><User/>Profile</Link>
+          <Link href="/settings"><GearSix/>Settings</Link>
+        </nav>
+      </aside>
+      <main className="protected-layout-outlets">
+        {loading ? <ClientLoading/> : children}
+
+      </main>
     </div>
   )
 }
