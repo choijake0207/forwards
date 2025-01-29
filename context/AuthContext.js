@@ -39,6 +39,16 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const logout = () => {
+        localStorage.removeItem("token")
+        setAuthUser({
+            id: "",
+            username: "",
+            firstName: "",
+            status: false
+        })
+    }
+
     const register = async(firstName, lastName, username, password) => {
         try {
             const response = await fetch("/api/auth/register", {
@@ -107,7 +117,7 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{authUser, login, register, loading}}>
+        <AuthContext.Provider value={{authUser, login, register, loading, logout}}>
             {children}
         </AuthContext.Provider>
     )
