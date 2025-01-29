@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from 'react'
 import styles from "../styles/protected.module.css"
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
+import ClientLoading from '../component/ClientLoading'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading} = useContext(AuthContext)
@@ -13,6 +14,12 @@ export default function ProtectedLayout({children}) {
       router.push("/login")
     }
   }, [authUser])
+
+  if (loading) {
+    return (
+      <ClientLoading/>
+    )
+  }
 
   return (
     <div className={styles.protected_layout}>
