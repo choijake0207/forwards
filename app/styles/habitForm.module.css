@@ -1,0 +1,198 @@
+.habit_form_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.431);
+    display: flex;
+    justify-content: center;
+}
+.habit_form_container {
+    width: 800px;
+    height: 600px;
+    margin-top: 50px;
+    padding: 50px;
+    position: relative;
+    background: vaR(--secondary-bg);
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 50px;
+}
+.habit_form_image_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+.lifestyle_img {
+    width: 80px;
+    height: 80px;
+}
+.freelancer_img {
+    width: 200px;
+    height: 200px;
+}
+.habit_form_image1 {
+    width: 150px;
+    height: 150px;
+}
+.alarmclock_img {
+    width: 180px;
+    height: 180px;
+}
+.habit_form_step_1, .habit_form_step_2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 15px;
+}
+.step_header {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.step_header p {
+    color: var(--secondary-text)
+}
+.habit_form_exit_btn {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    color: var(--primary-text)
+}
+.habit_form_container label {
+    font-weight: 500;
+    margin-top: 15px;
+}
+.habit_form_step_1 label:first-of-type {
+    display: flex;
+    justify-content: space-between;
+}
+.habit_form_step_1 label span {
+    color: vaR(--secondary-text)
+}
+.habit_form_step_1 input{
+    padding: 15px;
+    border: none;
+    background: none;
+    border: 1px solid vaR(--secondary-text);
+    outline: none;
+    color: var(--primary-text);
+    font-size: 20px;
+}
+.habit_form_step_1 input:focus {
+    border: 1px solid vaR(--primary-theme)
+}
+
+.habit_form_type_container {
+    display: flex;
+    justify-content: space-between;
+
+}
+.habit_type_btn {
+    font-size:20px;
+    width: 200px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: none;
+    border: 1px solid vaR(--secondary-text);
+    cursor: pointer;
+}
+.active_type {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--primary-theme)
+}
+.habit_type_btn:hover {
+    border: 1px solid var(--primary-theme)
+}
+.habit_type_title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary-text);
+}
+.habit_type_title svg {
+    color: var(--green)
+}
+.habit_type_desc {
+    color: vaR(--secondary-text);
+    text-align: left;
+    font-size: 15px;
+
+}
+.habit_form_color_selector {
+    display: flex;
+    gap: 10px;
+}
+.color_selector_option {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+    .red {
+        background: vaR(--red)
+    }
+    .blue {
+        background: vaR(--blue)
+    }
+    .green {
+        background: var(--green)
+    }
+    .orange {
+        background: var(--orange)
+    }
+    .purple {
+        background: var(--purple)
+    }
+    .yellow {
+        background: var(--yellow)
+    }
+    .pink {
+        background: var(--pink)
+    }
+.active_color {
+    border: 3px solid white;
+    transition: .1s ease;
+}
+
+.habit_form_btn {
+    border: 1px solid white;
+    width: 120px;
+    padding: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 25px;
+    border: none;
+    color: var(--primary-text);
+    cursor: pointer;
+    margin-top: auto;
+    font-size: 15px;
+    font-weight: 600;
+}
+    .habit_form_btn_next {
+        background: var(--primary-theme);
+        align-self: flex-end;
+    }
+    .habit_form_btn_container {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    .habit_form_btn_prev {
+        background: none;
+        border: 1px solid vaR(--primary-text);
+    }
+    .habit_form_btn_submit {
+        background: vaR(--primary-theme)
+    }
