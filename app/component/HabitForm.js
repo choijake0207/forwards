@@ -4,7 +4,7 @@ import { XCircle, CheckCircle, SunDim } from 'phosphor-react'
 import Image from 'next/image'
 
 
-const HabitForm = () => {
+const HabitForm = ({onClose}) => {
     const [step, setStep] = useState(1)
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
     const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
@@ -43,6 +43,10 @@ const HabitForm = () => {
         if (step === 2) {
             setStep(1)
         } 
+    }
+    const handleClose = (e) => {
+        e.preventDefault()
+        onClose()
     }
     const handleColorSelection = (color) => {
         setHabitForm({...habitForm, color: color})
@@ -92,7 +96,7 @@ const HabitForm = () => {
                                 <p>Step 1 of 2</p>
                                 <h1>Create A New Habit</h1>
                     
-                                <button className={styles.habit_form_exit_btn}>X</button>
+                                <button onClick={handleClose} className={styles.habit_form_exit_btn}>X</button>
                             
                             </header>
                             <label>Name your habit <span className={styles.input_character_limit}>15 characters max</span></label>
@@ -147,7 +151,7 @@ const HabitForm = () => {
                     <header className={styles.step_header}>
                         <p>Step 2 of 2</p>
                         <h1>Configure Your Habit</h1>
-                        <button className={styles.habit_form_exit_btn}>X</button>
+                        <button onClick={handleClose} className={styles.habit_form_exit_btn}>X</button>
                     </header>
                     <label>Your habit:</label>
                     <p className={`${styles.step_2_display} ${styles[habitForm.color]}`}>{habitForm.type === "START" ? <CheckCircle/> : <XCircle/>}{habitForm.name}</p>
