@@ -9,16 +9,21 @@ const HabitForm = () => {
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
     const [habitForm, setHabitForm] = useState({
         name: "",
-        color: "",
+        color: "red",
         type: "",
         frequency: "",
         daysOfWeek: []
     })
+    const step1Valid = habitForm.name.trim() !== "" && habitForm.type !== ""
     const next = (e) => {
         e.preventDefault()
-        if (step === 1) {
-            setStep(2)
-        } 
+        if (step1Valid) {
+            if (step === 1) {
+                setStep(2)
+            }
+        } else {
+            setFormStatus(false)
+        }
     }
     const prev = (e) => {
         e.preventDefault()
@@ -93,7 +98,7 @@ const HabitForm = () => {
                                     })
                                 }
                             </div>
-                            <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_next}`} onClick={next}>Next</button>
+                            <button disabled={!step1Valid} className={`${styles.habit_form_btn} ${styles.habit_form_btn_next}`} onClick={next}>Next</button>
                  
                     </form>
 
@@ -104,6 +109,14 @@ const HabitForm = () => {
                         <h1>Configure Your Habit</h1>
                         <button className={styles.habit_form_exit_btn}>X</button>
                     </header>
+                    <label>Your habit:</label>
+                    <p>{habitForm.type === "START" ? <CheckCircle/> : <XCircle/>}{habitForm.name}</p>
+                    <label>Choose frequency</label>
+                    <select>
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Custom</option>
+                    </select>
                     <div className={styles.habit_form_btn_container}>
                         <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_prev}`} onClick={prev}>Previous</button>
                         <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} type="submit">Submit</button>
