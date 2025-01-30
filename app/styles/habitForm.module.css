@@ -26,6 +26,7 @@
     align-items: center;
     justify-content: center;
     gap: 25px;
+    width: 200px;
 }
 .lifestyle_img {
     width: 80px;
@@ -46,13 +47,13 @@
 .habit_form_step_1, .habit_form_step_2 {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    max-height: 100%;
     gap: 15px;
 }
 .step_header {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 5px;
 }
 .step_header p {
     color: var(--secondary-text)
@@ -166,6 +167,69 @@
     transition: .1s ease;
 }
 
+.step_2_display {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+}
+    .step_2_display.red svg {
+        color: var(--red)
+    }
+    .step_2_display.blue svg {
+        color: var(--blue)
+    }
+    .step_2_display.green svg {
+        color: var(--green)
+    }
+    .step_2_display.pink svg {
+        color: vaR(--pink)
+    }
+    .step_2_display.yellow svg {
+        color: vaR(--yellow)
+    }
+    .step_2_display.purple svg {
+        color: vaR(--purple)
+    }
+    .step_2_display.orange svg {
+        color: vaR(--orange)
+    }
+
+.habit_form_freq_selector {
+    padding: 10px;
+    font-size: 15px;
+    background: none;
+    outline: none;
+    color: var(--primary-text)
+}
+.habit_form_days_selector {
+    display: flex;
+    flex-direction: column;  
+    gap: 15px;
+}
+.habit_form_days_selector.disabled {
+    opacity: .3;
+}
+.days_container {
+    display: flex;
+    gap: 10px;
+}
+
+.habit_form_day_btn {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: none;
+    border: 1px solid var(--secondary-text);
+    color: var(--primary-text);
+    border-radius: 5px;
+}
+.active_day {
+    border: 2px solid vaR(--primary-theme);
+    background: rgba(255, 255, 255, 0.03);
+}
+
 .habit_form_btn {
     border: 1px solid white;
     width: 120px;
@@ -184,6 +248,9 @@
         background: var(--primary-theme);
         align-self: flex-end;
     }
+    .habit_form_btn_next:disabled {
+        opacity: .5
+    }
     .habit_form_btn_container {
         margin-top: auto;
         display: flex;
@@ -195,4 +262,7 @@
     }
     .habit_form_btn_submit {
         background: vaR(--primary-theme)
+    }
+    .habit_form_btn_submit:disabled {
+        opacity: .5;
     }
