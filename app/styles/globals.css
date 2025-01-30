@@ -1,25 +1,34 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Liter&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+:root {
+  --primary-theme: rgb(42, 131, 226);
+  --bg: rgb(28, 28, 29);
+  --primary-text: white;
+  --secondary-text: rgb(137, 137, 137);
+  --secondary-bg: rgb(22, 22, 22);
+  --nav-highlight: rgb(19, 19, 19);
+  /* color schema */
+  --red: rgb(223, 59, 59);
+  --orange: rgb(243, 138, 26);
+  --yellow: rgb(255, 195, 30);
+  --green: rgb(97, 204, 89);
+  --blue: rgb(84, 133, 238);
+  --purple: rgb(115, 53, 232);
+  --pink: rgb(246, 51, 103);
+}
+/* body.light {{
 
+}} */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-text);
+  background: var(--bg);
+  font-family: "Inter";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,8 +44,4 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+
