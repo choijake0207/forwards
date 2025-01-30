@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import styles from "../styles/habitForm.module.css"
-import { XCircle, CheckCircle } from 'phosphor-react'
+import { XCircle, CheckCircle, SunDim } from 'phosphor-react'
 import Image from 'next/image'
 
 
 const HabitForm = () => {
     const [step, setStep] = useState(1)
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
+    const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
     const [habitForm, setHabitForm] = useState({
         name: "",
         color: "red",
@@ -15,6 +16,18 @@ const HabitForm = () => {
         daysOfWeek: []
     })
     const step1Valid = habitForm.name.trim() !== "" && habitForm.type !== ""
+    const step2Valid = () => {
+        if (habitForm.frequency === "") {
+            return false
+        }
+        if (habitForm.frequency === "WEEKLY" && habitForm.daysOfWeek.length !== 1) {
+            return false
+        }
+        if (habitForm.frequency === "CUSTOM" && habitForm.daysOfWeek.length === 0) {
+            return false
+        }
+        return true
+    }
     const next = (e) => {
         e.preventDefault()
         if (step1Valid) {
@@ -40,6 +53,33 @@ const HabitForm = () => {
     }
     const handleNameSelection = (e) => {
         setHabitForm({...habitForm, name: e.target.value})
+    }
+    const handleFrequencySelection = (e) => {
+        setHabitForm({...habitForm, frequency: e.target.value, daysOfWeek: []})
+    }
+    const handleDaySelection = (e, day) => {
+        e.preventDefault()
+        setHabitForm(prev => {
+            if (prev.frequency === "DAILY") {
+                return {prev}
+            } else if (prev.frequency === "WEEKLY") {
+                return {...prev, daysOfWeek: prev.daysOfWeek.includes(day) ? [] : [day]}
+            } else {
+                let days
+                if (prev.daysOfWeek.includes(day)) {
+                    days = prev.daysOfWeek.filter(d => d  !== day)
+                } else {
+                    days = [...prev.daysOfWeek, day]
+                }
+                const updatedFreq = days.length === 7 && prev.frequency === "CUSTOM" ? "DAILY" : prev.frequency
+                const updatedDays = updatedFreq === "DAILY" ? [] : days
+                return {
+                    ...prev,
+                    daysOfWeek: updatedDays,
+                    frequency: updatedFreq
+                }
+            }
+        })
     }
   return (
     <div className={styles.habit_form_overlay}>
@@ -110,16 +150,34 @@ const HabitForm = () => {
                         <button className={styles.habit_form_exit_btn}>X</button>
                     </header>
                     <label>Your habit:</label>
-                    <p>{habitForm.type === "START" ? <CheckCircle/> : <XCircle/>}{habitForm.name}</p>
+                    <p className={`${styles.step_2_display} ${styles[habitForm.color]}`}>{habitForm.type === "START" ? <CheckCircle/> : <XCircle/>}{habitForm.name}</p>
                     <label>Choose frequency</label>
-                    <select>
-                        <option>Daily</option>
-                        <option>Weekly</option>
-                        <option>Custom</option>
+                    <select className={styles.habit_form_freq_selector} value={habitForm.frequency} onChange={handleFrequencySelection}>
+                        <option value="">Select Frequency</option>
+                        <option value="DAILY">Daily</option>
+                        <option value="WEEKLY">Weekly</option>
+                        <option value="CUSTOM">Custom</option>
                     </select>
+                    <div className={`${styles.habit_form_days_selector}  ${habitForm.frequency === "DAILY" || habitForm.frequency === "" ? `${styles.disabled}` : ""}`}>
+                        <label>Choose day(s) of week:</label>
+                        <div className={styles.days_container}>
+                            {days.map(d => {
+                                return  (
+                                    <button 
+                                        onClick={(e) => handleDaySelection(e, d)}
+                                        key={d}
+                                        disabled={habitForm.frequency === "DAILY" || habitForm.frequency === ""}
+                                        className={`${styles.habit_form_day_btn} ${habitForm.daysOfWeek.includes(d) || habitForm.frequency === "DAILY" ? `${styles.active_day}` : ""}`}
+                                    >
+                                        {d}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                    </div>
                     <div className={styles.habit_form_btn_container}>
                         <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_prev}`} onClick={prev}>Previous</button>
-                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} type="submit">Submit</button>
+                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} disabled={!step2Valid()}type="submit">Submit</button>
                     </div>
                 </form>
             )}
@@ -128,7 +186,6 @@ const HabitForm = () => {
                     step === 1 ? 
                     <>
                         <img src="/lifestyle.png" className={styles.lifestyle_img} alt="lifestyle"/>
-
                         <img src="/freelancer.png" className={styles.freelancer_img} alt="freelancer"/>
                     </>
                     : 
