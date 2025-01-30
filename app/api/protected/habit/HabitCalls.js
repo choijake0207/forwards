@@ -19,3 +19,26 @@ export async function createHabitAPI(habit) {
         throw console.error();
     }
 }
+
+// Fetch All Habits by User
+export async function fetchHabitsAPI() {
+    try {
+        const token = localStorage.getItem("token")
+        const response = await fetch("/api/protected/habit/all", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        })
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error)
+        }
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error("Failed To Fetch Habits", error)
+        throw console.error()
+    }
+}
