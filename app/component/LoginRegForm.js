@@ -52,12 +52,14 @@ const LoginRegForm = ({type}) => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                 />
                 <label>Password</label>
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
                 <button type="submit">Login</button>
                 <p className={styles.logreg_form_message}>
@@ -71,24 +73,28 @@ const LoginRegForm = ({type}) => {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    required
                 />
                 <label>Last Name</label>
                 <input
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                    required
                 />
                 <label>Username</label>
                 <input 
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                 />
                 <label>Password</label>
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
                 <button type="submit">Join</button>
                 <p className={styles.logreg_form_message}>
