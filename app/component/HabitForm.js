@@ -1,11 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import styles from "../styles/habitForm.module.css"
 import { XCircle, CheckCircle, SunDim } from 'phosphor-react'
-import Image from 'next/image'
-
+import { createHabitAPI } from '../api/protected/habit/HabitCalls'
+import { AuthContext } from '@/context/AuthContext'
+import { useRouter } from 'next/navigation'
 
 const HabitForm = ({onClose}) => {
+    const {authUser} = useContext(AuthContext)
     const [step, setStep] = useState(1)
+    const router = useRouter()
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
     const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
     const [habitForm, setHabitForm] = useState({
@@ -84,6 +87,29 @@ const HabitForm = ({onClose}) => {
                 }
             }
         })
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log(authUser)
+        const newHabit = {
+            ...habitForm,
+            userId: authUser.id
+        }
+        try {
+            const response = await createHabitAPI(newHabit)
+            setHabitForm({
+                name: "",
+                color: "red",
+                type: "",
+                frequency: "",
+                daysOfWeek: []
+            })
+            router.push("/profile")
+            handleClose(e)
+            console.log(response)
+        } catch (error) {
+            console.error("Error Creating Habit", error)
+        }
     }
   return (
     <div className={styles.habit_form_overlay}>
@@ -181,7 +207,7 @@ const HabitForm = ({onClose}) => {
                     </div>
                     <div className={styles.habit_form_btn_container}>
                         <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_prev}`} onClick={prev}>Previous</button>
-                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} disabled={!step2Valid()}type="submit">Submit</button>
+                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} disabled={!step2Valid()} onClick={handleSubmit}type="submit">Submit</button>
                     </div>
                 </form>
             )}
