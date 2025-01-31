@@ -36,7 +36,7 @@ export async function fetchHabitsAPI() {
             throw new Error(errorData.error)
         }
         const data = await response.json()
-        return data
+        return data.habits
     } catch (error) {
         console.error("Failed To Fetch Habits", error)
         throw console.error()
