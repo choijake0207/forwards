@@ -87,7 +87,7 @@ export const AuthProvider = ({children}) => {
                 const response = await fetch("/api/auth/check", {
                     method: "POST",
                     headers: {
-                        Authorization: token
+                        Authorization: `Bearer ${token}`
                     }
                 })
                 if (!response.ok) {
