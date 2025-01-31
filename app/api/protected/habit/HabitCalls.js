@@ -2,10 +2,12 @@
 // Create New Habit
 export async function createHabitAPI(habit) {
     try {
+        const token = localStorage.getItem("token")
         const response = await fetch("/api/protected/habit/create", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(habit)
         })
@@ -28,7 +30,7 @@ export async function fetchHabitsAPI() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": token
+                "Authorization": `Bearer ${token}`
             }
         })
         if (!response.ok) {
