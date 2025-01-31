@@ -1,9 +1,26 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import jwt from "jsonwebtoken"
 
 export async function POST (request) {
     try {
-        const {name, color, type, frequency, daysOfWeek, userId} = await request.json()
+
+        const authHeader = request.headers.get("Authorization")
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            console.log("Missing or Invalid Token")
+            return NextResponse.json({error: "Missing or Invalid Token"})
+        }
+        const token = authHeader.split(" ")[1]
+        let verified
+        try {
+            verified = jwt.verify(token, process.env.JWT_SECRET)
+            console.log("Token Verified")
+        } catch (error) {
+            console.error("JWT verification failed", error)
+            return NextResponse.json({error: "Invalid Token"}, {status: 403})
+        }
+
+        const {name, color, type, frequency, daysOfWeek=[], userId} = await request.json()
         const prisma = new PrismaClient()
         // validate req
         if (!name || !color || !type || !frequency || !userId) {
