@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken"
 require("dotenv").config()
 
 export async function POST(request) {
-    const token = request.headers.get("Authorization")
+    const authHeaders = request.headers.get("Authorization")
+    const token = authHeaders.split(" ")[1]
     if (!token) {
         return new Response(JSON.stringify({error: "You Must Be Logged In"}), {status: 401})
     }
