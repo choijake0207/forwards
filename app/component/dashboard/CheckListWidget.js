@@ -5,7 +5,7 @@ import Card from '../habit/card'
 export default function CheckListWidget({habits}) {
   return (
     <ul className={styles.checklist_widget}>
-        {
+        {habits.length > 0 ? (
             habits.map(habit => {
                 return (
                     <Card
@@ -17,6 +17,9 @@ export default function CheckListWidget({habits}) {
                     />
                 )   
             })
+        ) : (
+            <p>No Habits Created Yet</p>
+        )
         }
         
     </ul>
