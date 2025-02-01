@@ -5,7 +5,7 @@ import { createHabitAPI } from '../api/protected/habit/HabitCalls'
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 
-const HabitForm = ({onClose}) => {
+const HabitForm = ({onClose, status}) => {
     const {authUser} = useContext(AuthContext)
     const [step, setStep] = useState(1)
     const router = useRouter()
@@ -113,7 +113,7 @@ const HabitForm = ({onClose}) => {
     }
   return (
     <div className={styles.habit_form_overlay}>
-        <div className={styles.habit_form_container}>
+        <div className={`${styles.habit_form_container} ${status && `${styles.visible}`}`}>
            { step === 1 ? (
                     <form className={styles.habit_form_step_1}>
                      
