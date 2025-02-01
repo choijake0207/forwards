@@ -90,7 +90,6 @@ const HabitForm = ({onClose, status}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(authUser)
         const newHabit = {
             ...habitForm,
             userId: authUser.id
@@ -104,9 +103,9 @@ const HabitForm = ({onClose, status}) => {
                 frequency: "",
                 daysOfWeek: []
             })
-            router.push("/profile")
+            router.push(`/singleview/${response.habit.id}`)
             handleClose(e)
-            console.log(response)
+
         } catch (error) {
             console.error("Error Creating Habit", error)
         }
