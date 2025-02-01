@@ -1,0 +1,40 @@
+.dashboard_page {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.dashboard_header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+}
+.dashboard_toolbar {
+    border: 1px solid red;
+    height: 50px;
+}
+.form_toggle_btn {
+    background: vaR(--primary-theme);
+    border-radius: 25px;
+    width: 130px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.dashboard_main_content {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+} 
+.dashboard_side_widgets_container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
