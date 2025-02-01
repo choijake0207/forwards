@@ -21,9 +21,12 @@ export default function ProtectedLayout({children}) {
   return (
     <div className={styles.protected_layout}>
       <aside className={styles.protected_aside}>
+        <div className={styles.logo_wrap}>
+          <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
+          <p className={styles.logo_text}>Forward</p>
+        </div>
         <nav className={styles.navbar}>
           <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><House/>Dashboard</Link>
-          <Link href="myhabits" className={pathname === "/myhabits" ? `${styles.active}` : ""}><SquaresFour/>My Habits</Link>
           <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}><Users/>Friends</Link>
           <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}><ChartPie/>Analytics</Link>
           <Link href="/profile" className={pathname === "/profile" ? `${styles.active}` : ""}><User/>Profile</Link>
@@ -34,7 +37,7 @@ export default function ProtectedLayout({children}) {
           Sign Out
         </button>
       </aside>
-      <main className="protected-layout-outlets">
+      <main className={styles.protected_layout_outlet}>
         {loading ? <ClientLoading/> : children}
       </main>
     </div>
