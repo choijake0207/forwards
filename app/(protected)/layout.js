@@ -20,14 +20,15 @@ export default function ProtectedLayout({children}) {
 
   return (
     <div className={styles.protected_layout}>
-      <header className={styles.protected_header}>
-      <div className={styles.logo_wrap}>
+      <div className={styles.protected_floating_tool}>
+        <Bell/>
+        <p>{authUser.username}</p>
+      </div>
+      <aside className={styles.protected_aside}>
+        <div className={styles.logo_wrap}>
           <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
           <p className={styles.logo_text}>Forward</p>
         </div>
-        <Bell/>
-      </header>
-      <aside className={styles.protected_aside}>
         
         <nav className={styles.navbar}>
           <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><SquaresFour/>Dashboard</Link>
