@@ -5,7 +5,7 @@ import styles from "../styles/protected.module.css"
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter, usePathname } from 'next/navigation'
 import ClientLoading from '../component/ClientLoading'
-import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie   } from 'phosphor-react'
+import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie, Bell   } from 'phosphor-react'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading, logout} = useContext(AuthContext)
@@ -20,13 +20,17 @@ export default function ProtectedLayout({children}) {
 
   return (
     <div className={styles.protected_layout}>
-      <aside className={styles.protected_aside}>
-        <div className={styles.logo_wrap}>
+      <header className={styles.protected_header}>
+      <div className={styles.logo_wrap}>
           <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
           <p className={styles.logo_text}>Forward</p>
         </div>
+        <Bell/>
+      </header>
+      <aside className={styles.protected_aside}>
+        
         <nav className={styles.navbar}>
-          <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><House/>Dashboard</Link>
+          <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><SquaresFour/>Dashboard</Link>
           <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}><Users/>Friends</Link>
           <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}><ChartPie/>Analytics</Link>
           <Link href="/profile" className={pathname === "/profile" ? `${styles.active}` : ""}><User/>Profile</Link>
