@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styles from "../../styles/progressWidget.module.css"
 import { Plus, CaretLeft, CaretRight, ChartBarHorizontal, SquaresFour } from 'phosphor-react'
+import ProgressCard from '../habit/ProgressCard'
 
-export default function ProgressWidget({toggleForm}) {
+export default function ProgressWidget({toggleForm, habits}) {
 
   const [display, setDisplay] = useState("grid")
   const displayTypes = ["bar", "grid"]
@@ -52,6 +53,19 @@ export default function ProgressWidget({toggleForm}) {
             })}
           </div>
         </div>
+        
+        <ul className={styles.progress_list}>
+          {habits.map(habit => {
+            return (
+              <ProgressCard
+                key={habit.id}
+                habit={habit}
+                displayType={display}
+                windowType={window}
+              />
+            )
+          })}
+        </ul>
       </div>
 
     </div>
