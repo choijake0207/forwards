@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import styles from "../../styles/progressWidget.module.css"
 import { Plus, CaretLeft, CaretRight, ChartBarHorizontal, SquaresFour } from 'phosphor-react'
 import ProgressCard from '../habit/ProgressCard'
-import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, getDaysInMonth, format, differenceInDays, getTime  } from 'date-fns'
+import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, getDaysInMonth, format, differenceInDays, getTime, addWeeks, addMonths  } from 'date-fns'
 
 export default function ProgressWidget({toggleForm, habits}) {
 
@@ -10,20 +10,21 @@ export default function ProgressWidget({toggleForm, habits}) {
   const displayTypes = ["bar", "grid"]
   const [window, setWindow] = useState("Week")
   const windowTypes = ["Week", "Month", "All"]
+  const [offSet, setOffSet] = useState(0)
 
 
   // timeframe setter function
   const getTimeFrame = useMemo(() => {
     const today = new Date()
     if (window === "Week") {
-      return {start: startOfWeek(today, {weekStartsOn: 1}), end: endOfWeek(today, {weekStartsOn: 1})}
+      return {start: startOfWeek(addWeeks(today, offSet), {weekStartsOn: 1}), end: endOfWeek(addWeeks(today, offSet), {weekStartsOn: 1})}
     } else if (window === "Month") {
-      return {start: startOfMonth(today), end: endOfMonth(today)}
+      return {start: startOfMonth(addMonths(today, offSet)), end: endOfMonth(addMonths(today, offSet))}
     } else {
       const firstHabitDate = habits.length > 0 ? new Date(Math.min(...habits.map(habit => new Date(habit.createdAt)))) : today
       return {start: firstHabitDate, end: today}
     }
-  }, [window, habits])
+  }, [window, habits, offSet])
 
   // format timeframe
   const formatTimeFrame = (start, end) => {
@@ -37,6 +38,9 @@ export default function ProgressWidget({toggleForm, habits}) {
     return differenceInDays(getTimeFrame.end, getTimeFrame.start) + 1
   }, [window, getTimeFrame])
 
+  // event handler for offsetting timeframe
+  const handleDecrement = () => setOffSet(prev => prev - 1)
+  const handleIncrement = () => setOffSet(prev => prev + 1)
 
 
   return (
@@ -45,8 +49,8 @@ export default function ProgressWidget({toggleForm, habits}) {
       <header className={styles.progress_header}>
         <div className={styles.header_date}>
           <div className={styles.date_btn_container}>
-            <button className={styles.date_btn}><CaretLeft/></button>
-            <button className={styles.date_btn}><CaretRight/></button>
+            <button className={styles.date_btn} onClick={handleDecrement} disabled={window === "All"}><CaretLeft/></button>
+            <button className={styles.date_btn} onClick={handleIncrement} disabled={window === "All"}><CaretRight/></button>
           </div>
           <h2>{formatTimeFrame(getTimeFrame.start, getTimeFrame.end)}</h2>
         </div>
