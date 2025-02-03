@@ -45,11 +45,20 @@ export default function Dashboard () {
 
   // handle checkins
   const checkIn = async (habitId) => {
+    const previousHabits = [...habits]
     try {
+      //optimistic render
+      setHabits(prev => 
+        prev.map(habit => 
+          habit.id === habitId ? {...habit, lastCheck: new Date()} : habit
+        )
+      )
       const response = await createCheckInAPI({habitId})
       console.log(response)
     } catch (error) {
       console.error("Error Checking In", error)
+      // revert optimistic render
+      setHabits(previousHabits)
     }
   }
 
