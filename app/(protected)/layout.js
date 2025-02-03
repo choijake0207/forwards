@@ -34,7 +34,7 @@ export default function ProtectedLayout({children}) {
           <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><SquaresFour/>Dashboard</Link>
           <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}><Users/>Friends</Link>
           <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}><ChartPie/>Analytics</Link>
-          <Link href="/profile" className={pathname === "/profile" ? `${styles.active}` : ""}><User/>Profile</Link>
+          <Link href={`/profile/${authUser.id}`} className={pathname === `/profile/${authUser.id}` ? `${styles.active}` : ""}><User/>Profile</Link>
           <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""}><GearSix/>Settings</Link>
         </nav>
         <button className={styles.sign_out_btn} onClick={logout}>
