@@ -10,7 +10,7 @@ const HabitForm = ({onClose, status}) => {
     const [step, setStep] = useState(1)
     const router = useRouter()
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
-    const days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"]
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     const [habitForm, setHabitForm] = useState({
         name: "",
         color: "red",
