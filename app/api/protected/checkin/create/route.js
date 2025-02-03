@@ -20,14 +20,26 @@ export async function POST (request) {
         }
         const {habitId} = await request.json()
         const prisma = new PrismaClient()
+        const today = new Date().setHours(0, 0, 0, 0)
+        const normalizedToday = new Date(today)
         const newCheckIn = await prisma.checkIn.create({
             data: {
                 habitId: habitId,
                 userId: verified.id,
-                date: new Date()
+                date: normalizedToday
 
             }
         })
+        await prisma.habit.update({
+            where: {
+                id: habitId
+            },
+            data: {
+                lastCheck: normalizedToday
+            }
+
+        })
+
 
         return NextResponse.json({
             message: "Checked In Succesfully",
