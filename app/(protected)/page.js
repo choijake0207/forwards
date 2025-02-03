@@ -7,7 +7,6 @@ import { fetchHabitsAPI } from '@/app/api/protected/habit/HabitCalls'
 import ClientLoading from '@/app/component/ClientLoading'
 import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
-import HabitList from '../component/dashboard/HabitList'
 import { createCheckInAPI, deleteCheckInAPI } from '../api/protected/checkin/CheckInCalls'
 
 
@@ -88,8 +87,8 @@ export default function Dashboard () {
 
       <div className={styles.dashboard_main_content}>
         <div className={styles.dashboard_main_widgets_container}>
-          <ProgressWidget toggleForm={() => setFormVisible(true)}/>
-          {/* {loading ? <ClientLoading/> : <HabitList habits={habits}/>} */}
+          {loading ? <ClientLoading/> : <ProgressWidget toggleForm={() => setFormVisible(true)} habits={habits}/>}
+        
         </div>
         <aside className={styles.dashboard_side_widgets_container}>
           {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits} checkIn={checkIn} undoCheck={undoCheck}/> }
