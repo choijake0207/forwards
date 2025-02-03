@@ -7,6 +7,8 @@ import { fetchHabitsAPI } from '@/app/api/protected/habit/HabitCalls'
 import ClientLoading from '@/app/component/ClientLoading'
 import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
+import HabitList from '../component/dashboard/HabitList'
+import { Plus } from 'phosphor-react'
 
 
 
@@ -18,6 +20,7 @@ export default function Dashboard () {
   const [formVisible, setFormVisible] = useState(false)
   const [habits, setHabits] = useState(null)
   const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const fetchHabits = async () => {
       try {
@@ -32,19 +35,32 @@ export default function Dashboard () {
     }
     fetchHabits()
   }, [])
+
+  // check in filtering
+  const date = new Date()
+  const today = date.toLocaleString("en-US", {weekday: "short"})
+  let todayHabits = habits && habits.filter(habit => habit.frequency === "DAILY" || habit.daysOfWeek.includes(today))
+  console.log("Filtered:",todayHabits)
+
   return (
     <div className={`${styles.dashboard_page} page`}>
-      <header>
-        <h1>Here's Your Dashboard, {authUser.firstName}</h1>
+      <header className={styles.dashboard_header}>
+        <h1>Welcome, {authUser.firstName}</h1>
       </header>
+      <div className={styles.dashboard_toolbar}>
+        <button onClick={() => setFormVisible(!formVisible)} className={styles.form_toggle_btn}><Plus/> Create Habit</button>
+
+      </div>
       <div className={styles.dashboard_main_content}>
-        <ProgressWidget/>
+        <div className={styles.dashboard_main_widgets_container}>
+          <ProgressWidget/>
+          {loading ? <ClientLoading/> : <HabitList habits={habits}/>}
+        </div>
         <aside className={styles.dashboard_side_widgets_container}>
-          {habits ? <CheckListWidget habits={habits}/> : <ClientLoading/>}
+          {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits}/> }
         </aside>
       </div>
-      <button onClick={() => setFormVisible(!formVisible)}>Form</button>
-      {formVisible && <HabitForm onClose={() => setFormVisible(false)}/>}
+      {formVisible && <HabitForm onClose={() => setFormVisible(false)} status={formVisible}/>}
     </div>
   )
 }
