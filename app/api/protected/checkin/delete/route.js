@@ -22,7 +22,7 @@ export async function DELETE (request) {
         const today = new Date().setHours(0, 0, 0, 0)
         const normalizedToday = new Date(today) 
         const prisma = new PrismaClient()
-        const target = await prisma.checkIn.findUnique({
+        const target = await prisma.checkIn.findFirst({
             where: {
                 habitId: habitId,
                 userId: verified.id,
@@ -42,6 +42,7 @@ export async function DELETE (request) {
                 lastCheck: null
             }
         })
+        return NextResponse.json({message: "Check in reverted succesfully"})
     } catch (error) {
         console.error("Failed To Undo Check In", error)
         return NextResponse.json({error: "Failed To Undo Check In"}, {status: 500})
