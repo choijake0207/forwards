@@ -9,7 +9,6 @@ import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
 import HabitList from '../component/dashboard/HabitList'
 import { createCheckInAPI } from '../api/protected/checkin/CheckInCalls'
-import { Plus } from 'phosphor-react'
 
 
 
@@ -65,16 +64,14 @@ export default function Dashboard () {
   return (
     <div className={`${styles.dashboard_page} page`}>
       <header className={styles.dashboard_header}>
-        <h1>Welcome, {authUser.firstName}</h1>
+        <h1>Hi there, {authUser.firstName}!</h1>
       </header>
-      <div className={styles.dashboard_toolbar}>
-        <button onClick={() => setFormVisible(!formVisible)} className={styles.form_toggle_btn}><Plus/> Create Habit</button>
+  
 
-      </div>
       <div className={styles.dashboard_main_content}>
         <div className={styles.dashboard_main_widgets_container}>
-          <ProgressWidget/>
-          {loading ? <ClientLoading/> : <HabitList habits={habits}/>}
+          <ProgressWidget toggleForm={() => setFormVisible(true)}/>
+          {/* {loading ? <ClientLoading/> : <HabitList habits={habits}/>} */}
         </div>
         <aside className={styles.dashboard_side_widgets_container}>
           {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits} checkIn={checkIn}/> }
