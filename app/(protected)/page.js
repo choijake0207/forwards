@@ -8,7 +8,7 @@ import ClientLoading from '@/app/component/ClientLoading'
 import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
 import HabitList from '../component/dashboard/HabitList'
-import { createCheckInAPI } from '../api/protected/checkin/CheckInCalls'
+import { createCheckInAPI, deleteCheckInAPI } from '../api/protected/checkin/CheckInCalls'
 
 
 
@@ -20,6 +20,7 @@ export default function Dashboard () {
   const [formVisible, setFormVisible] = useState(false)
   const [habits, setHabits] = useState(null)
   const [loading, setLoading] = useState(true)
+
 // initial fetch all habits
   useEffect(() => {
     const fetchHabits = async () => {
@@ -42,7 +43,7 @@ export default function Dashboard () {
   let todayHabits = habits && habits.filter(habit => habit.frequency === "DAILY" || habit.daysOfWeek.includes(today))
   console.log("Filtered:",todayHabits)
 
-  // handle checkins
+  // create checkins
   const checkIn = async (habitId) => {
     const previousHabits = [...habits]
     try {
@@ -61,6 +62,23 @@ export default function Dashboard () {
     }
   }
 
+  // undo checkin
+  const undoCheck = async (habitId) => {
+    const previousHabits = [...habits]
+    try {
+      setHabits(prev => 
+        prev.map(habit => 
+          habit.id === habitId ? {...habit, lastCheck: null} : habit
+        )  
+      )
+      const response = await deleteCheckInAPI({habitId})
+      console.log(response)
+    } catch (error) {
+        console.error("Error Undoing Check", error)
+        setHabits(previousHabits)
+    }
+  }
+
   return (
     <div className={`${styles.dashboard_page} page`}>
       <header className={styles.dashboard_header}>
@@ -74,7 +92,7 @@ export default function Dashboard () {
           {/* {loading ? <ClientLoading/> : <HabitList habits={habits}/>} */}
         </div>
         <aside className={styles.dashboard_side_widgets_container}>
-          {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits} checkIn={checkIn}/> }
+          {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits} checkIn={checkIn} undoCheck={undoCheck}/> }
         </aside>
       </div>
       {formVisible && <HabitForm onClose={() => setFormVisible(false)} status={formVisible}/>}
