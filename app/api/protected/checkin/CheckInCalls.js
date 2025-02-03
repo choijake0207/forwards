@@ -1,7 +1,7 @@
 
 
 // create new checkin
-export async function createCheckIn ({habitId}) {
+export async function createCheckInAPI ({habitId}) {
     try {
         const token  = localStorage.getItem("token")
         const response = await fetch("/api/protected/checkin/create", {
@@ -10,7 +10,7 @@ export async function createCheckIn ({habitId}) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(habitId)
+            body: JSON.stringify({habitId})
         })
         if (!response.ok) {
             const errorData = await response.json()
