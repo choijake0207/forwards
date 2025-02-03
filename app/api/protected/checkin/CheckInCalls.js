@@ -29,7 +29,7 @@ export async function deleteCheckInAPI ({habitId}) {
     try {
         const token = localStorage.getItem("token")
         const response = await fetch("/api/protected/checkin/delete", {
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
