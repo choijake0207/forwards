@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from "../../styles/habitCard.module.css"
 import { XCircle, CheckCircle, DotsThreeVertical } from 'phosphor-react'
-export default function Card({name, type, color, id}) {
+
+export default function Card({name, type, color, id, handleCheckIn}) {
+
   return (
     <article className={`${styles.habit_card} ${styles[color]}`}>
         <div className={styles.card_header}>
@@ -11,7 +13,7 @@ export default function Card({name, type, color, id}) {
               <DotsThreeVertical/>
             </button>
         </div>
-        <button className={styles.check_in_btn}>Check In</button>
+        <button className={styles.check_in_btn}  onClick={() => handleCheckIn(id)}>Check In</button>
     </article>
   )
 }

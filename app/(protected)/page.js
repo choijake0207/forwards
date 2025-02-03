@@ -8,6 +8,7 @@ import ClientLoading from '@/app/component/ClientLoading'
 import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
 import HabitList from '../component/dashboard/HabitList'
+import { createCheckInAPI } from '../api/protected/checkin/CheckInCalls'
 import { Plus } from 'phosphor-react'
 
 
@@ -20,7 +21,7 @@ export default function Dashboard () {
   const [formVisible, setFormVisible] = useState(false)
   const [habits, setHabits] = useState(null)
   const [loading, setLoading] = useState(true)
-
+// initial fetch all habits
   useEffect(() => {
     const fetchHabits = async () => {
       try {
@@ -42,6 +43,16 @@ export default function Dashboard () {
   let todayHabits = habits && habits.filter(habit => habit.frequency === "DAILY" || habit.daysOfWeek.includes(today))
   console.log("Filtered:",todayHabits)
 
+  // handle checkins
+  const checkIn = async (habitId) => {
+    try {
+      const response = await createCheckInAPI({habitId})
+      console.log(response)
+    } catch (error) {
+      console.error("Error Checking In", error)
+    }
+  }
+
   return (
     <div className={`${styles.dashboard_page} page`}>
       <header className={styles.dashboard_header}>
@@ -57,7 +68,7 @@ export default function Dashboard () {
           {loading ? <ClientLoading/> : <HabitList habits={habits}/>}
         </div>
         <aside className={styles.dashboard_side_widgets_container}>
-          {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits}/> }
+          {loading ?  <ClientLoading/> :<CheckListWidget habits={todayHabits} checkIn={checkIn}/> }
         </aside>
       </div>
       {formVisible && <HabitForm onClose={() => setFormVisible(false)} status={formVisible}/>}
