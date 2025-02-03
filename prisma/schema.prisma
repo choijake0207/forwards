@@ -35,6 +35,7 @@ model Habit {
  daysOfWeek Json?
  weeklyGoal Int
  status Status @default(LIVE)
+ lastCheck DateTime?
  createdAt DateTime @default(now())
  checkIns CheckIn[]
 }
