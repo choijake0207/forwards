@@ -17,9 +17,15 @@ export async function GET (request) {
         const prisma = new PrismaClient()
         const habits = await prisma.habit.findMany({
             where: {
-                userId: extractedId
-            }
+                userId: extractedId,
+             
+            },
+            include: {
+                checkIns: true
+            },
+            orderBy: {createdAt: "asc"}
         })
+     
         if (!habits) {
             return NextResponse.json({error: "No Habits Exist"})
         }
