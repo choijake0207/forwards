@@ -2,7 +2,7 @@ import React from 'react'
 import styles from "../../styles/habitCard.module.css"
 import { XCircle, CheckCircle, DotsThreeVertical } from 'phosphor-react'
 
-export default function Card({name, type, color, id, lastCheck, handleCheckIn}) {
+export default function Card({name, type, color, id, lastCheck, handleCheckIn, handleUndoCheck}) {
   const today = new Date().setHours(0, 0, 0, 0)
   let checked = lastCheck && new Date(lastCheck).setHours(0, 0, 0, 0) === today
   console.log(checked)
@@ -16,7 +16,10 @@ export default function Card({name, type, color, id, lastCheck, handleCheckIn}) 
               <DotsThreeVertical/>
             </button>
         </div>
-        <button className={styles.check_in_btn}  onClick={() => handleCheckIn(id)}>Check In</button>
+        {checked ? 
+          <button className={styles.undo_check_btn} onClick={() => handleUndoCheck(id)}>Undo</button>
+          : <button className={styles.check_in_btn}  onClick={() => handleCheckIn(id)}>Check In</button> 
+        }
     </article>
   )
 }
