@@ -11,7 +11,7 @@ export default function ProgressWidget({toggleForm, habits}) {
   const [window, setWindow] = useState("Week")
   const windowTypes = ["Week", "Month", "All"]
   const [offSet, setOffSet] = useState(0)
-
+  // const [updatedHabits, setUpdatedHabits] = useState([])
 
   // timeframe setter function
   const getTimeFrame = useMemo(() => {
@@ -31,12 +31,44 @@ export default function ProgressWidget({toggleForm, habits}) {
     return `${format(start, "MM/dd")} - ${format(end, "MM/dd")}`
   }
 
-  // calculate days
-  const getDays = useMemo(() => {
-    if (window === "Week") return 7
-    if (window === "Month") return getDaysInMonth(new Date())
-    return differenceInDays(getTimeFrame.end, getTimeFrame.start) + 1
-  }, [window, getTimeFrame])
+  // create a new array of day objects with date, check in boolean, check in requirement
+  const generateDayObjects = (habit) => {
+    let current = new Date(getTimeFrame.start)
+    let days = []
+    while (current <= getTimeFrame.end) {
+      let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
+      let formattedCurrent = format(current, "yyyy-MM-dd")
+      console.log("today format", formattedCurrent)
+      // is today a check in day (boolean)
+      const isCheckInDay = habit.frequency === "DAILY" || habit.daysOfWeek.includes(stringFormat)
+      // has today been checked (boolean)
+      const isChecked = habit.checkIns.some(checkIn => format(new Date(checkIn.date), "yyyy-MM-dd") === formattedCurrent)
+      // append booleans and date as object into days array
+      days.push({
+        date: current,
+        isCheckInDay,
+        isChecked
+      })
+      current = new Date(current.getTime() + 86400000)
+    }
+    return days
+  }
+
+  // append day objects to existing habit array
+  // useEffect(() => {
+  //   setUpdatedHabits(
+  //     habits.map(habit => ({
+  //       ...habit,
+  //       days: generateDayObjects(habit)
+  //     }))
+  //   )
+  // }, [habits, getTimeFrame])
+  const updatedHabits = useMemo(() => {
+    return habits.map((habit) => ({
+      ...habit,
+      days: generateDayObjects(habit)
+    }))
+  }, [habits, getTimeFrame])
 
   // event handler for offsetting timeframe
   const handleDecrement = () => setOffSet(prev => prev - 1)
@@ -88,14 +120,14 @@ export default function ProgressWidget({toggleForm, habits}) {
         </div>
         
         <ul className={styles.progress_list}>
-          {habits.map(habit => { // change this so it maps from filtered habits
+          {updatedHabits.map(habit => { // change this so it maps from filtered habits
             return (
               <ProgressCard
                 key={habit.id}
                 habit={habit}
                 displayType={display}
                 windowType={window}
-                dayCount={getDays}
+                days={habit.days}
               />
             )
           })}
