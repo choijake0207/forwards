@@ -1,19 +1,24 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styles from "../../styles/progressCard.module.css"
-export default function ProgressGrid({windowType, habit, days}) {
+import { HabitContext } from '@/context/HabitContext'
 
+export default function ProgressGrid({days, color}) {
+    const {progressWindow} = useContext(HabitContext)
   return (
-    <div className={styles.progress_grid}>
+    <div className={`${styles.progress_grid } ${styles[progressWindow]}`}>
+ 
         {
             days.map(day => {
                 return (
                     <div
-                        className={`${day.isChecked ? styles.checked : ""} ${day.isCheckInDay ? styles.checkin_day :""} ${styles.grid_cell}`}
+                        key={day.date}
+                        className={`${day.isChecked ? styles.checked : ""} ${day.isCheckInDay ? styles.checkin_day :""} ${styles.grid_cell}  ${styles[color]}`}
                     >
                     </div>
                 )
             })
         }
+
       
     </div>
   )
