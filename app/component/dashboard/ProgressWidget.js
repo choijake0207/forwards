@@ -54,7 +54,9 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             })}
           </div>
         </div>
+        <div className={styles.progress_date_heading}>
         
+        </div>
         <ul className={styles.progress_list}>
           {processedHabits.map(habit => { // change this so it maps from filtered habits
             return (
