@@ -1,0 +1,128 @@
+.habit_card {
+    width: 250px;
+    height: 90px;
+    padding: 10px;
+    border-radius: 5px;
+    background: vaR(--fg);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+.red { 
+    border-left: 3px solid var(--red);
+    --current-color: var(--red)
+}
+.blue {
+    border-left: 3px solid vaR(--blue);
+    --current-color: var(--blue)
+}
+.green {
+    border-left: 3px solid vaR(--green);
+    --current-color: var(--green)
+}
+.orange {
+    border-left: 3px solid vaR(--orange);
+    --current-color: var(--orange)
+}
+.yellow {
+    border-left: 3px solid vaR(--yellow);
+    --current-color: var(--yellow);
+}
+.purple {
+    border-left: 3px solid var(--purple);
+    --current-color: var(--purple)
+}
+.pink {
+    border-left: 3px solid vaR(--pink);
+    --current-color: var(--pink)
+}
+.habit_card svg {
+    font-size: 20px;
+    z-index: 2;
+}
+.modal_btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    z-index: 2;
+}
+    
+.card_header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    z-index: 2;
+}
+.check_in_btn {
+    background: none;
+    border: 1px solid vaR(--subtle-border);
+    padding: 5px;
+    width: 100%;
+    color: var(--secondary-text);
+    border-radius: 5px;
+    font-size: 15px;
+    transition: .1s ease;
+    cursor: pointer;
+    z-index: 2;
+}
+.undo_check_btn {
+    border: 1px solid vaR(--bg);
+    color: var(--bg);
+    background: none;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 2;
+}
+.check_in_btn:hover {
+    color: var(--primary-text);
+    border: 1px solid var(--current-color); 
+    background: var(--current-color)
+}   
+
+.incomplete:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    width: 0;
+    content: "";
+    background: var(--current-color);
+    animation: undo .1s ease-in-out forwards;
+    border-radius: 5px;
+}
+.completed::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    width: 0;
+    content: "";
+    background: var(--current-color);
+    animation: completion .2s ease-in-out forwards;
+    border-radius: 5px;
+}
+ 
+@keyframes completion {
+    0% {
+        width:0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes undo {
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0%;
+    }
+}
+
