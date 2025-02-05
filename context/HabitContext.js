@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useState, useEffect, useMemo, useRef } from "react";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, getDaysInMonth, format, differenceInDays, getTime, addWeeks, addMonths  } from 'date-fns'
 import { fetchHabitsAPI } from "@/app/api/protected/habit/HabitCalls";
 import { createCheckInAPI, deleteCheckInAPI } from "@/app/api/protected/checkin/CheckInCalls";
@@ -12,6 +12,13 @@ export const HabitProvider = ({children}) => {
     const [windowOffset, setWindowOffset] = useState(0)
     const [loading, setLoading] = useState(true)
 
+    // MAJOR BUG: checking in/undoing check adds pseudo-checkin object for optimistic rendering to processedhabits
+    // changing window or timeframe after causes processor useEffect to run but initial fetchAll doesn't
+    // therefore, hydrates processedHabits with stale API data as well as deleting optimistic render psuedo-objects
+    // SOLUTION: useRef for render persistence
+
+    const optimisticCheckIns = useRef(new Map())
+    console.log(optimisticCheckIns)
 
  // INITIAL ALL HABITS FETCH
     useEffect(() => {
@@ -19,6 +26,17 @@ export const HabitProvider = ({children}) => {
         try {
             const response = await fetchHabitsAPI()
             setRawHabits(response)
+            console.log("Initial Fetch Raw", response)
+            // clear useRef optimistic data once updated data is fetched
+            response.forEach(habit => {
+                habit.checkIns.forEach(checkIn => {
+                    const checkInKey = `${habit.id}-${new Date(new Date(checkIn.date).setHours(0,0,0,0))}`;
+                    console.log("Key",checkInKey)
+                    if (optimisticCheckIns.current.has(checkInKey)) {
+                        optimisticCheckIns.current.delete(checkInKey); 
+                    }
+                });
+            });
         } catch (error) {
             console.error("error fetching habits", error)
         } finally {
@@ -50,10 +68,15 @@ export const HabitProvider = ({children}) => {
         while (current <= getTimeFrame.end) {
         let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
         let formattedCurrent = format(current, "yyyy-MM-dd")
+        let checkInKey = `${habit.id}-${new Date (new Date(current).setHours(0,0,0,0))}`
         // is today a check in day (boolean)
         const isCheckInDay = habit.frequency === "DAILY" || habit.daysOfWeek.includes(stringFormat)
         // has today been checked (boolean)
-        const isChecked = habit.checkIns.some(checkIn => format(new Date(checkIn.date).setHours(0,0,0,0), "yyyy-MM-dd") === formattedCurrent)
+        const isChecked = 
+            optimisticCheckIns.current.has(checkInKey) ?
+                optimisticCheckIns.current.get(checkInKey)
+                : habit.checkIns.some(checkIn => format(new Date(checkIn.date).setHours(0,0,0,0), "yyyy-MM-dd") === formattedCurrent)
+        console.log(isChecked)
         // append booleans and date as object into days array
         days.push({
             date: current,
@@ -80,15 +103,18 @@ export const HabitProvider = ({children}) => {
  // CREATE CHECKIN
     const checkIn = async (habitId) => {
         const previousHabits = [...processedHabits]
+        const today = new Date ( new Date().setHours(0,0,0,0))
+        // store in ref for optimistic render persistence
+        optimisticCheckIns.current.set(`${habitId}-${today}`, true)
         try {
-          //optimistic render
+          //optimistic render for current render
           setProcessedHabits(prev => 
             prev.map(habit => 
               habit.id === habitId ? 
                 {...habit, 
                   lastCheck: new Date(), 
-                  checkIns: [...habit.checkIns, {date: new Date(new Date().setHours(0,0,0,0))}],
-                  days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: new Date(new Date().setHours(0,0,0,0))}]})
+                  checkIns: [...habit.checkIns, {date: today}],
+                  days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: today}]})
                 } 
                 : habit
             )
@@ -106,6 +132,9 @@ export const HabitProvider = ({children}) => {
         const previousHabits = [...processedHabits]
         const today = new Date(new Date().setHours(0,0,0,0))
         try {
+        // delete ref persistent optimistic data
+        optimisticCheckIns.current.set(`${habitId}-${today}`, false)
+
         setProcessedHabits(prev => 
             prev.map(habit => 
             habit.id === habitId ? 
@@ -118,6 +147,7 @@ export const HabitProvider = ({children}) => {
             )  
         )
         const response = await deleteCheckInAPI({habitId})
+        console.log(response)
         } catch (error) {
             console.error("Error Undoing Check", error)
             setProcessedHabits(previousHabits)
@@ -125,7 +155,7 @@ export const HabitProvider = ({children}) => {
     }
 
     return (
-        <HabitContext.Provider value={{loading, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
+        <HabitContext.Provider value={{loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
             {children}
         </HabitContext.Provider>
     )
