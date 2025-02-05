@@ -2,15 +2,19 @@ import React from 'react'
 import styles from "../../styles/progressCard.module.css"
 import ProgressBar from './ProgressBar'
 import ProgressGrid from './ProgressGrid'
+import { CheckCircle, XCircle } from 'phosphor-react'
 
 
-export default function ProgressCard({habit, windowType, displayType, dayCount}) {
+export default function ProgressCard({habit, displayType, days}) {
   return (
     <div className={styles.progress_card}>
-        <p>{habit.name}</p>
+        <p className={styles[habit.color]}>
+          {habit.type === "START" ? <CheckCircle/> : <XCircle/>}
+          {habit.name}
+        </p>
         {
             displayType === "grid" ?
-            <ProgressGrid habit={habit} windowType={windowType} dayCount={dayCount}/>
+            <ProgressGrid days={days} color={habit.color}/>
             : <ProgressBar/>
         }
     </div>
