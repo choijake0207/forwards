@@ -5,17 +5,16 @@ import { HabitContext } from '@/context/HabitContext'
 
 export default function CheckListWidget({habits, checkIn, undoCheck}) {
     const {optimisticCheckIns} = useContext(HabitContext)
-    let unchecked = habits.filter(habit => habit.lastCheck !== null)
+    // let unchecked = habits.filter(habit => habit.lastCheck !== null)
     const today = new Date().setHours(0, 0, 0, 0)
 
   return (
     <div className={styles.checklist_widget}>
         <header className={styles.checklist_header}>
             <h2>Today's Checklist</h2>
-            <p className={styles.checklist_counter}>
+            {/* <p className={styles.checklist_counter}>
                 {`( ${unchecked.length} / ${habits.length} )`}
-
-            </p>
+            </p> */}
         </header> 
      
         <ul className={styles.checklist}>
