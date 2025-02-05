@@ -1,14 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styles from "../../styles/habitCard.module.css"
 import { XCircle, CheckCircle, DotsThreeVertical } from 'phosphor-react'
+import { HabitContext } from '@/context/HabitContext'
 
-export default function Card({name, type, color, id, lastCheck, handleCheckIn, handleUndoCheck}) {
-  const today = new Date().setHours(0, 0, 0, 0)
-  let checked = lastCheck && new Date(lastCheck).setHours(0, 0, 0, 0) === today
-  console.log(checked)
-
+export default function Card({name, type, color, id, isChecked}) {
+  const {undoCheck, checkIn} = useContext(HabitContext)
   return (
-    <article className={`${styles.habit_card} ${styles[color]} ${checked ? styles.completed : ""}`}>
+    <article className={`${styles.habit_card} ${styles[color]} ${isChecked ? styles.completed : ""}`}>
         <div className={styles.card_header}>
             {type === "START" ? <CheckCircle/> : <XCircle/>}
             <p className={styles.card_title}>{name}</p>
@@ -16,9 +14,9 @@ export default function Card({name, type, color, id, lastCheck, handleCheckIn, h
               <DotsThreeVertical/>
             </button>
         </div>
-        {checked ? 
-          <button className={styles.undo_check_btn} onClick={() => handleUndoCheck(id)}>Undo</button>
-          : <button className={styles.check_in_btn}  onClick={() => handleCheckIn(id)}>Check In</button> 
+        {isChecked ? 
+          <button className={styles.undo_check_btn} onClick={() => undoCheck(id)}>Undo</button>
+          : <button className={styles.check_in_btn}  onClick={() => checkIn(id)}>Check In</button> 
         }
     </article>
   )

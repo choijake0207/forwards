@@ -1,14 +1,30 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styles from "../../styles/checklistWidget.module.css"
 import Card from '../habit/card'
+import { HabitContext } from '@/context/HabitContext'
 
-export default function CheckListWidget({habits, checkIn}) {
+export default function CheckListWidget({habits, checkIn, undoCheck}) {
+    const {optimisticCheckIns} = useContext(HabitContext)
+    let unchecked = habits.filter(habit => habit.lastCheck !== null)
+    const today = new Date().setHours(0, 0, 0, 0)
+
   return (
     <div className={styles.checklist_widget}>
-        <h2>Today's Checklist</h2>
+        <header className={styles.checklist_header}>
+            <h2>Today's Checklist</h2>
+            <p className={styles.checklist_counter}>
+                {`( ${unchecked.length} / ${habits.length} )`}
+
+            </p>
+        </header> 
+     
         <ul className={styles.checklist}>
             {habits.length > 0 ? (
-                habits.map(habit => {
+                habits.map(habit => { 
+                    const checkInKey = `${habit.id}-${new Date(new Date().setHours(0,0,0,0))}`
+                    const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
+                        optimisticCheckIns.current.get(checkInKey)
+                        : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0) === today
                     return (
                         <Card
                             key={habit.id}
@@ -16,7 +32,7 @@ export default function CheckListWidget({habits, checkIn}) {
                             color={habit.color}
                             type={habit.type}
                             id={habit.id}
-                            handleCheckIn={checkIn}
+                            isChecked={isChecked}
                         />
                     )   
                 })

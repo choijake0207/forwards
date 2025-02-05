@@ -53,12 +53,7 @@ export default function Dashboard () {
             ? <ClientLoading/> 
             : <ProgressWidget 
                 toggleForm={() => setFormVisible(true)} 
-                habits={processedHabits}
-                handleWindowChange={(type) => setProgressWindow(type)}
-                handleDecrement={() => setWindowOffset(prev => prev - 1)}
-                handleIncrement={() => setWindowOffset(prev => prev + 1)}
                 formattedWindow={formatTimeFrame(getTimeFrame.start, getTimeFrame.end)}
-                window={progressWindow}
               />
           }
         </div>
@@ -68,8 +63,6 @@ export default function Dashboard () {
             ?  <ClientLoading/> 
             : <CheckListWidget 
                 habits={todayHabits} 
-                checkIn={checkIn} 
-                undoCheck={undoCheck}
               /> 
           }
         </aside>
