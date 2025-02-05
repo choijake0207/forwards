@@ -1,0 +1,59 @@
+.progress_card {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+.progress_card p {
+    width: 250px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.progress_card svg {
+    color: var(--current-color)
+}
+.red {
+    --current-color: var(--red)
+}
+.blue {
+    --current-color: vaR(--blue);
+}
+.yellow {
+    --current-color: vaR(--yellow)
+}
+.green {
+    --current-color: vaR(--green)
+}
+.pink {
+    --current-color: vaR(--pink)
+}
+.purple {
+    --current-color: vaR(--purple)
+}
+
+/* Grid */
+.progress_grid {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.grid_cell {
+    height: 25px;
+    width: 25px;
+    border: 1px solid var(--subtle-border);
+    border-radius: 5px;
+}
+.Month .grid_cell {
+    height: 17px;
+    width: 17px;
+    border-radius: 3px;
+}
+.grid_cell.checked {
+    background-color: var(--current-color);
+    transition: .1s ease;
+}
+.checkin_day {
+    background: var(--subtle-border)
+}
