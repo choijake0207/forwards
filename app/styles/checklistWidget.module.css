@@ -1,0 +1,25 @@
+.checklist_widget {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.checklist_header {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.checklist_header p {
+    color: var(--secondary-text)
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid vaR(--subtle-border);
+    border-radius: 5px;
+    padding: 25px;
+    overflow-y:scroll ;
+
+}
