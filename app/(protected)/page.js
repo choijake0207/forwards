@@ -14,17 +14,17 @@ import {format} from 'date-fns'
 export default function Dashboard () {
   const {authUser} = useContext(AuthContext)
   const {
-    progressWindow, 
-    setProgressWindow, 
-    setWindowOffset, 
-    windowOffset, 
+    fetchHabits,
     getTimeFrame, 
-    checkIn, 
-    undoCheck,
     processedHabits,
     loading
   } = useContext(HabitContext)
   const [formVisible, setFormVisible] = useState(false)
+
+  // trigger fetchHabits on dashboard mount
+  useEffect(() => {
+    fetchHabits()
+  }, [])
 
   // FORMAT TIME FRAME FOR UI
   const formatTimeFrame = (start, end) => {
