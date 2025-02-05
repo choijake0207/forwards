@@ -21,8 +21,8 @@ export const HabitProvider = ({children}) => {
     console.log(optimisticCheckIns)
 
  // INITIAL ALL HABITS FETCH
-    useEffect(() => {
-        const fetchHabits = async () => {
+
+    const fetchHabits = async () => {
         try {
             const response = await fetchHabitsAPI()
             setRawHabits(response)
@@ -42,7 +42,8 @@ export const HabitProvider = ({children}) => {
         } finally {
             setLoading(false)
         }
-        }
+    }
+    useEffect(() => {
         fetchHabits()
     }, [])
 
@@ -155,7 +156,7 @@ export const HabitProvider = ({children}) => {
     }
 
     return (
-        <HabitContext.Provider value={{loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
+        <HabitContext.Provider value={{fetchHabits, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
             {children}
         </HabitContext.Provider>
     )
