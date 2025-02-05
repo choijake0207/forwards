@@ -1,7 +1,7 @@
 .progress_widget {
-    width: 100%;
+    width: 850px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     gap: 20px;
 } 
 .progress_header {
@@ -17,6 +17,7 @@
     color: vaR(--secondary-text);
     gap: 15px;
 }
+
 .date_btn_container {
     display: flex;
     gap: 10px;
@@ -30,7 +31,12 @@
     border: 1px solid vaR(--secondary-text);
     border-radius: 50%;
     padding: 5px;
-    color: var(--secondary-text)
+    color: var(--secondary-text);
+    cursor: pointer;
+}
+.date_btn:hover {
+    border: 1px solid var(--primary-text);
+    color: vaR(--primary-text);
 }
 .form_toggle_btn {
     background: vaR(--primary-theme);
@@ -53,7 +59,7 @@
 }
 .progress_views {
     background: vaR(--secondary-bg);
-    border-radius: 10px;
+    border-radius: 5px;
     height: 500px;
     border: 1px solid vaR(--subtle-border)
 }
@@ -110,4 +116,21 @@
 .display_type_selector .active_display {
     background: var(--subtle-border);
     color: var(--primary-text);
+}
+.progress_date_heading {
+    border: 1px solid white;
+    height: 50px;
+}
+.progress_list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+} 
+.date_btn:disabled {
+    border: 1px solid var(--subtle-border);
+    color: var(--subtle-border);
+    cursor:not-allowed;
 }
