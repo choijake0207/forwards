@@ -15,6 +15,8 @@ export async function createHabitAPI(habit) {
             const errorData = await response.json()
             throw new Error(errorData.error)
         }
+        const data = await response.json()
+        return data
 
     } catch (error) {
         console.error("Error Creating Habit", error)
@@ -44,3 +46,28 @@ export async function fetchHabitsAPI() {
         throw console.error()
     }
 }
+
+// // Fetch Single Habit By Id (considering just filtering from habitContext)
+// export async function fetchSingleHabitAPI(habitId) {
+//     try {
+//         const token = localStorage.getItem("token")
+//         const response = await fetch("/api/protected/habit/single", {
+//             method: "GET",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Authorization": `Bearer ${token}`
+//             },
+//             body: JSON.stringify({habitId})
+//         })
+//         if (!response.ok) {
+//             const errorData = await response.json()
+//             throw new Error(errorData.error)
+//         }
+//         const data = await response.json()
+//         return data
+
+//     } catch (error) {
+//         console.error("Error Fetching Habit", error)
+//         throw console.error()
+//     }
+// }
