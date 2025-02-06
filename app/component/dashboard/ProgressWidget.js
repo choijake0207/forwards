@@ -3,13 +3,20 @@ import styles from "../../styles/progressWidget.module.css"
 import { Plus, CaretLeft, CaretRight, ChartBarHorizontal, SquaresFour } from 'phosphor-react'
 import ProgressCard from '../habit/ProgressCard'
 import { HabitContext } from '@/context/HabitContext'
+import { differenceInDays } from 'date-fns'
 
 export default function ProgressWidget({toggleForm, formattedWindow}) {
 
   const [display, setDisplay] = useState("grid")
   const displayTypes = ["bar", "grid"]
   const windowTypes = ["Week", "Month", "All"]
-  const {processedHabits, setProgressWindow, setWindowOffset, progressWindow} = useContext(HabitContext)
+  const {processedHabits, setProgressWindow, setWindowOffset, progressWindow, getTimeFrame} = useContext(HabitContext)
+  const daysOfweek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  const dayCount = []
+  const numerOfDays = differenceInDays(getTimeFrame.end, getTimeFrame.start) + 1
+  for (let i = 1; i <= numerOfDays; i++) {dayCount.push(i)}
+
+
 
   return (
     <div className={styles.progress_widget}>
@@ -54,20 +61,24 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             })}
           </div>
         </div>
-        <div className={styles.progress_date_heading}>
-        
-        </div>
+
         <ul className={styles.progress_list}>
-          {processedHabits.map(habit => { // change this so it maps from filtered habits
-            return (
-              <ProgressCard
-                key={habit.id}
-                habit={habit}
-                displayType={display}
-                days={habit.days}
-              />
-            )
-          })}
+          {processedHabits.length > 0 
+            ? processedHabits.map(habit => { // change this so it maps from filtered habits
+                return (
+                  <ProgressCard
+                    key={habit.id}
+                    habit={habit}
+                    displayType={display}
+                    days={habit.days}
+                  />
+                )
+              })
+            : <div className={styles.empty_progress_message}>
+                <img src="/waking-up.png" alt="waking-up" className={styles.empty_progress_img}/>
+                <p>Create Your First Habit To Get Started</p>
+              </div>
+          }
         </ul>
       </div>
 
