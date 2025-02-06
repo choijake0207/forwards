@@ -36,7 +36,10 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                     )   
                 })
             ) : (
-                <p>No Habits Created Yet</p>
+                <div className={styles.empty_checklist_message}>
+                    <img src="/jump.png" alt="jumping" className={styles.empty_checklist_img}/>
+                    <p>No Habits Created Yet</p>
+                </div>
             )
             }
             
