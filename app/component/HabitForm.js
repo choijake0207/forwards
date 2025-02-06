@@ -3,10 +3,12 @@ import styles from "../styles/habitForm.module.css"
 import { XCircle, CheckCircle, SunDim } from 'phosphor-react'
 import { createHabitAPI } from '../api/protected/habit/HabitCalls'
 import { AuthContext } from '@/context/AuthContext'
+import { HabitContext } from '@/context/HabitContext'
 import { useRouter } from 'next/navigation'
 
 const HabitForm = ({onClose, status}) => {
     const {authUser} = useContext(AuthContext)
+    const {createHabit} = useContext(HabitContext)
     const [step, setStep] = useState(1)
     const router = useRouter()
     const colorScheme = ["red", "blue", "green", "yellow", "orange", "pink", "purple"]
@@ -94,22 +96,11 @@ const HabitForm = ({onClose, status}) => {
             ...habitForm,
             userId: authUser.id
         }
-        try {
-            const response = await createHabitAPI(newHabit)
-            setHabitForm({
-                name: "",
-                color: "red",
-                type: "",
-                frequency: "",
-                daysOfWeek: []
-            })
-            router.push(`/singleview/${response.habit.id}`)
-            handleClose(e)
-
-        } catch (error) {
-            console.error("Error Creating Habit", error)
-        }
+        const response = await createHabit(newHabit)
+        console.log("api response:", response.habit)
+        router.push(`/singleview/${response.habit.id}`)
     }
+
   return (
     <div className={styles.habit_form_overlay}>
         <div className={`${styles.habit_form_container} ${status && `${styles.visible}`}`}>
