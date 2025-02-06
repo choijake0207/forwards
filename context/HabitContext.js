@@ -18,7 +18,6 @@ export const HabitProvider = ({children}) => {
     // SOLUTION: useRef for render persistence
 
     const optimisticCheckIns = useRef(new Map())
-    console.log(optimisticCheckIns)
 
  // INITIAL ALL HABITS FETCH
 
@@ -31,7 +30,6 @@ export const HabitProvider = ({children}) => {
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
                     const checkInKey = `${habit.id}-${new Date(new Date(checkIn.date).setHours(0,0,0,0))}`;
-                    console.log("Key",checkInKey)
                     if (optimisticCheckIns.current.has(checkInKey)) {
                         optimisticCheckIns.current.delete(checkInKey); 
                     }
@@ -77,7 +75,6 @@ export const HabitProvider = ({children}) => {
             optimisticCheckIns.current.has(checkInKey) ?
                 optimisticCheckIns.current.get(checkInKey)
                 : habit.checkIns.some(checkIn => format(new Date(checkIn.date).setHours(0,0,0,0), "yyyy-MM-dd") === formattedCurrent)
-        console.log(isChecked)
         // append booleans and date as object into days array
         days.push({
             date: current,
@@ -148,7 +145,6 @@ export const HabitProvider = ({children}) => {
             )  
         )
         const response = await deleteCheckInAPI({habitId})
-        console.log(response)
         } catch (error) {
             console.error("Error Undoing Check", error)
             setProcessedHabits(previousHabits)
