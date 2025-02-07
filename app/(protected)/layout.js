@@ -29,19 +29,34 @@ export default function ProtectedLayout({children}) {
         <aside className={styles.protected_aside}>
           <div className={styles.logo_wrap}>
             <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
-            <p className={styles.logo_text}>Forward</p>
+            <p className={`${styles.logo_text} ${styles.full_width}`}>Forward</p>
           </div>
           
           <nav className={styles.navbar}>
-            <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}><SquaresFour/>Dashboard</Link>
-            <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}><Users/>Friends</Link>
-            <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}><ChartPie/>Analytics</Link>
-            <Link href={`/profile/${authUser.id}`} className={pathname === `/profile/${authUser.id}` ? `${styles.active}` : ""}><User/>Profile</Link>
-            <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""}><GearSix/>Settings</Link>
+            <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}>
+              <SquaresFour/>
+              <span className={styles.full_width}>Dashboard</span>
+            </Link>
+            <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}>
+              <Users/>
+              <span className={styles.full_width}>Friends</span>
+            </Link>
+            <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}>
+              <ChartPie/>
+              <span className={styles.full_width}>Analytics</span>
+            </Link>
+            <Link href={`/profile/${authUser.id}`} className={pathname === `/profile/${authUser.id}` ? `${styles.active}` : ""}>
+              <User/>
+              <span className={styles.full_width}>Profile</span>
+            </Link>
+            <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""}>
+              <GearSix/>
+              <span className={styles.full_width}>Settings</span>
+            </Link>
           </nav>
           <button className={styles.sign_out_btn} onClick={logout}>
             <SignOut/>
-            Sign Out
+            <span className={styles.full_width}>Sign Out</span>
           </button>
         </aside>
         <main className={styles.protected_layout_outlet}>
