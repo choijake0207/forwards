@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useState, useEffect, useMemo, useRef } from "react";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, getDaysInMonth, format, differenceInDays, getTime, addWeeks, addMonths  } from 'date-fns'
-import { fetchHabitsAPI, createHabitAPI } from "@/app/api/protected/habit/HabitCalls";
+import { fetchHabitsAPI, createHabitAPI, fetchSingleHabitAPI } from "@/app/api/protected/habit/HabitCalls";
 import { createCheckInAPI, deleteCheckInAPI } from "@/app/api/protected/checkin/CheckInCalls";
 
 export const HabitContext = createContext()
@@ -19,8 +19,7 @@ export const HabitProvider = ({children}) => {
 
     const optimisticCheckIns = useRef(new Map())
 
- // INITIAL ALL HABITS FETCH
-
+    // INITIAL ALL HABITS FETCH
     const fetchHabits = async () => {
         try {
             const response = await fetchHabitsAPI()
@@ -69,7 +68,7 @@ export const HabitProvider = ({children}) => {
         let formattedCurrent = format(current, "yyyy-MM-dd")
         let checkInKey = `${habit.id}-${new Date (new Date(current).setHours(0,0,0,0))}`
         // is today a check in day (boolean)
-        const isCheckInDay = habit.frequency === "DAILY" || habit.daysOfWeek.includes(stringFormat)
+        const isCheckInDay = habit.frequency === "DAILY" || Array.isArray(habit.daysOfWeek) && habit.daysOfWeek.includes(stringFormat)
         // has today been checked (boolean)
         const isChecked = 
             optimisticCheckIns.current.has(checkInKey) ?
@@ -151,15 +150,18 @@ export const HabitProvider = ({children}) => {
         }
     }
 
-    // create Habit
+    // CREATE NEW HABIT
     const createHabit = async (newHabit) => {
         try {
             const response = await createHabitAPI(newHabit)
+            await fetchHabits()
             return response
         } catch (error) {
             console.error("Error Creating Habit", error)
-        }
+        } 
     }
+
+
 
     return (
         <HabitContext.Provider value={{fetchHabits, createHabit, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
