@@ -46,8 +46,7 @@ export async function fetchHabitsAPI() {
         throw console.error()
     }
 }
-
-// // Fetch Single Habit By Id (considering just filtering from habitContext)
+// Fetch Single Habit By Id (considering just filtering from habitContext)
 // export async function fetchSingleHabitAPI(habitId) {
 //     try {
 //         const token = localStorage.getItem("token")
