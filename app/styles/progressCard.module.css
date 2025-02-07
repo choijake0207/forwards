@@ -57,3 +57,45 @@
 .checkin_day {
     background: var(--subtle-border)
 }
+
+/* Bar */
+.progress_bar {
+    width: 500px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    background: var(--subtle-border);
+    border-radius: 5px;
+}
+.progress_bar_filler {
+    background: var(--current-color);
+    height: 25px;
+    border-radius: 5px;
+    transition: .3s;
+    
+}
+
+
+
+
+.red {
+    --current-color: var(--red)
+}
+.blue {
+    --current-color: var(--blue)
+}
+.yellow {
+    --current-color: var(--yellow)
+}
+.green {
+    --current-color: var(--green)
+}
+.blue {
+    --current-color: vaR(--blue)
+}
+.purple {
+    --current-color: vaR(--purple)
+}
+.pink {
+    --current-color: vaR(--pink)
+}
