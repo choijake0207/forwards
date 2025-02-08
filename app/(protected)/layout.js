@@ -1,12 +1,12 @@
 "use client"
 import Link from 'next/link'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "../styles/protected.module.css"
 import { AuthContext } from '@/context/AuthContext'
 import { HabitProvider } from '@/context/HabitContext'
 import { useRouter, usePathname } from 'next/navigation'
 import ClientLoading from '../component/ClientLoading'
-import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie, Bell   } from 'phosphor-react'
+import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie, Bell, List   } from 'phosphor-react'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading, logout} = useContext(AuthContext)
@@ -18,15 +18,25 @@ export default function ProtectedLayout({children}) {
     }
   }, [authUser])
 
+  // mobile nav toggle
+  const [navVisible, setNavVisible] = useState(false)
 
   return (
     <HabitProvider>
       <div className={styles.protected_layout}>
         <div className={styles.protected_floating_tool}>
-          <Bell/>
-          <p>{authUser.username}</p>
+          <button 
+            className={`${styles.hamburger_menu_btn} ${navVisible && `${styles.visible}`}`}
+            onClick={() => setNavVisible(!navVisible)}
+          >
+            <List/>
+          </button>
+          <div className={styles.floating_user_tools}>
+            <Bell/>
+            <p>{authUser.username}</p>
+          </div>
         </div>
-        <aside className={styles.protected_aside}>
+        <aside className={`${styles.protected_aside} ${navVisible ? `${styles.visible}` : `${styles.invisible}`}`}>
           <div className={styles.logo_wrap}>
             <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
             <p className={`${styles.logo_text} ${styles.full_width}`}>Forward</p>

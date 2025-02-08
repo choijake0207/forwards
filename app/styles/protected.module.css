@@ -137,7 +137,45 @@
         align-items: center;
     }
     .protected_aside {
-        display: none;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        display: flex;
+    }
+    .full_width {
+        display: flex;
+        font-size: 20px;
+        width: 200px;
+    }
+    .hamburger_menu_btn.visible {
+        color: var(--primary-theme);
+    }
+    .protected_aside.invisible {
+        animation: mobileNavClose .5s ease forwards;
+    }
+    .protected_aside.visible {
+        animation: mobileNav .3s ease;
+        box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.26);
+    }
+  
+}
+
+@keyframes mobileNav {
+    0% {
+        transform: translateX(-100%)
+    }
+    100% {
+        transform: translateX(0%)
     }
 }
 
+@keyframes mobileNavClose {
+    0% {
+        transform: translateX(0%)
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
