@@ -11,7 +11,7 @@
     align-items: center;
     gap: 10px;
 }
-.progress_card svg {
+.progress_card svg { 
     color: var(--current-color)
 }
 .red {
@@ -98,4 +98,33 @@
 }
 .pink {
     --current-color: vaR(--pink)
+}
+
+
+@media (max-width: 1100px) {
+    .Month .grid_cell {
+        width: 13px;
+        height: 13px;
+    }
+    .progress_card p {
+        width: 220px;
+        border: 1px solid red;
+    }
+}
+
+@media (max-width: 800px) {
+    .progress_card {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .progress_bar, .progress_bar_filler, .progress_grid{
+        height: 15px;
+    }
+    
+    .Week .grid_cell {
+        height: 20px;
+        width: 20px;
+    }
 }
