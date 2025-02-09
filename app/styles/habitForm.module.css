@@ -16,7 +16,7 @@
     padding: 50px;
     position: relative;
     background: vaR(--secondary-bg);
-    border-radius: 25px;
+    border-radius: 10px;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 50px;
@@ -280,4 +280,72 @@
     100% {
         transform: translateY(0)
     }
+}
+
+@media (max-width: 800px) {
+    .habit_form_image_container {
+        display: none;
+    }
+    .habit_form_container {
+        width: 90%;
+    }
+    .habit_form_type_container {
+        justify-content: left;
+        gap: 50px;
+    }
+    .freelancer_img {
+       flex-shrink: 1;
+    }
+    .lifestyle_img{
+        flex-shrink: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .habit_form_container {
+        height: 90%;
+    }
+    .habit_form_container p:not(.step_2_display) {
+        font-size: 12px;
+    }
+    .habit_form_container h1 {
+        font-size: 25px;
+    }
+    .habit_form_container {
+        padding: 30px;
+    }
+    .habit_form_step_1 input {
+        width: 75vw;
+    }
+    .habit_form_step_1 label:first-of-type {
+        justify-content: left;
+        gap: 10px;
+    }
+    .habit_form_type_container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .habit_type_btn {
+        width: 100%;
+        gap: 10px;
+        font-size: 17px;
+    }
+    .habit_form_color_selector {
+        gap: 15px;
+    }
+    .color_selector_option {
+        height: 20px;
+        width: 20px;
+    }
+    .step_2_display {
+        font-size: 20px;
+        border: 1px solid red;
+    }
+    .habit_form_freq_selector {
+        width: 80%;
+    }
+    .days_container {
+        gap: 5px;
+    }
+
 }
