@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     height: 30px;
+    gap: 0;
 }
 .progress_card p {
     width: 250px;
@@ -60,7 +61,7 @@
 
 /* Bar */
 .progress_bar {
-    width: 500px;
+    width: 100%;
     height: 25px;
     display: flex;
     align-items: center;
@@ -105,10 +106,10 @@
     .Month .grid_cell {
         width: 13px;
         height: 13px;
+
     }
     .progress_card p {
         width: 220px;
-        border: 1px solid red;
     }
 }
 
@@ -117,14 +118,25 @@
         flex-direction: column;
         height: auto;
         align-items: flex-start;
-        gap: 15px;
+        gap: 10px;
     }
     .progress_bar, .progress_bar_filler, .progress_grid{
         height: 15px;
     }
-    
+    .progress_bar {
+        width: 100%;
+    }
     .Week .grid_cell {
         height: 20px;
         width: 20px;
     }
+}
+@media (max-width: 600px) {
+    .progress_card {
+        gap: 7px;
+    }
+    .Month .grid_cell {
+        width: 7px;
+    }
+
 }

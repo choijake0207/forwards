@@ -59,7 +59,7 @@
 }
 .progress_views {
     border-radius: 5px;
-    border: 1px solid vaR(--subtle-border)
+    border: 1px solid vaR(--subtle-border);
 }
 .progress_toolbar {
     display: flex;
@@ -143,8 +143,31 @@
     width: 250px;
 }
 
+@media (max-width: 800px) {
+    .progress_list {
+        gap: 20px;
+    }
+}
 @media (max-width: 600px) {
     .progress_list {
         padding: 15px;
+        padding-bottom: 20px;
+    }
+    .progress_header > * {
+        font-size: 12px;
+    }
+    .progress_header svg {
+        font-size: 15px;
+    }
+    .progress_toolbar {
+        padding: 10px;
+    }
+  
+    .date_interval_selector button {
+        font-size: 12px;
+        width: 60px;
+    }
+    .display_type_selector button {
+        font-size: 15px;
     }
 }
