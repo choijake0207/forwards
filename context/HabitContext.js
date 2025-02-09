@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useState, useEffect, useMemo, useRef } from "react";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, getDaysInMonth, format, differenceInDays, getTime, addWeeks, addMonths  } from 'date-fns'
-import { fetchHabitsAPI, createHabitAPI, fetchSingleHabitAPI } from "@/app/api/protected/habit/HabitCalls";
+import { fetchHabitsAPI, createHabitAPI, fetchSingleHabitAPI , deleteHabitAPI} from "@/app/api/protected/habit/HabitCalls";
 import { createCheckInAPI, deleteCheckInAPI } from "@/app/api/protected/checkin/CheckInCalls";
 
 export const HabitContext = createContext()
@@ -160,11 +160,22 @@ export const HabitProvider = ({children}) => {
             console.error("Error Creating Habit", error)
         } 
     }
+    // Invoking a forced fetch on creation because creating optimistic render would involve processing response object manually and ensuring persistence
 
-
+    // DELETE HABIT
+    const deleteHabit = async (habitId) => {
+        console.log("context received", habitId)
+        try {
+            const response = await deleteHabitAPI(habitId)
+            await fetchHabits()
+            return response
+        } catch (error) {
+            console.error("Error Deleting Habit", error)
+        }
+    }
 
     return (
-        <HabitContext.Provider value={{fetchHabits, createHabit, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
+        <HabitContext.Provider value={{fetchHabits, createHabit, deleteHabit, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
             {children}
         </HabitContext.Provider>
     )
