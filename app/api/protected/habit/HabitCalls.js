@@ -56,7 +56,7 @@ export async function deleteHabitAPI (habitId) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(habitId)
+            body: JSON.stringify({habitId})
         })
         if (!response.ok) {
             const errorData = await response.json()
