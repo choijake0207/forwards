@@ -1,5 +1,5 @@
 .habit_card {
-    width: 250px;
+    min-width: 250px;
     height: 90px;
     padding: 10px;
     border-radius: 5px;
@@ -69,14 +69,26 @@
     z-index: 2;
 }
 .undo_check_btn {
-    border: 1px solid vaR(--bg);
-    color: var(--bg);
+    color: rgba(255, 255, 255, 0.733);
+    border: none;
+    font-weight: bold;
     background: none;
     padding: 5px;
     width: 100%;
     border-radius: 5px;
     cursor: pointer;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: right;
+    transition: .2s;
+}
+.undo_check_btn:hover {
+    color: white;
+}
+.undo_check_btn svg {
+    font-size: 15px;
 }
 .check_in_btn:hover {
     color: var(--primary-text);
@@ -93,7 +105,7 @@
     width: 0;
     content: "";
     background: var(--current-color);
-    animation: undo .1s ease-in-out forwards;
+    animation: undo .2s ease-in-out forwards;
     border-radius: 5px;
 }
 .completed::before {
@@ -107,6 +119,32 @@
     background: var(--current-color);
     animation: completion .2s ease-in-out forwards;
     border-radius: 5px;
+}
+
+.modal_btn {
+    cursor: pointer;
+}
+
+.card_modal {
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: var(--fg);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2),-5px -5px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--subtle-border);
+    border-radius: 5px;;
+}
+.card_modal button {
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    padding: 10px;
+    width: 130px;
+    font-size: 15px;
+    border: 1px solid var(--subtle-border);
 }
  
 @keyframes completion {
