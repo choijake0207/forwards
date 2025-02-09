@@ -47,7 +47,7 @@ export async function fetchHabitsAPI() {
     }
 }
 
-export async function deleteHabitAPI () {
+export async function deleteHabitAPI (habitId) {
     try {
         const token = localStorage.getItem("token")
         const response = await fetch("/api/protected/habit/delete", {
@@ -55,7 +55,8 @@ export async function deleteHabitAPI () {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
-            }
+            },
+            body: JSON.stringify(habitId)
         })
         if (!response.ok) {
             const errorData = await response.json()
