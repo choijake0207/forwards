@@ -6,12 +6,14 @@ import { AuthContext } from '@/context/AuthContext'
 import { HabitProvider } from '@/context/HabitContext'
 import { useRouter, usePathname } from 'next/navigation'
 import ClientLoading from '../component/ClientLoading'
+import { ThemeContext } from '@/context/ThemeContext'
 import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie, Bell, List   } from 'phosphor-react'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading, logout} = useContext(AuthContext)
   const router = useRouter()
   const pathname = usePathname()
+  const {darkMode, toggleMode} = useContext(ThemeContext)
   useEffect(() => {
     if (!authUser.status && !loading) {
       router.push("/login")
@@ -23,7 +25,7 @@ export default function ProtectedLayout({children}) {
 
   return (
     <HabitProvider>
-      <div className={styles.protected_layout}>
+      <div className={`${styles.protected_layout} protected_layout ${darkMode ? "dark" : "light"}`}>
         <div className={styles.protected_floating_tool}>
           <button 
             className={`${styles.hamburger_menu_btn} ${navVisible && `${styles.visible}`}`}
@@ -64,10 +66,16 @@ export default function ProtectedLayout({children}) {
               <span className={styles.full_width}>Settings</span>
             </Link>
           </nav>
-          <button className={styles.sign_out_btn} onClick={logout}>
-            <SignOut/>
-            <span className={styles.full_width}>Sign Out</span>
-          </button>
+          <div className={styles.navbar_extra}>
+            <button className={styles.sign_out_btn} onClick={logout}>
+              <SignOut/>
+              <span className={styles.full_width}>Sign Out</span>
+            </button>
+            <button className={styles.theme_button} onClick={toggleMode}>
+                Toggle Dark
+            </button>
+          </div>
+      
         </aside>
         <main className={styles.protected_layout_outlet}>
           {loading ? <ClientLoading/> : children}
