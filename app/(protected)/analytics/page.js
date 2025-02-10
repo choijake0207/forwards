@@ -3,6 +3,7 @@ import React, {useContext, useEffect, useMemo} from 'react'
 import styles from "../../styles/analytics.module.css"
 import { HabitContext } from '@/context/HabitContext'
 import { format } from 'date-fns'
+import Graph from '@/app/component/analytics/Graph'
 import ClientLoading from '@/app/component/ClientLoading'
 export default function Analytics() {
 
@@ -17,7 +18,7 @@ export default function Analytics() {
     if (!rawHabits || rawHabits.length === 0) return new Date()
     return new Date(Math.min(...rawHabits.map(habit => new Date(habit.createdAt))))
   }, [rawHabits])
-  
+
   // generate days array
   const generateAnalyticDays = (habit) => {
     let current = new Date(new Date(habit.createdAt).setHours(0,0,0,0))
@@ -56,25 +57,27 @@ export default function Analytics() {
     }))
   }, [rawHabits])
     
-  console.log(analyticsHabits)
   
   
 
 
   return (
     <div className={`${styles.analytics} page}`}>
-      <div className={styles.empty_analytics}>
-        <p>No Habits To Analyze Yet</p>
-      </div>
-      <div className={styles.graph_component}>GRAPH COMPONENT</div>
-      <section className={styles.analytics_widget_row}>
+     
+     <div>
+      {
+        loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate}/>
+      }
+     </div>
+      
 
+      <section className={styles.analytics_widget_row}>
         <div className={styles.analytics_widget}>
           <p>Total Check Ins:</p>
           <p></p>
         </div>
-
       </section>
+
       <ul className={styles.analytics_accordion}>Accordion</ul>
       
     </div>
