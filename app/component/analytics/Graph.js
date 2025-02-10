@@ -73,10 +73,23 @@ export default function Graph({firstDate, habits}) {
 
   const graphData = {
     labels: labelGenerator,
-    datasets: [{label: "Check In Rate", data: dataSetGenerator}],
+    datasets: [
+      {
+        label: "Check In Rate", 
+        data: dataSetGenerator, 
+        borderColor: "rgba(52, 114, 231, 0.5)",
+        borderWidth: 1,
+        backgroundColor: "rgba(52, 114, 231, 0.5)",
+        pointHoverBorderColor: "rgb(52, 114, 231)",
+      }
+    ],
+  }
+  const graphOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
   }
 
   return (
-   <Line data={graphData}/>
+   <Line data={graphData} options={graphOptions}/>
   )
 }
