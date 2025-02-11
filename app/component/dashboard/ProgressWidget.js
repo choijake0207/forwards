@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styles from "../../styles/progressWidget.module.css"
 import { Plus, CaretLeft, CaretRight, ChartBarHorizontal, SquaresFour } from 'phosphor-react'
 import ProgressCard from '../habit/ProgressCard'
@@ -11,12 +11,12 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
   const displayTypes = ["bar", "grid"]
   const windowTypes = ["Week", "Month", "All"]
   const {processedHabits, setProgressWindow, setWindowOffset, progressWindow, getTimeFrame} = useContext(HabitContext)
-  const daysOfweek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-  const dayCount = []
-  const numerOfDays = differenceInDays(getTimeFrame.end, getTimeFrame.start) + 1
-  for (let i = 1; i <= numerOfDays; i++) {dayCount.push(i)}
 
-
+  useEffect(() => {
+    if (progressWindow === "All") {
+      setDisplay("bar")
+    }
+  }, [progressWindow])
 
   return (
     <div className={styles.progress_widget}>
@@ -54,6 +54,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
                   className={display === type ? styles.active_display : ""}
                   key={type}
                   onClick={() => setDisplay(type)}
+                  disabled={progressWindow === "All" && type === "grid"}
                 >
                   {type === "bar" ? <ChartBarHorizontal/> : <SquaresFour/>}
                 </button>
