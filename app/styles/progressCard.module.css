@@ -43,7 +43,6 @@
 .grid_cell {
     height: 25px;
     width: 25px;
-    background: var(--fg);
     border-radius: 5px;
 }
 .Month .grid_cell {
@@ -51,14 +50,19 @@
     width: 13px;
     border-radius: 3px;
 }
+
 .grid_cell.checked {
     background-color: var(--current-color);
     transition: .1s ease;
 }
+.grid_cell.checkin_day:not(.checked, .nonexist) {
+    background: var(--current-color);
+    opacity: .1;
+}
 
 .grid_cell:not(.checkin_day) {
     background: none;
-    border: 1px solid var(--fg)
+    border: 1px solid var(--subtle-border)
 }
 
 
@@ -106,22 +110,21 @@
 
 .grid_cell.nonexist {
     position: relative;
-    background: none;
-    border: none;
+    background: var(--secondary-bg);
+    border: 1px solid var(--subtle-border);
 }
 .grid_cell.nonexist::before {
     position: absolute;
-    content: "x";
+    content: "/";
     top: 0;
     left: 0;
-    background: none;
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 15px;
-    color: var(--secondary-text)
+    color: var(--subtle-border)
 }
 
 @media (max-width: 1300px) {
