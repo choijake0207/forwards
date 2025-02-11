@@ -20,6 +20,9 @@ export default function Card({name, type, color, id, isChecked, isToday}) {
           : <button className={styles.check_in_btn}  disabled={isToday === false} onClick={() => checkIn(id)}>Check In</button> 
         }
         {
+          !isToday && <p className={styles.inactive_message}>No Check In Today</p>
+        }
+        {
           modalOpen && <CardModal isOpen={modalOpen} onClose={() => setModalOpen(false)} deleteHabit={deleteHabit} id={id}/>
         }
     </article>
