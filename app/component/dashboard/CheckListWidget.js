@@ -7,7 +7,8 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
     const {optimisticCheckIns} = useContext(HabitContext)
     // let unchecked = habits.filter(habit => habit.lastCheck !== null)
     const today = new Date().setHours(0, 0, 0, 0)
-    const formattedToday = today.toLocaleString("en-US", {weekday: "short"})
+    const formattedToday = new Date(today).toLocaleString("en-US", {weekday: "short"})
+    console.log(formattedToday)
 
   return (
     <div className={styles.checklist_widget}>
