@@ -175,7 +175,7 @@ export const HabitProvider = ({children}) => {
     }
 
     return (
-        <HabitContext.Provider value={{fetchHabits, createHabit, deleteHabit, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
+        <HabitContext.Provider value={{fetchHabits, rawHabits, createHabit, deleteHabit, loading, optimisticCheckIns, undoCheck, checkIn, processedHabits, windowOffset, setWindowOffset, progressWindow, setProgressWindow, getTimeFrame}}>
             {children}
         </HabitContext.Provider>
     )
