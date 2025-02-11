@@ -7,6 +7,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
     const {optimisticCheckIns} = useContext(HabitContext)
     // let unchecked = habits.filter(habit => habit.lastCheck !== null)
     const today = new Date().setHours(0, 0, 0, 0)
+    const formattedToday = today.toLocaleString("en-US", {weekday: "short"})
 
   return (
     <div className={styles.checklist_widget}>
@@ -24,6 +25,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)
                         : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0) === today
+                    const checkInToday = habit.frequency === "DAILY" || habit.daysOfWeek.includes(formattedToday)
                     return (
                         <Card
                             key={habit.id}
@@ -32,6 +34,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                             type={habit.type}
                             id={habit.id}
                             isChecked={isChecked}
+                            isToday={checkInToday}
                         />
                     )   
                 })
