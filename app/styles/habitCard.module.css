@@ -9,6 +9,18 @@
     gap: 15px;
     position: relative;
 }
+.habit_card.inactive {
+    background: none;
+    border: 1px solid var(--subtle-border);
+    border-left: 3px solid var(--current-color);
+    opacity: .4;
+}
+.inactive_message {
+    color: var(--secondary-text);
+    font-size: 15px;
+    text-align: center;
+    font-style: italic;
+}
 .red { 
     border-left: 3px solid var(--red);
     --current-color: var(--red)
@@ -94,7 +106,10 @@
     color: var(--primary-text);
     border: 1px solid var(--current-color); 
     background: var(--current-color)
-}   
+}  
+.check_in_btn:disabled {
+    display: none;
+}
 
 .incomplete:before {
     position: absolute;
@@ -130,8 +145,8 @@
     flex-direction: column;
     z-index: 100;
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 10px;
+    right: -10px;
     background: var(--fg);
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2),-5px -5px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid var(--subtle-border);
@@ -142,9 +157,22 @@
     border: none;
     color: var(--secondary-text);
     padding: 10px;
-    width: 130px;
+    width: 150px;
     font-size: 15px;
     border: 1px solid var(--subtle-border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+.card_modal button svg {
+    font-size: 15px;
+}
+.edit_btn:hover {
+    color: vaR(--primary-text);
+}
+.delete_btn:hover {
+    color: var(--red)
 }
  
 @keyframes completion {
