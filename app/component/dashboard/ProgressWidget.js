@@ -3,7 +3,7 @@ import styles from "../../styles/progressWidget.module.css"
 import { Plus, CaretLeft, CaretRight, ChartBarHorizontal, SquaresFour } from 'phosphor-react'
 import ProgressCard from '../habit/ProgressCard'
 import { HabitContext } from '@/context/HabitContext'
-import { differenceInDays } from 'date-fns'
+import { differenceInDays, format } from 'date-fns'
 
 export default function ProgressWidget({toggleForm, formattedWindow}) {
 
@@ -12,11 +12,23 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
   const windowTypes = ["Week", "Month", "All"]
   const {processedHabits, setProgressWindow, setWindowOffset, progressWindow, getTimeFrame} = useContext(HabitContext)
 
+  // auto disabled grid view
   useEffect(() => {
     if (progressWindow === "All") {
       setDisplay("bar")
     }
   }, [progressWindow])
+
+  // calculate timeframe for month dates headings and generate headings
+  const generateMonthDates = () => {
+    let monthDates = []
+    let current = new Date(getTimeFrame.start)
+    while (current <= new Date(getTimeFrame.end)) {
+      monthDates.push(format(new Date(current), "d"))
+      current.setDate(current.getDate() + 1)
+    }
+    return monthDates
+  }
 
   return (
     <div className={styles.progress_widget}>
@@ -62,7 +74,29 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             })}
           </div>
         </div>
-
+        <div className={`${styles.progress_dates} ${styles[progressWindow]}`}>
+            {display === "grid" && 
+              (progressWindow === "Week" 
+                ? <>
+                  <p>Mon</p>
+                  <p>Tue</p>
+                  <p>Wed</p>
+                  <p>Thu</p>
+                  <p>Fri</p>
+                  <p>Sat</p>
+                  <p>Sun</p>
+                </>
+                : <>
+                  {generateMonthDates().map(date => {
+                    return (
+                      <p key={date}> 
+                        {date}
+                      </p>
+                    )
+                  })}
+                </>)
+            }
+        </div>
         <ul className={styles.progress_list}>
           {processedHabits.length > 0 
             ? processedHabits.map(habit => { // change this so it maps from filtered habits
