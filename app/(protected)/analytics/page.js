@@ -9,10 +9,6 @@ export default function Analytics() {
 
   const {rawHabits, loading, optimisticCheckIns} = useContext(HabitContext)
 
-  // Analytics Data Processing: same day generator but timeframe is determined by createdAt
-    // no interactivity with global states
-
-
   // get date of first habit creation (starting point for graph component)
   const firstHabitDate = useMemo(() => {
     if (!rawHabits || rawHabits.length === 0) return new Date()
@@ -57,27 +53,32 @@ export default function Analytics() {
     }))
   }, [rawHabits])
     
-  
-  
+   // Widget Data 
+   let totalCheckIns = []
+   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {totalCheckIns.push(checkIn)}))
 
 
   return (
     <div className={`${styles.analytics} page}`}>
-     
-     <div>
-      {
-        loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate}/>
-      }
-     </div>
-      
 
-      <section className={styles.analytics_widget_row}>
-        <div className={styles.analytics_widget}>
-          <p>Total Check Ins:</p>
-          <p></p>
+    
+      <h1 className={styles.analytics_heading}>Analytics</h1>
+
+      <section className={styles.graph_and_widgets}>
+        <div className={styles.graph_container}>
+          {
+            loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate}/>
+          }
         </div>
-      </section>
 
+        <div className={styles.widgets_container}>
+          <div className={styles.total_check_widget}>
+            <p className={styles.widget_label}>Total Check Ins:</p>
+            <p className={styles.widget_data}>{totalCheckIns.length}</p>
+          </div>
+        </div>
+
+      </section>
       <ul className={styles.analytics_accordion}>Accordion</ul>
       
     </div>
