@@ -31,13 +31,6 @@ export default function Dashboard () {
     return `${format(start, "MM/dd")} - ${format(end, "MM/dd")}`
   }
 
-  // CHECKLIST COMPONENT FILTERING
-  const date = new Date()
-  const today = date.toLocaleString("en-US", {weekday: "short"})
-  const todayHabits = useMemo(() => {
-    if (!processedHabits) return []
-    return processedHabits.filter(habit => habit.frequency === "DAILY" || habit.daysOfWeek.includes(today))
-  }, [processedHabits, today])
  
 
   return (
@@ -62,7 +55,7 @@ export default function Dashboard () {
           {loading 
             ?  <ClientLoading/> 
             : <CheckListWidget 
-                habits={todayHabits} 
+                habits={processedHabits} 
               /> 
           }
         </aside>
