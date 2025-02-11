@@ -16,8 +16,8 @@ export default function Card({name, type, color, id, isChecked, isToday}) {
             </button>
         </div>
         {isChecked ? 
-          <button className={styles.undo_check_btn} onClick={() => undoCheck(id)}><ArrowCounterClockwise/>Undo</button>
-          : <button className={styles.check_in_btn}  onClick={() => checkIn(id)}>Check In</button> 
+          <button className={styles.undo_check_btn}  onClick={() => undoCheck(id)}><ArrowCounterClockwise/>Undo</button>
+          : <button className={styles.check_in_btn}  disabled={isToday === false} onClick={() => checkIn(id)}>Check In</button> 
         }
         {
           modalOpen && <CardModal isOpen={modalOpen} onClose={() => setModalOpen(false)} deleteHabit={deleteHabit} id={id}/>
