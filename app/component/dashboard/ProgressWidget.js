@@ -74,30 +74,22 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             })}
           </div>
         </div>
-        <div className={`${styles.progress_dates} ${styles[progressWindow]}`}>
-            {display === "grid" && 
-              (progressWindow === "Week" 
-                ? <>
-                  <p>Mon</p>
-                  <p>Tue</p>
-                  <p>Wed</p>
-                  <p>Thu</p>
-                  <p>Fri</p>
-                  <p>Sat</p>
-                  <p>Sun</p>
-                </>
-                : <>
-                  {generateMonthDates().map(date => {
-                    return (
-                      <p key={date}> 
-                        {date}
-                      </p>
-                    )
-                  })}
-                </>)
-            }
-        </div>
+      
         <ul className={styles.progress_list}>
+          <div className={styles.progress_dates}>
+              {display === "grid" && 
+                (progressWindow === "Week") &&
+                   <div className={styles.week_dates}>
+                    <p>Mon</p>
+                    <p>Tue</p>
+                    <p>Wed</p>
+                    <p>Thu</p>
+                    <p>Fri</p>
+                    <p>Sat</p>
+                    <p>Sun</p>
+                  </div>
+              }
+          </div>
           {processedHabits.length > 0 
             ? processedHabits.map(habit => { // change this so it maps from filtered habits
                 return (
