@@ -115,6 +115,10 @@
     background: var(--subtle-border);
     color: var(--primary-text);
 }
+.display_type_selector button:disabled {
+    color: var(--subtle-border);
+    cursor:not-allowed
+}
 
 
 .progress_list {
@@ -126,6 +130,25 @@
     padding-right: 25px;
     padding-bottom: 25px;
 } 
+.progress_dates {
+    display: flex;
+    margin-bottom: -15px;
+    padding-left: 195px;
+    gap: 0;
+}
+.week_dates {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.week_dates p {
+    font-size: 15px;
+    width: 35px;
+    text-align: center;
+    color: var(--secondary-text)
+}
+
+
 .date_btn:disabled {
     border: 1px solid var(--subtle-border);
     color: var(--subtle-border);
@@ -143,9 +166,24 @@
     width: 250px;
 }
 
+@media (max-width: 1300px) {
+    .progress_dates {
+        padding-left: 185px;
+    }
+}
+@media (max-width: 1100px) {
+    .progress_dates {
+        padding-left: 175px;
+    }
+}
 @media (max-width: 800px) {
     .progress_list {
         gap: 20px;
+    }
+    .progress_dates {
+        padding-left: 0;
+        margin-top: -10px;
+        margin-bottom: 0px;
     }
 }
 @media (max-width: 600px) {
@@ -170,4 +208,14 @@
     .display_type_selector button {
         font-size: 15px;
     }
+}
+
+@media (max-width: 420px) {
+    .date_btn_container {
+        gap: 5px;
+    }
+    .header_date {
+        gap: 10px;
+    }
+  
 }
