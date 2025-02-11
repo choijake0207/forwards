@@ -21,7 +21,14 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
      
         <ul className={styles.checklist}>
             {habits.length > 0 ? (
-                habits.map(habit => { 
+                habits
+                .slice()
+                .sort((a, b) => {
+                    const aCheckInToday = a.frequency === "DAILY" || a.daysOfWeek.includes(formattedToday);
+                    const bCheckInToday = b.frequency === "DAILY" || b.daysOfWeek.includes(formattedToday);
+                    return bCheckInToday - aCheckInToday; // Move `true` values to the front
+                })
+                .map(habit => { 
                     const checkInKey = `${habit.id}-${new Date(new Date().setHours(0,0,0,0))}`
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)
