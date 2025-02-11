@@ -9,9 +9,13 @@ export default function ProgressBar({ days, color}) {
 
 
   return (
-    <div className={styles.progress_bar}>
-      <div className={`${styles.progress_bar_filler} ${styles[color]}`} style={{width: `${progress}%`}}></div>
-    </div>
+    <>
+      <div className={styles.progress_bar}>
+        <div className={`${styles.progress_bar_filler} ${styles[color]}`} style={{width: `${progress}%`}}></div>
+      </div>
+      <p className={styles.bar_count_label}>{daysChecked.length} / {daysToBeChecked.length}</p>
+    </>
+
   )
 }
  
