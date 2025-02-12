@@ -1,17 +1,30 @@
 import React, {useState} from 'react'
 import styles from "../../styles/analytics.module.css"
+import { CaretLeft } from 'phosphor-react'
 
 export default function Accordion({habits}) {
+
+    const [openCard, setOpenCard] = useState(null)
     
 
   return (
     <ul className={styles.analytics_accordion}>
         {
-            habits.map(habit =>  {
+            habits.map((habit, index) =>  {
                 return (
-                    <li key={habit.id} className={styles.accordion_card}>
-                        <p>{habit.name}</p>
-                        <div className={styles.data_table}>
+                    <li key={habit.id} className={`${styles.accordion_card} ${openCard === index ? styles.open : ""}`}>
+
+                        <div className={styles.card_header}>
+                            <p className={styles.card_title}>{habit.name}</p>
+                            <button 
+                                className={styles.expand_btn}
+                                onClick={() => openCard === index ? setOpenCard(null) : setOpenCard(index)}
+                            >   
+                                <CaretLeft/>
+                            </button>
+                        </div>
+
+                        <div className={`${styles.data_table}`}>
                             <div className={styles.streaks_data}>
                                 <p className={styles.data_label}>Longest Streak:</p>
                                 <p className={styles.data_display}>
@@ -36,8 +49,9 @@ export default function Accordion({habits}) {
                             </div>
                             <div className={styles.dow_data}>
                                 <p className={styles.data_label}>Days of the week:</p>
-                                {habit.daysOfWeek.map(day => { return (<p>{day}</p>)})}
+                                {habit.daysOfWeek.map(day => { return (<p key={day}>{day}</p>)})}
                             </div>
+                            
                         </div>
                     </li>
                 )
