@@ -49,18 +49,20 @@ export default function ProtectedLayout({children}) {
               <SquaresFour/>
               <span className={styles.full_width}>Dashboard</span>
             </Link>
-            <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}>
-              <Users/>
-              <span className={styles.full_width}>Friends</span>
-            </Link>
             <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}>
               <ChartPie/>
               <span className={styles.full_width}>Analytics</span>
             </Link>
-            <Link href={`/profile/${authUser.id}`} className={pathname === `/profile/${authUser.id}` ? `${styles.active}` : ""}>
+            {/* <Link href={`/profile/${authUser.id}`} className={pathname === `/profile/${authUser.id}` ? `${styles.active}` : ""}>
               <User/>
               <span className={styles.full_width}>Profile</span>
             </Link>
+            <Link href="friends" className={pathname === "/friends" ? `${styles.active}` : ""}>
+              <Users/>
+              <span className={styles.full_width}>Friends</span>
+            </Link> */}
+            <a id={styles.wip_links}> <Users/>Friends <span>Coming Soon</span></a>
+            <a id={styles.wip_links}><User/>Profile <span >Coming Soon</span></a>
             <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""}>
               <GearSix/>
               <span className={styles.full_width}>Settings</span>
