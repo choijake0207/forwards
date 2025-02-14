@@ -1,7 +1,7 @@
 .dashboard_page {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
 }
 .dashboard_header {
     padding-bottom: 20px;
@@ -34,6 +34,19 @@
 }
 @media (max-width: 600px) {
     .dashboard_page {
+        padding-top: 70px;
+    }
+    .dashboard_page {
+        gap: 10px;
+    }
+    .dashboard_header {
+        padding: 0;
+        padding-top: 5px;
+    }
+}
+@media (max-width: 400px) {
+    .dashboard_page {
+        padding: 15px;
         padding-top: 70px;
     }
 }

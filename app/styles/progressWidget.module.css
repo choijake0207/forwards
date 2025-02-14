@@ -214,8 +214,33 @@
     .date_btn_container {
         gap: 5px;
     }
+    .date_btn {
+        font-size: 10px;
+        padding: 3px;
+    }
+    .progress_header h2 {
+        font-size: 15px;
+    }
     .header_date {
         gap: 10px;
     }
-  
+    .form_toggle_btn {
+        font-size: 10px;;
+        padding: 7px;
+        width: 100px;
+    }
+    .date_interval_selector, .display_type_selector {
+        padding: 5px;
+        gap: 0px;
+    }
+}
+
+@media (max-width: 400px) {
+    .progress_toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .date_interval_selector, .display_type_selector {
+        width: fit-content
+    }
 }
