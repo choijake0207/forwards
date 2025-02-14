@@ -1,3 +1,24 @@
+.red { 
+    --current-color: var(--red)
+}
+.blue {
+    --current-color: var(--blue)
+}
+.green {
+    --current-color: var(--green)
+}
+.orange {
+    --current-color: var(--orange)
+}
+.yellow {
+    --current-color: var(--yellow);
+}
+.purple {
+    --current-color: var(--purple)
+}
+.pink {
+    --current-color: var(--pink)
+}
 .analytics {
     display: flex;
     flex-direction: column;
@@ -14,6 +35,7 @@
 .analytics_heading {
     align-self: flex-start;
     font-weight: 500;
+    color: var(--secondary-text);
 }
 
 /* GRAPH */
@@ -37,10 +59,18 @@
     /* background: var(--secondary-bg) */
 }
 /* ACCORDION */
+.accordion_container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.accordion_container h2 {
+    color: var(--secondary-text)
+}
 .analytics_accordion {
     border: 1px solid var(--subtle-border);
     border-radius: 10px;
-    height: 400px;
+    height: fit-content;
     width: 100%;
     overflow-y: scroll;
     align-self:center;
@@ -48,16 +78,66 @@
 .accordion_card {
     border: 1px solid var(--subtle-border);
     list-style: none;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+}
+.card_header {
+    display: flex;
+    justify-content: space-between;
     padding: 15px;
-
+    background: var(--secondary-bg);
+    border-bottom: 1px solid var(--subtle-border);
+}
+.expand_btn {
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    font-size: 20px;
+    cursor: pointer;
+}
+.expand_btn:hover {
+    color: var(--primary-text)
 }
 .card_title {
-    font-size: 25px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.card_title svg {
+    color: var(--current-color)
 }
 .data_table {
-    padding: 10px;
+    height: 0px;
+    overflow: hidden;
+    transition: .5s ease;
+    opacity: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+} 
+.data_table > * {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
+.data_label {
+    color: vaR(--secondary-text);
+    font-size: 15px;
+    font-weight: 600;
+}
+.data_display {
+    font-size: 20px;
+}
+.accordion_card.open .data_table {
+    height: 250px;
+    opacity: 1;
+}
+
+
+
+
+/* SIde */
 
 .side_components {
     width: 400px;
@@ -96,8 +176,22 @@
     border: 1px solid var(--subtle-border);
     height: 300px;
     border-radius: 10px;
-
+    background: var(--fg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: .5;
+    cursor: not-allowed;
 }
+.updates_container svg {
+    font-size: 35px;
+}
+
+
+
+
 
 
 @media (max-width: 1200px) {
@@ -109,7 +203,7 @@
         align-items: center;
     }
     .graph_and_accordion {
-        min-width: 400px;
+        min-width: 300px;
     }
     .graph_container {
         height: 300px;
@@ -128,5 +222,23 @@
     }
     .graph_container {
         height: 250px;
+    }
+}
+
+@media (max-width: 450px) {
+    .graph_container {
+        height:200px;
+    }
+    .data_table > * {
+        padding: 15px;
+    }
+    .data_label {
+        font-size: 12px;
+    }
+    .data_display {
+        font-size: 15px;
+    }
+    .side_components {
+        min-width: 300px;
     }
 }
