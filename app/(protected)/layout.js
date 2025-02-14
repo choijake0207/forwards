@@ -20,6 +20,11 @@ export default function ProtectedLayout({children}) {
     }
   }, [authUser])
 
+  if (loading || (!authUser?.status && !loading)) {
+    return null
+  }
+
+
   // mobile nav toggle
   const [navVisible, setNavVisible] = useState(false)
 
@@ -73,9 +78,9 @@ export default function ProtectedLayout({children}) {
               <SignOut/>
               <span className={styles.full_width}>Sign Out</span>
             </button>
-            <button className={styles.theme_button} onClick={toggleMode}>
+            {/* <button className={styles.theme_button} onClick={toggleMode}>
                 Toggle Dark
-            </button>
+            </button> */}
           </div>
       
         </aside>
