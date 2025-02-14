@@ -19,16 +19,16 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
     }
   }, [progressWindow])
 
-  // calculate timeframe for month dates headings and generate headings
-  const generateMonthDates = () => {
-    let monthDates = []
-    let current = new Date(getTimeFrame.start)
-    while (current <= new Date(getTimeFrame.end)) {
-      monthDates.push(format(new Date(current), "d"))
-      current.setDate(current.getDate() + 1)
-    }
-    return monthDates
-  }
+  // calculate timeframe for month dates headings and generate headings => SWITCHED to modal hover display
+  // const generateMonthDates = () => {
+  //   let monthDates = []
+  //   let current = new Date(getTimeFrame.start)
+  //   while (current <= new Date(getTimeFrame.end)) {
+  //     monthDates.push(format(new Date(current), "d"))
+  //     current.setDate(current.getDate() + 1)
+  //   }
+  //   return monthDates
+  // }
 
   return (
     <div className={styles.progress_widget}>
