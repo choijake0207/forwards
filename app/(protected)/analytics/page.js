@@ -4,9 +4,10 @@ import styles from "../../styles/analytics.module.css"
 import { HabitContext } from '@/context/HabitContext'
 import { format } from 'date-fns'
 import Graph from '@/app/component/analytics/Graph'
+import Accordion from '@/app/component/analytics/Accordion'
 import ClientLoading from '@/app/component/ClientLoading'
+import { Wrench } from "phosphor-react"
 export default function Analytics() {
-
   const {rawHabits, loading, optimisticCheckIns} = useContext(HabitContext)
 
   // get date of first habit creation (starting point for graph component)
@@ -53,6 +54,7 @@ export default function Analytics() {
     }))
   }, [rawHabits])
     
+  
    // Widget Data 
    let totalCheckIns = []
    analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {totalCheckIns.push(checkIn)}))
@@ -60,26 +62,45 @@ export default function Analytics() {
 
   return (
     <div className={`${styles.analytics} page}`}>
-
-    
       <h1 className={styles.analytics_heading}>Analytics</h1>
 
-      <section className={styles.graph_and_widgets}>
-        <div className={styles.graph_container}>
-          {
-            loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate}/>
-          }
-        </div>
-
-        <div className={styles.widgets_container}>
-          <div className={styles.total_check_widget}>
-            <p className={styles.widget_label}>Total Check Ins:</p>
-            <p className={styles.widget_data}>{totalCheckIns.length}</p>
+      <div className={styles.analytics_wrap}>
+       
+        <section className={styles.graph_and_accordion}>
+          <div className={styles.graph_container}>
+            {
+              loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate}/>
+            }
           </div>
-        </div>
+          <Accordion habits={analyticsHabits}/>
+        </section>
 
-      </section>
-      <ul className={styles.analytics_accordion}>Accordion</ul>
+        <aside className={styles.side_components}>
+          <div className={styles.widgets_container}>
+            <div className={styles.total_check_widget}>
+              <p className={styles.widget_label}>Total Check Ins:</p>
+              <p className={styles.widget_data}>{totalCheckIns.length}</p>
+            </div>
+            <div className={styles.total_check_widget}>
+              <p className={styles.widget_label}>Total Check Ins:</p>
+              <p className={styles.widget_data}>{totalCheckIns.length}</p>
+            </div> 
+            <div className={styles.total_check_widget}>
+              <p className={styles.widget_label}>Total Check Ins:</p>
+              <p className={styles.widget_data}>{totalCheckIns.length}</p>
+            </div>
+            <div className={styles.total_check_widget}>
+              <p className={styles.widget_label}>Total Check Ins:</p>
+              <p className={styles.widget_data}>{totalCheckIns.length}</p>
+            </div>
+          </div>
+          <div className={styles.updates_container}>
+            <Wrench/>
+            <p>Streaks feature in progress</p>
+          </div>
+        </aside>
+
+      </div>
       
     </div>
   )
