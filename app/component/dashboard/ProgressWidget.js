@@ -10,7 +10,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
   const [display, setDisplay] = useState("grid")
   const displayTypes = ["bar", "grid"]
   const windowTypes = ["Week", "Month", "All"]
-  const {processedHabits, setProgressWindow, setWindowOffset, progressWindow, getTimeFrame} = useContext(HabitContext)
+  const {processedHabits, setProgressWindow, setWindowOffset, progressWindow, getTimeFrame, windowOffset} = useContext(HabitContext)
 
   // auto disabled grid view
   useEffect(() => {
@@ -40,6 +40,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev + 1)} disabled={progressWindow === "All"}><CaretRight/></button>
           </div>
           <h2>{formattedWindow}</h2>
+          {windowOffset === 0 ? "" : <button className={styles.revert_offset_btn} onClick={() => setWindowOffset(0)}>Today</button>}
         </div>
         <button onClick={toggleForm} className={styles.form_toggle_btn}><Plus/> Create Habit</button>
       </header>
