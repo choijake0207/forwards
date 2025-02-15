@@ -30,6 +30,30 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.floating_tool_modal {
+    position: absolute;
+    z-index: 100;
+    bottom: -30px;
+    left:-15px;
+    border: 1px solid vaR(--subtle-border);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal_signout_btn {
+    background: var(--bg);
+    border: none;
+    padding: 5px;
+    width: 100px;
+    color: var(--primary-text);
+    border-radius: 5px;
+}
+.modal_signout_btn:hover {
+    color: vaR(--red);
+    cursor: pointer;
 }
 .logo_wrap {
     height: 50px;
@@ -174,6 +198,7 @@
         color: white;
         font-size: 30px;
         align-items: center;
+        cursor: pointer;
     }
     .protected_aside {
         z-index: 100;
@@ -183,12 +208,15 @@
         height: 100%;
     }
     .navbar {
-        padding-top: 40px;
+        padding-top: 30px;
     }
     .full_width {
         display: flex;
-        font-size: 20px;
+        font-size: 17px;
         width: 200px;
+    }
+    .sign_out_btn {
+        margin-top: 30px;
     }
     .hamburger_menu_btn.visible {
         color: var(--primary-theme);
