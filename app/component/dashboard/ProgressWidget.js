@@ -16,6 +16,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
   useEffect(() => {
     if (progressWindow === "All") {
       setDisplay("bar")
+      setWindowOffset(0)
     }
   }, [progressWindow])
 
@@ -40,7 +41,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
             <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev + 1)} disabled={progressWindow === "All"}><CaretRight/></button>
           </div>
           <h2>{formattedWindow}</h2>
-          {windowOffset === 0 ? "" : <button className={styles.revert_offset_btn} onClick={() => setWindowOffset(0)}>Today</button>}
+          {windowOffset !== 0 && progressWindow !== "All" && <button className={styles.revert_offset_btn} onClick={() => setWindowOffset(0)}>Today</button>}
         </div>
         <button onClick={toggleForm} className={styles.form_toggle_btn}><Plus/> Create Habit</button>
       </header>
