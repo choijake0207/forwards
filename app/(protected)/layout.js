@@ -15,6 +15,24 @@ export default function ProtectedLayout({children}) {
   const pathname = usePathname()
   const {darkMode, toggleMode} = useContext(ThemeContext)
 
+  // floating tool modal toggle
+  const [floatingToolModal, setFloatingToolModal] = useState(false)
+  const modalRef = useRef(null)
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target) && !e.target.closest(`.${styles.floating_user_tools}`)) {
+        setFloatingToolModal(false)
+      }
+    }
+      if (floatingToolModal) {
+        document.addEventListener("mousedown", handleOutsideClick)
+      } 
+
+      return () => {
+        document.removeEventListener("mousedown", handleOutsideClick)
+      }
+    
+  }, [floatingToolModal])
   // mobile nav toggle
   const [navVisible, setNavVisible] = useState(false)
   const mobileNavRef = useRef(null)
@@ -27,12 +45,10 @@ export default function ProtectedLayout({children}) {
     }
     if (navVisible) {
       document.addEventListener("mousedown", handleOutsideClick)
-    } else {
-      document.addEventListener("mousedown", handleOutsideClick)
-    }
+    } 
 
     return () => {
-      document.addEventListener("mousedown", handleOutsideClick)
+      document.removeEventListener("mousedown", handleOutsideClick)
     }
   }, [navVisible])
 
@@ -61,9 +77,14 @@ export default function ProtectedLayout({children}) {
           >
             <List/>
           </button>
-          <div className={styles.floating_user_tools}>
+          <div className={styles.floating_user_tools} onClick={() => setFloatingToolModal(true)}>
             {/* <Bell/> */}
             <p>{authUser.username}</p>
+            {floatingToolModal && 
+              <div className={styles.floating_tool_modal} ref={modalRef}>
+                <button className={styles.modal_signout_btn} onClick={logout}>Sign Out</button>
+              </div>
+            }
           </div>
         </div>
         <aside className={`${styles.protected_aside} ${navVisible ? `${styles.visible}` : `${styles.invisible}`}`} ref={mobileNavRef}>
