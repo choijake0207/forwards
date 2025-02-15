@@ -39,17 +39,20 @@ export default function SettingsPage() {
     }
   }
 
+  const handleCancel = (e) => {
+    e.preventDefault()
+    setEdit(false)
+  }
 
 
   return (
     <div className={`${styles.settings_page} page`}>
-      <h1>Account Settings</h1>
+      <h1>Settings</h1>
       {loading ?
         <ClientLoading/> 
-      :
+      : 
         <div className={styles.settings_fields_container}>
 
-          <div className={styles.name_fields}>
             <div className={styles.first_name}>
               <label>First Name</label>
               <p>{user.firstName}</p>
@@ -58,14 +61,13 @@ export default function SettingsPage() {
               <label>Last Name</label>
               <p>{user.lastName}</p>
             </div>
-          </div>
 
           <div className={styles.username}>
             <label>Username</label>
             <p>{user.username}</p>
           </div>
 
-          <div className={styles.password}>
+          <div className={`${styles.password} ${edit === true ? `${styles.edit_mode}` : ""}`}>
             <label>Password</label>
             {
               edit ?
@@ -84,10 +86,13 @@ export default function SettingsPage() {
                     value={passwordForm.new}
                     onChange={(e) => setPasswordForm({...passwordForm, new: e.target.value})}
                   />
-                  <button type="submit">Change</button>
+                  <div className={styles.btn_container}>
+                    <button onClick={handleCancel} className={styles.form_cancel_btn}>Cancel</button>
+                    <button className={styles.form_submit_btn}>Change</button>
+                  </div>
                 </form>
               : 
-                <button onClick={() => setEdit(true)}>Change Password</button>
+                <button className={styles.form_toggle_btn} onClick={() => setEdit(true)}>Change Password</button>
             }
           </div>
 
