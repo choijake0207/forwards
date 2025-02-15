@@ -28,7 +28,7 @@ export default function Dashboard () {
 
   // FORMAT TIME FRAME FOR UI
   const formatTimeFrame = (start, end) => {
-    return `${format(start, "MM/dd")} - ${format(end, "MM/dd")}`
+    return `${format(start, "M/d")} - ${format(end, "M/d")}`
   }
 
  
