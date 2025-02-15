@@ -4,22 +4,23 @@ import styles from "../styles/alert.module.css"
 const Alert = ({message, type, onClose}) => {
     useEffect(() => {
         const timer = setTimeout(() => {
-          document.getElementById("alert-box").classList.add("slide-out")
+          document.getElementById("alert_box").classList.add(styles.slide_out)
           setTimeout(() => {
             onClose()
-          }, 100)
+          }, 1000)
         }, 2000);
         return () => clearTimeout(timer)
     }, [])
   return (
-    <div className={`${styles.alert_box} ${styles[type]}`}>
-        <p className={styles.alert_box_msg}>{message}</p>
-        <button 
+    <div className={`${styles.alert_box} ${styles[type]}`} id="alert_box">
+          <button 
             className={styles.alert_box_close_btn}
             onClick={onClose}
         >
             X
         </button>
+        <p className={styles.alert_box_msg}>{message}</p>
+    
     </div>
   )
 }
