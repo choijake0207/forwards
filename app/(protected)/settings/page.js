@@ -5,16 +5,21 @@ import { fetchUserAPI } from '@/app/api/protected/user/UserCalls'
 import { changePasswordAPI } from '@/app/api/protected/user/UserCalls'
 import {format} from "date-fns"
 import ClientLoading from '@/app/component/ClientLoading'
+import Alert from "@/app/component/Alert"
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState()
   const [edit, setEdit] = useState(false)
+  const [alert, setAlert] = useState(null)
   const [passwordForm, setPasswordForm] = useState({
     old: "",
     new: ""
   })
 
+  const triggerAlert = (message, type) => {
+    setAlert({message, type})
+  }
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,19 +39,25 @@ export default function SettingsPage() {
     e.preventDefault()
     try {
       const response = await changePasswordAPI(passwordForm.old, passwordForm.new)
+      triggerAlert("Password Reset", "Success")
+      setPasswordForm({old: "", new: ""})
+      setEdit(false)
     } catch (error) {
+      triggerAlert(error, "Failure")
       console.error(error)
     }
   }
 
   const handleCancel = (e) => {
     e.preventDefault()
+    setPasswordForm({old: "", new: ""})
     setEdit(false)
   }
 
 
   return (
     <div className={`${styles.settings_page} page`}>
+      {alert && <Alert message={alert.message} type={alert.type} onClose={() => setAlert(null)}/>}
       <h1>Settings</h1>
       {loading ?
         <ClientLoading/> 
@@ -95,6 +106,11 @@ export default function SettingsPage() {
                 <button className={styles.form_toggle_btn} onClick={() => setEdit(true)}>Change Password</button>
             }
           </div>
+          <div className={styles.created}>
+            <label>User Since</label>
+            <p>{format(new Date(user.createdAt), "M-d-yyyy")}</p>
+          </div>
+
 
         </div>
       }
