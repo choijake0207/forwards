@@ -97,7 +97,7 @@ export default function Analytics() {
 
   // avg check in rate calculator
   let rateSum = dataSetGenerator.reduce((a, b) => a + b, 0)
-  let avg = rateSum/dataSetGenerator.length
+  let avg = Math.round(rateSum/dataSetGenerator.length)
 
 
 
