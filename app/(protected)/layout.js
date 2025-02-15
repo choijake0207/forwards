@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import styles from "../styles/protected.module.css"
 import { AuthContext } from '@/context/AuthContext'
 import { HabitProvider } from '@/context/HabitContext'
@@ -14,6 +14,31 @@ export default function ProtectedLayout({children}) {
   const router = useRouter()
   const pathname = usePathname()
   const {darkMode, toggleMode} = useContext(ThemeContext)
+
+  // mobile nav toggle
+  const [navVisible, setNavVisible] = useState(false)
+  const mobileNavRef = useRef(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (mobileNavRef.current && !mobileNavRef.current.contains(e.target) && !e.target.closest(`.${styles.hamburger_menu_btn}`)) {
+        setNavVisible(false)
+      }
+    }
+    if (navVisible) {
+      document.addEventListener("mousedown", handleOutsideClick)
+    } else {
+      document.addEventListener("mousedown", handleOutsideClick)
+    }
+
+    return () => {
+      document.addEventListener("mousedown", handleOutsideClick)
+    }
+  }, [navVisible])
+
+
+
+
   useEffect(() => {
     if (!authUser.status && !loading) {
       router.push("/login")
@@ -25,8 +50,6 @@ export default function ProtectedLayout({children}) {
   }
 
 
-  // mobile nav toggle
-  const [navVisible, setNavVisible] = useState(false)
 
   return (
     <HabitProvider>
@@ -39,22 +62,22 @@ export default function ProtectedLayout({children}) {
             <List/>
           </button>
           <div className={styles.floating_user_tools}>
-            <Bell/>
+            {/* <Bell/> */}
             <p>{authUser.username}</p>
           </div>
         </div>
-        <aside className={`${styles.protected_aside} ${navVisible ? `${styles.visible}` : `${styles.invisible}`}`}>
+        <aside className={`${styles.protected_aside} ${navVisible ? `${styles.visible}` : `${styles.invisible}`}`} ref={mobileNavRef}>
           <div className={styles.logo_wrap}>
             <img className={styles.logo_img} src="/navigation.png" alt="arrow_logo"/>
             <p className={`${styles.logo_text} ${styles.full_width}`}>Forward</p>
           </div>
           
-          <nav className={styles.navbar}>
-            <Link href="/" className={pathname === "/" ? `${styles.active}` : ""}>
+          <nav className={styles.navbar} >
+            <Link href="/" className={pathname === "/" ? `${styles.active}` : ""} onClick={() => navVisible && setNavVisible(false)}>
               <SquaresFour/>
               <span className={styles.full_width}>Dashboard</span>
             </Link>
-            <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""}>
+            <Link href="/analytics" className={pathname === "/analytics" ? `${styles.active}` : ""} onClick={() => navVisible && setNavVisible(false)}>
               <ChartPie/>
               <span className={styles.full_width}>Analytics</span>
             </Link>
@@ -68,7 +91,7 @@ export default function ProtectedLayout({children}) {
             </Link> */}
             <a id={styles.wip_links}> <Users/>Friends <span>Coming Soon</span></a>
             <a id={styles.wip_links}><User/>Profile <span >Coming Soon</span></a>
-            <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""}>
+            <Link href="/settings" className={pathname === "/settings" ? `${styles.active}` : ""} onClick={() => navVisible && setNavVisible(false)}>
               <GearSix/>
               <span className={styles.full_width}>Settings</span>
             </Link>
