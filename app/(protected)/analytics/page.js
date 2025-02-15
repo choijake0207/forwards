@@ -119,7 +119,7 @@ export default function Analytics() {
 
         <aside className={styles.side_components}>
           <div className={styles.widgets_container}>
-            <div className={styles.total_check_widget}>
+            <div className={styles.total_habits_widget}>
               <p className={styles.widget_label}>Total Habits:</p>
               {!loading && <p className={styles.widget_data}>{rawHabits.length}</p>}
             </div>
@@ -127,13 +127,9 @@ export default function Analytics() {
               <p className={styles.widget_label}>Total Check Ins:</p>
               <p className={styles.widget_data}>{totalCheckIns.length}</p>
             </div> 
-            <div className={styles.total_check_widget}>
+            <div className={styles.avg_rate_widget}>
               <p className={styles.widget_label}>Avg. Check In Rate:</p>
-              <p className={styles.widget_data}>{avg}</p>
-            </div>
-            <div className={styles.total_check_widget}>
-              <p className={styles.widget_label}>Longest Streak:</p>
-              <p className={styles.widget_data}>-</p>
+              <p className={styles.widget_data}>{avg}%</p>
             </div>
           </div>
           <div className={styles.updates_container}>
