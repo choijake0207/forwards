@@ -15,7 +15,7 @@ ChartJS.register(
 
 
 
-export default function Graph({firstDate, habits}) {
+export default function Graph({firstDate, habits, rate}) {
 
   const start = new Date(firstDate).setHours(0,0,0,0)
   const today = new Date().setHours(0,0,0,0)
@@ -47,36 +47,14 @@ export default function Graph({firstDate, habits}) {
   
   }, [habits, start, today])
 
-  // data set generator
-  const dataSetGenerator = useMemo(() => {
-    let current = new Date(start)
-    let rate = []
-    while (current <= today) {
-      let formattedDate = new Date(new Date(current).setHours(0,0,0,0))
-      let totalCheckInDays = 0
-      let totalCheckIns = 0
-
-      habits.forEach(habit => {
-        const dayObject = habit.days.find(day => format(new Date(day.date).setHours(0,0,0,0), "yyyy-MM-dd") == format(new Date(formattedDate).setHours(0,0,0,0), "yyyy-MM-dd"))
-        if (dayObject) {
-          if (dayObject.isCheckInDay) totalCheckInDays++
-          if (dayObject.isChecked) totalCheckIns++
-        }
-      })
-
-      let dailyRate = totalCheckInDays > 0 ? (totalCheckIns / totalCheckInDays) * 100 : 0
-      rate.push(dailyRate)
-      current.setDate(current.getDate() + 1)
-    }
-    return rate
-  }, [start, today, habits])
+ 
 
   const graphData = {
     labels: labelGenerator,
     datasets: [
       {
         label: "Check In Rate", 
-        data: dataSetGenerator, 
+        data: rate, 
         borderColor: "rgba(52, 114, 231, 0.5)",
         borderWidth: 1,
         backgroundColor: "rgba(52, 114, 231, 0.5)",
