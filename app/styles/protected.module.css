@@ -75,30 +75,63 @@
     padding-left: 20px;
     border-radius: 5px;
 }
-.navbar a:hover {
+.navbar a:hover:not(.wip_links) {
     color: var(--primary-theme);
     transition: .1s ease-in-out
 }
+#wip_links span {
+    background: var(--subtle-border);
+    font-size: 13px;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    margin-left: auto;
+}
+#wip_links {
+    opacity: .5;
+    cursor:not-allowed;
+}
+
 .navbar .active{
     color: var(--primary-theme);
     background: vaR(--nav-highlight);
     font-weight: 600;
 }
+.navbar_extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .sign_out_btn {
     background: none;
     border: none;
     color: var(--secondary-text);
-    font-weight: 600;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    padding-left: 20px;
     gap: 10px;
-    margin-top: 100px;
+    margin-top: 250px;
+    border: 1px solid var(--subtle-border);
+    padding: 10px;
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    transition: .1s;
+}
+.sign_out_btn:hover {
+    border: 1px solid var(--red);
+    color: var(--red);
+    cursor: pointer;
+}
+.sign_out_btn svg {
+    font-size:15px;
 }
 
 .protected_layout_outlet{
     width: 100%;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 
@@ -113,6 +146,11 @@
     .full_width {
         display: none;
     }
+    #wip_links {
+        display: none;
+        border: 1px solid red;
+    }
+    
 }
 @media (max-width: 600px) {
     .protected_floating_tool {
@@ -122,6 +160,7 @@
         border-radius: 0;
         height: 50px;
         justify-content: space-between;
+        z-index: 200;
     }
     .floating_user_tools {
         display: flex;
@@ -137,12 +176,14 @@
         align-items: center;
     }
     .protected_aside {
-        z-index: 1;
+        z-index: 100;
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
-        display: flex;
+    }
+    .navbar {
+        padding-top: 40px;
     }
     .full_width {
         display: flex;
@@ -153,7 +194,7 @@
         color: var(--primary-theme);
     }
     .protected_aside.invisible {
-        animation: mobileNavClose .5s ease forwards;
+        animation: mobileNavClose .3s ease forwards;
     }
     .protected_aside.visible {
         animation: mobileNav .3s ease;
