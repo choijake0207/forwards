@@ -1,0 +1,106 @@
+.settings_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.settings_page h1 {
+    font-weight: 500;
+}
+.settings_fields_container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--subtle-border);
+    border-radius: 10px;
+    width: 500px;
+}
+
+.settings_fields_container label {
+    color: var(--secondary-text);
+}
+
+.first_name, .last_name, .username, .password {
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    border: 1px solid var(--subtle-border);
+
+}
+.first_name {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.password {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.form_toggle_btn {
+    width: 150px;
+    background: var(--primary-theme);
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--primary-text);
+    font-weight: 600;
+}
+.edit_mode {
+    flex-direction: column;
+    gap: 25px;
+}
+.password_form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.password_form input {
+    width: 40%;
+    background: vaR(--fg);
+    border: 1px solid var(--subtle-border);
+    border-radius: 5px;
+    padding: 5px;
+    outline: none;
+    color: vaR(--primary-text)
+}
+.password_form label {
+    font-size: 13px;
+    font-weight: bolder;
+}
+.password_form input:focus {
+    border: 1px solid vaR(--primary-theme)
+}
+.btn_container {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    align-self: flex-end;
+}
+.btn_container button {
+    width: 130px;
+    padding: 5px;
+    border-radius: 15px;
+}
+.form_cancel_btn {
+    background: none;
+    border: 1px solid vaR(--secondary-text);
+    color: vaR(--secondary-text)
+}
+.form_submit_btn {
+    background: vaR(--primary-theme);
+    color: vaR(--primary-text);
+    font-weight: 600;
+    bordeR: none;
+}
+
+@media (max-width: 600px) {
+    .settings_page {
+        padding-top: 70px;
+    }
+    .settings_fields_container {
+        min-width: 300px;
+        width: 100%;
+    }
+    .password_form input {
+        width: 70%;
+    }
+}
