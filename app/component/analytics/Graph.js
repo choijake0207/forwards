@@ -65,6 +65,24 @@ export default function Graph({firstDate, habits, rate}) {
   const graphOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    layout: {
+      padding: {
+        top: 30
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 10
+        }
+      }
+    }
   }
 
   return (
