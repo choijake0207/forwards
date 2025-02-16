@@ -20,6 +20,7 @@ const HabitForm = ({onClose, status}) => {
         frequency: "",
         daysOfWeek: []
     })
+    const [submitting, setSubmitting] = useState(false)
     const step1Valid = habitForm.name.trim() !== "" && habitForm.type !== ""
     const step2Valid = () => {
         if (habitForm.frequency === "") {
@@ -92,13 +93,14 @@ const HabitForm = ({onClose, status}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setSubmitting(true)
         const newHabit = {
             ...habitForm,
             userId: authUser.id
         }
         const response = await createHabit(newHabit)
-        console.log("api response:", response.habit)
-        router.push(`/singleview/${response.habit.id}`)
+        setSubmitting(false)
+        onClose()
     }
 
   return (
@@ -196,8 +198,8 @@ const HabitForm = ({onClose, status}) => {
                         </div>
                     </div>
                     <div className={styles.habit_form_btn_container}>
-                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_prev}`} onClick={prev}>Previous</button>
-                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} disabled={!step2Valid()} onClick={handleSubmit}type="submit">Submit</button>
+                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_prev}`} disabled={submitting} onClick={prev}>Previous</button>
+                        <button className={`${styles.habit_form_btn} ${styles.habit_form_btn_submit}`} disabled={!step2Valid() || submitting} onClick={handleSubmit}type="submit">Submit</button>
                     </div>
                 </form>
             )}
