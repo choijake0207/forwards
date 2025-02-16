@@ -11,6 +11,13 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+.revert_offset_btn {
+    background: none;
+    border: none;
+    color: var(--primary-theme);
+    font-weight: 1000;
+    font-size: 15px
+}
 .header_date { 
     display: flex;
     align-items: center;
@@ -194,11 +201,18 @@
     .progress_header > * {
         font-size: 12px;
     }
+    .revert_offset_btn {
+        font-size: 12px;
+    }
     .progress_header svg {
         font-size: 15px;
     }
     .progress_toolbar {
         padding: 10px;
+    }
+    .form_toggle_btn {
+        padding: 7px;
+        width: 120px;
     }
   
     .date_interval_selector button {
@@ -210,7 +224,7 @@
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
     .date_btn_container {
         gap: 5px;
     }
@@ -225,13 +239,16 @@
         gap: 10px;
     }
     .form_toggle_btn {
-        font-size: 10px;;
+        font-size: 12px;
         padding: 7px;
-        width: 100px;
+        width: 110px;
     }
     .date_interval_selector, .display_type_selector {
         padding: 5px;
         gap: 0px;
+    }
+    .progress_list {
+        padding-bottom: 35px;
     }
 }
 

@@ -71,6 +71,7 @@
     top: 20px;
     background: none;
     border: none;
+    cursor: pointer;
     color: var(--primary-text)
 }
 .habit_form_container label {
@@ -312,7 +313,10 @@
         font-size: 25px;
     }
     .habit_form_container {
-        padding: 30px;
+        padding: 25px; 
+    }
+    .habit_form_step_1 {
+        gap: 10px;
     }
     .habit_form_step_1 input {
         width: 75vw;
@@ -328,7 +332,8 @@
     .habit_type_btn {
         width: 100%;
         gap: 10px;
-        font-size: 17px;
+        font-size: 15px;
+        padding: 12px;
     }
     .habit_form_color_selector {
         gap: 15px;
@@ -336,16 +341,20 @@
     .color_selector_option {
         height: 20px;
         width: 20px;
+        margin-bottom: 10px;;
     }
     .step_2_display {
         font-size: 20px;
-        border: 1px solid red;
     }
     .habit_form_freq_selector {
         width: 80%;
     }
     .days_container {
-        gap: 5px;
+        gap: 7px;
+    }
+    .habit_form_day_btn {
+        width: 35px;
+        height: 35px;
     }
 
 }
