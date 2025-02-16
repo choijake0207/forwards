@@ -106,39 +106,41 @@ export default function Analytics() {
     <div className={`${styles.analytics} page}`}>
       <h1 className={styles.analytics_heading}>Analytics</h1>
 
-      <div className={styles.analytics_wrap}>
+      {loading ? <ClientLoading/>
+        :
+        <div className={styles.analytics_wrap}>
        
-        <section className={styles.graph_and_accordion}>
-          <div className={styles.graph_container}>
-            {
-              loading ? <ClientLoading/> : <Graph habits={analyticsHabits} firstDate={firstHabitDate} rate={dataSetGenerator}/>
-            }
-          </div>
-          <Accordion habits={analyticsHabits}/>
-        </section>
-
-        <aside className={styles.side_components}>
-          <div className={styles.widgets_container}>
-            <div className={styles.total_habits_widget}>
-              <p className={styles.widget_label}>Total Habits:</p>
-              {!loading && <p className={styles.widget_data}>{rawHabits.length}</p>}
+          <section className={styles.graph_and_accordion}>
+            <div className={styles.graph_container}>
+              <Graph habits={analyticsHabits} firstDate={firstHabitDate} rate={dataSetGenerator}/>
+              
             </div>
-            <div className={styles.total_check_widget}>
-              <p className={styles.widget_label}>Total Check Ins:</p>
-              <p className={styles.widget_data}>{totalCheckIns.length}</p>
-            </div> 
-            <div className={styles.avg_rate_widget}>
-              <p className={styles.widget_label}>Avg. Check In Rate:</p>
-              <p className={styles.widget_data}>{avg}%</p>
-            </div>
-          </div>
-          <div className={styles.updates_container}>
-            <Wrench/>
-            <p>Streaks feature in progress</p>
-          </div>
-        </aside>
+            <Accordion habits={analyticsHabits}/>
+          </section>
 
-      </div>
+          <aside className={styles.side_components}>
+            <div className={styles.widgets_container}>
+              <div className={styles.total_habits_widget}>
+                <p className={styles.widget_label}>Total Habits:</p>
+                {!loading && <p className={styles.widget_data}>{rawHabits.length}</p>}
+              </div>
+              <div className={styles.total_check_widget}>
+                <p className={styles.widget_label}>Total Check Ins:</p>
+                <p className={styles.widget_data}>{totalCheckIns.length}</p>
+              </div> 
+              <div className={styles.avg_rate_widget}>
+                <p className={styles.widget_label}>Avg. Check In Rate:</p>
+                <p className={styles.widget_data}>{avg}%</p>
+              </div>
+            </div>
+            <div className={styles.updates_container}>
+              <Wrench/>
+              <p>Streaks feature in progress</p>
+            </div>
+          </aside>
+
+        </div>
+      }
       
     </div>
   )
