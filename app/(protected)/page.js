@@ -53,26 +53,27 @@ export default function Dashboard () {
         <h1>{generateGreeting()} {formattedName}</h1>
       </header>
   
-      <div className={styles.dashboard_main_content}>
-        <div className={styles.dashboard_main_widgets_container}>
-          {loading 
-            ? <ClientLoading/> 
-            : <ProgressWidget 
-                toggleForm={() => setFormVisible(true)} 
-                formattedWindow={formatTimeFrame(getTimeFrame.start, getTimeFrame.end)}
-              />
-          }
-        </div>
+      {loading ? <ClientLoading/> 
+        :
+        <div className={styles.dashboard_main_content}>
+          <div className={styles.dashboard_main_widgets_container}>
 
-        <aside className={styles.dashboard_side_widgets_container}>
-          {loading 
-            ?  <ClientLoading/> 
-            : <CheckListWidget 
-                habits={processedHabits} 
-              /> 
-          }
-        </aside>
-      </div>
+              <ProgressWidget 
+                  toggleForm={() => setFormVisible(true)} 
+                  formattedWindow={formatTimeFrame(getTimeFrame.start, getTimeFrame.end)}
+                />
+            
+          </div>
+
+          <aside className={styles.dashboard_side_widgets_container}>
+          
+              <CheckListWidget 
+                  habits={processedHabits} 
+                /> 
+            
+          </aside>
+        </div>
+      }
 
       {formVisible && <HabitForm onClose={() => setFormVisible(false)} status={formVisible}/>}
     </div>
