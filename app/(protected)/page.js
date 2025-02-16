@@ -31,13 +31,26 @@ export default function Dashboard () {
     return `${format(start, "M/d")} - ${format(end, "M/d")}`
   }
 
+  // Greeting Formatting
+  let formattedName = authUser.firstName.charAt(0).toUpperCase() + authUser.firstName.slice(1).toLowerCase()
+  let time = new Date().getHours()
+  const generateGreeting = () => {
+    if (time < 12 && time > 3) {
+      return "Good Morning,"
+    } else if (time >= 12 && time < 6 ) {
+      return "Good Afternoon,"
+    } else {
+      return "Good Evening,"
+    }
+  }
+  
  
 
   return (
     <div className={`${styles.dashboard_page} page`}>
 
       <header className={styles.dashboard_header}>
-        <h1>Hi there, {authUser.firstName}!</h1>
+        <h1>{generateGreeting()} {formattedName}</h1>
       </header>
   
       <div className={styles.dashboard_main_content}>
