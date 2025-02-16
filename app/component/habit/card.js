@@ -49,7 +49,6 @@ function CardModal ({isOpen, onClose, deleteHabit, id}) {
   }, [isOpen, modalRef, onClose])
   return (
     <div className={styles.card_modal} ref={modalRef}>
-      <button className={styles.edit_btn}><Wrench/>Edit Habit</button>
       <button className={styles.delete_btn} onClick={() => deleteHabit(id)}><Trash/>Delete Habit</button>
     </div>
 
