@@ -8,11 +8,12 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
     // let unchecked = habits.filter(habit => habit.lastCheck !== null)
     const today = new Date().setHours(0, 0, 0, 0)
     const formattedToday = new Date(today).toLocaleString("en-US", {weekday: "short"})
+    const longFormattedToday = new Date(today).toLocaleString("en-US", {weekday: "long"})
 
   return (
     <div className={styles.checklist_widget}>
         <header className={styles.checklist_header}>
-            <h2>Today's Checklist</h2>
+            <h2>{longFormattedToday}'s Checklist</h2>
             {/* <p className={styles.checklist_counter}>
                 {`( ${unchecked.length} / ${habits.length} )`}
             </p> */}
