@@ -78,7 +78,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
         </div>
       
         <ul className={styles.progress_list}>
-          <div className={styles.progress_dates}>
+          {processedHabits.length > 0 && <div className={styles.progress_dates}>
               {display === "grid" && 
                 (progressWindow === "Week") &&
                    <div className={styles.week_dates}>
@@ -91,7 +91,7 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
                     <p>Sun</p>
                   </div>
               }
-          </div>
+          </div>}
           {processedHabits.length > 0 
             ? processedHabits.map(habit => { // change this so it maps from filtered habits
                 return (
