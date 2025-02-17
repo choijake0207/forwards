@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import styles from "../styles/alert.module.css"
+import { X } from 'phosphor-react'
 
 const Alert = ({message, type, onClose}) => {
     useEffect(() => {
@@ -17,7 +18,7 @@ const Alert = ({message, type, onClose}) => {
             className={styles.alert_box_close_btn}
             onClick={onClose}
         >
-            X
+            <X/>
         </button>
         <p className={styles.alert_box_msg}>{message}</p>
     
