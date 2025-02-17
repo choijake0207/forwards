@@ -1,6 +1,6 @@
 import React, {useContext, useRef, useState, useEffect} from 'react'
 import styles from "../../styles/habitCard.module.css"
-import { XCircle, CheckCircle, DotsThreeVertical, ArrowCounterClockwise, Trash, Wrench } from 'phosphor-react'
+import { X, Check, DotsThreeVertical, ArrowCounterClockwise, Trash, Wrench } from 'phosphor-react'
 import { HabitContext } from '@/context/HabitContext'
 
 export default function Card({name, type, color, id, isChecked, isToday}) {
@@ -9,7 +9,7 @@ export default function Card({name, type, color, id, isChecked, isToday}) {
   return (
     <article className={`${styles.habit_card} ${styles[color]} ${isChecked ? styles.completed : styles.incomplete} ${isToday ? styles.active : styles.inactive}`}>
         <div className={styles.card_header}>
-            {type === "START" ? <CheckCircle/> : <XCircle/>}
+            {type === "START" ? <Check/> : <X/>}
             <p className={styles.card_title}>{name}</p>
             <button className={styles.modal_btn} onClick={() => setModalOpen(true)}>
               <DotsThreeVertical/>
