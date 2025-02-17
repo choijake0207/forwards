@@ -33,8 +33,6 @@ model Habit {
  type Type
  frequency Frequency 
  daysOfWeek Json?
- weeklyGoal Int
- status Status @default(LIVE)
  lastCheck DateTime?
  createdAt DateTime @default(now())
  checkIns CheckIn[]
