@@ -13,7 +13,6 @@
     background: none;
     border: 1px solid var(--subtle-border);
     border-left: 3px solid var(--current-color);
-    opacity: .4;
 }
 .inactive_message {
     color: var(--secondary-text);
@@ -86,7 +85,9 @@
     font-weight: bold;
     background: none;
     padding: 5px;
-    width: 100%;
+    width: fit-content;
+    align-self: flex-end;
+    border: 1px solid red;
     border-radius: 5px;
     cursor: pointer;
     z-index: 2;
