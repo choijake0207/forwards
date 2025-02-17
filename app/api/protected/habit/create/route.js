@@ -34,7 +34,6 @@ export async function POST (request) {
                 type: type,
                 frequency: frequency,
                 daysOfWeek: daysOfWeek || [],
-                weeklyGoal: frequency === "DAILY" ? 7 : daysOfWeek.length
 
             }
         })
