@@ -89,10 +89,10 @@ export const HabitProvider = ({children}) => {
     useEffect(() => {
         if (rawHabits && rawHabits.length > 0) {
             setProcessedHabits(
-                rawHabits ? rawHabits.map(habit => ({
+                rawHabits.map(habit => ({
                     ...habit,
                     days: generateDayObjects(habit)
-                })) : []
+                })) 
             );
         }
     }, [rawHabits, getTimeFrame]);
