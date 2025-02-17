@@ -26,8 +26,8 @@ export async function GET (request) {
             orderBy: {createdAt: "asc"}
         })
      
-        if (!habits) {
-            return NextResponse.json({error: "No Habits Exist"})
+        if (habits.length === 0) {
+            return NextResponse.json({error: "No Habits Exist"}, {status: 404})
         }
         return NextResponse.json({habits}, {status: 200 })
     } catch (error) {
