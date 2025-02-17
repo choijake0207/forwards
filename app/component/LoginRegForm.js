@@ -4,7 +4,7 @@ import styles from "../styles/logreg.module.css"
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { AuthContext } from '@/context/AuthContext'
-
+import Alert from './Alert'
 const LoginRegForm = ({type}) => {
 
     const [firstName, setFirstName] = useState("")
@@ -13,6 +13,11 @@ const LoginRegForm = ({type}) => {
     const [password, setPassword] = useState("")
     const router = useRouter()
     const {login, register} = useContext(AuthContext)
+    const [alert, setAlert] = useState(null)
+
+    const triggerAlert = (message, type) => {
+        setAlert({message, type})
+    }
 
 
     const handleRegister = async(e) => {
@@ -25,9 +30,10 @@ const LoginRegForm = ({type}) => {
             setPassword("")
             router.push("/")
         } catch (error) {
+            triggerAlert(error.message, "Failure")
             console.error("Error submitting form:", error)
         }
-    }
+    } 
 
     const handleLogin = async(e) => {
         e.preventDefault()
@@ -37,15 +43,16 @@ const LoginRegForm = ({type}) => {
             setPassword("")
             router.push("/")
         } catch (error) {
-            console.error("Error logging in:", error)
+            triggerAlert(error.message, "Failure")
+            console.error(error)
         }
     }
 
   return (
     <>
-       
+        {alert && <Alert message={alert.message} type={alert.type} onClose={() => setAlert(null)}/>}
         {type === "login" ? 
-
+            
             <form className={`${styles.logreg_form} ${styles.login_form}`} onSubmit={handleLogin}>
                 <label>Username</label>
                 <input 
