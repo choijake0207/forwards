@@ -1,34 +1,37 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Liter&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Liter&display=swap');
 
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 :root {
-  --primary-theme: rgb(42, 131, 226);
-  --bg: rgb(28, 28, 29);
+  --primary-theme: rgb(52, 114, 231);
+  --bg: rgb(21, 21, 22);
+  --fg: rgb(29, 29, 30);
   --primary-text: white;
   --secondary-text: rgb(137, 137, 137);
-  --secondary-bg: rgb(22, 22, 22);
-  --nav-highlight: rgb(19, 19, 19);
+  --secondary-bg: rgb(18, 18, 19);
+  --nav-highlight: rgb(32, 32, 32);
+  --subtle-border: rgb(35, 35, 35);
   /* color schema */
   --red: rgb(223, 59, 59);
   --orange: rgb(243, 138, 26);
-  --yellow: rgb(255, 195, 30);
-  --green: rgb(97, 204, 89);
-  --blue: rgb(84, 133, 238);
+  --yellow: rgb(227, 160, 16);
+  --green: rgb(13, 186, 65);
+  --blue: rgb(50, 119, 239);
   --purple: rgb(115, 53, 232);
   --pink: rgb(246, 51, 103);
 }
-/* body.light {{
 
-}} */
+
+
 body {
   color: var(--primary-text);
   background: var(--bg);
-  font-family: "Inter";
+  font-family: "Liter";
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -45,3 +48,10 @@ a {
 }
 
 
+.page {
+  padding: 25px;
+}
+
+nextjs-portal {
+  display: none
+}
