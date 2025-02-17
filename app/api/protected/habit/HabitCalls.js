@@ -20,8 +20,8 @@ export async function createHabitAPI(habit) {
 
     } catch (error) {
         console.error("Error Creating Habit", error)
-        throw console.error();
-    }
+        throw error
+    } 
 }
 
 // Fetch All Habits by User
@@ -43,7 +43,7 @@ export async function fetchHabitsAPI() {
         return data.habits
     } catch (error) {
         console.error("Failed To Fetch Habits", error)
-        throw console.error()
+        throw error
     }
 }
 
@@ -66,7 +66,7 @@ export async function deleteHabitAPI (habitId) {
         return data
     } catch (error) {
         console.error("Failed To Delete Habit", error)
-        throw console.error()
+        throw error
     }
 }
 // Fetch Single Habit By Id (considering just filtering from habitContext)
