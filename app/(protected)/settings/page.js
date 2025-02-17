@@ -43,7 +43,7 @@ export default function SettingsPage() {
       setPasswordForm({old: "", new: ""})
       setEdit(false)
     } catch (error) {
-      triggerAlert(error, "Failure")
+      triggerAlert(error.message, "Failure")
       console.error(error)
     }
   }
