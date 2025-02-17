@@ -9,8 +9,9 @@ import ClientLoading from '@/app/component/ClientLoading'
 import { Wrench } from "phosphor-react"
 export default function Analytics() {
 
-  const {rawHabits, loading, optimisticCheckIns} = useContext(HabitContext)
+  const {rawHabits, loading, optimisticCheckIns, fetchHabits} = useContext(HabitContext)
 
+  console.log("raw habits", rawHabits)
   // get date of first habit creation (starting point for graph component)
   const firstHabitDate = useMemo(() => {
     if (!rawHabits || rawHabits.length === 0) return new Date()
@@ -62,8 +63,18 @@ export default function Analytics() {
   
 
     // total check ins
-   let totalCheckIns = []
-   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {totalCheckIns.push(checkIn)}))
+  // const totalCheckIns = useMemo(() => {
+  //   let checkIns = []
+  //   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {checkIns.push(checkIn)}))
+  //   return checkIns.length
+  // }, [analyticsHabits])
+  let checks = 0
+  const totalChecks = useMemo(() => {
+    analyticsHabits.forEach(habit => {
+      checks += habit.days.filter(day => day.isChecked).length
+    })
+  })
+
 
 
 
@@ -126,7 +137,7 @@ export default function Analytics() {
               </div>
               <div className={styles.total_check_widget}>
                 <p className={styles.widget_label}>Total Check Ins:</p>
-                <p className={styles.widget_data}>{totalCheckIns.length}</p>
+                <p className={styles.widget_data}>{checks}</p>
               </div> 
               <div className={styles.avg_rate_widget}>
                 <p className={styles.widget_label}>Avg. Check In Rate:</p>
