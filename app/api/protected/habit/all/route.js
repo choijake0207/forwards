@@ -26,10 +26,10 @@ export async function GET (request) {
             orderBy: {createdAt: "asc"}
         })
      
-        if (habits.length === 0) {
-            return NextResponse.json({error: "No Habits Exist"}, {status: 404})
-        }
-        return NextResponse.json({habits}, {status: 200 })
+        // if (habits.length === 0) {
+        //     return NextResponse.json({error: "No Habits Exist"}, {status: 404})
+        // }
+        return NextResponse.json({habits: habits.length > 0 ? habits : []}, {status: 200 })
     } catch (error) {
         console.error("Error Fetching Habits", error)
         return NextResponse.json({error: "Failed to fetch habits"}, {status: 500})
