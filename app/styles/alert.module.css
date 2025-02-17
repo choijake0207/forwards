@@ -8,9 +8,10 @@
     position: absolute;
     width: 300px;
     height: 50px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2), -5px -5px 20px rgba(0, 0, 0, 0.2);
     animation: slide-in .3s ease forwards;
     top: 50px;
+    z-index: 1000;
 }
 .alert_box svg {
     margin-top: 5px;
@@ -47,8 +48,8 @@
         transform: translateY(-300%)
     }
 }
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .alert_box {
         top: 70px;
     }
-}
+} */
