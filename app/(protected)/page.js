@@ -15,6 +15,7 @@ export default function Dashboard () {
   const {authUser} = useContext(AuthContext)
   const {
     fetchHabits,
+    rawHabits,
     getTimeFrame, 
     processedHabits,
     loading
@@ -24,6 +25,8 @@ export default function Dashboard () {
   // trigger fetchHabits on dashboard mount
   useEffect(() => {
     fetchHabits()
+    console.log("dashboard fetch processed:",processedHabits)
+    console.log("dashboard fetch raw:", rawHabits)
   }, [])
 
   // FORMAT TIME FRAME FOR UI
