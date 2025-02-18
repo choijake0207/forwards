@@ -83,7 +83,14 @@ export default function SettingsPage() {
             {
               edit ?
                 <form className={styles.password_form} onSubmit={handleSubmit}>
-                  <label>Old Password</label>
+                  <label>Old Password
+                    <span className={`
+                      ${styles.mobile_error}
+                      ${alert && alert.message === "Incorrect Old Password" ? styles.active_error : ""}
+                    `}>
+                      Password Incorrect
+                    </span>
+                  </label>
                   <input
                     type="password"
                     required
