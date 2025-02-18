@@ -4,9 +4,9 @@
     height: 100vh;
     position: relative;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     display: none;
-}
+} */
 .protected_floating_tool {
     position: fixed;
     top: 20px;
