@@ -1,5 +1,13 @@
 # Forward
-![localhost_3000_ (1)](https://github.com/user-attachments/assets/2298a0dc-fb5c-4ed9-afe1-d5e8cdc808e1)
+
+
+  <img src="https://github.com/user-attachments/assets/2298a0dc-fb5c-4ed9-afe1-d5e8cdc808e1" height="300"/>
+  <img src="https://github.com/user-attachments/assets/ae0fc69b-ff1b-4bc1-8deb-bde9b338f50d" height="300"/>
+
+
+
+
+
 
 Forward is a habit tracking application based off of a previous full-stack application that I had built. The purpose of this project was to mainly improve my full stack capabilities along with handling frequent data interactions. This repository contains all the code for the user portal of Forward seperate from the landing page (currently being built).
 
