@@ -65,14 +65,18 @@ export const HabitProvider = ({children}) => {
         while (current <= getTimeFrame.end) {
             let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
             let formattedCurrent = format(current, "yyyy-MM-dd")
-            let checkInKey = `${habit.id}-${new Date (new Date(current).setHours(0,0,0,0))}`
+            let checkInKey = `${habit.id}-${current.toISOString().split("T")[0]}`
             // is today a check in day (boolean)
             const isCheckInDay = habit.frequency === "DAILY" || Array.isArray(habit.daysOfWeek) && habit.daysOfWeek.includes(stringFormat)
             // has today been checked (boolean)
             const isChecked = 
                 optimisticCheckIns.current.has(checkInKey) ?
                     optimisticCheckIns.current.get(checkInKey)
-                    : habit.checkIns.some(checkIn => format(new Date(checkIn.date).setHours(0,0,0,0), "yyyy-MM-dd") === formattedCurrent)
+                    : habit.checkIns.some(checkIn => {
+                        let checkInDate = new Date(checkIn.date)
+                        let checkInFormatted = checkInDate.toISOString().split("T")[0]
+                        return checkInFormatted === formattedCurrent;
+                    })
             // append booleans and date as object into days array
             days.push({
                 date: current,
