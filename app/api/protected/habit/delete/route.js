@@ -22,21 +22,20 @@ export async function DELETE (request) {
         const {habitId} = await request.json()
         const prisma = new PrismaClient()
 
-        const habit = await prisma.habit.findFirst({
+        const target = await prisma.habit.findFirst({
             where: {
                 id: habitId,
                 userId: extractedId
             }
         })
-        console.log(habit)
 
-        if (!habit) {
+        if (!target) {
             NextResponse.json({error: "Habit Doesn't Exist"})
         }
 
         await prisma.habit.delete({
             where: {
-                id: habit.id
+                id: target.id
             }
         })
 
