@@ -54,6 +54,9 @@
     display: none;
 }
 
-.active_error {
-    display: block;
+@media (max-width: 600px) {
+    .active_error {
+        display: block;
+    }
+    
 }
