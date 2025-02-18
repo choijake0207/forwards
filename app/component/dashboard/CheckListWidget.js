@@ -32,7 +32,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                     const checkInKey = `${habit.id}-${new Date().toISOString().split("T")[0]}`
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)
-                        : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0) === today
+                        : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0).valueOf() === today
                     const checkInToday = habit.frequency === "DAILY" || habit.daysOfWeek.includes(formattedToday)
                     return (
                         <Card
