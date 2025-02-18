@@ -24,7 +24,6 @@ export const HabitProvider = ({children}) => {
         try {
             const response = await fetchHabitsAPI()
             setRawHabits(response)
-            console.log("Initial Fetch Raw", response)
             // clear useRef optimistic data once updated data is fetched
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
@@ -87,7 +86,7 @@ export const HabitProvider = ({children}) => {
 
  // PROCESS HABITS BY APPENDING DAYS ARRAY BASED ON TF
     useEffect(() => {
-        if (rawHabits && rawHabits.length > 0) {
+        if (rawHabits) {
             setProcessedHabits(
                 rawHabits.map(habit => ({
                     ...habit,
@@ -164,7 +163,6 @@ export const HabitProvider = ({children}) => {
 
     // DELETE HABIT
     const deleteHabit = async (habitId) => {
-        console.log("context received", habitId)
         try {
             const response = await deleteHabitAPI(habitId)
             await fetchHabits()
