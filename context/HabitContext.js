@@ -23,6 +23,12 @@ export const HabitProvider = ({children}) => {
         try {
             const response = await fetchHabitsAPI()
             setRawHabits(response)
+            setProcessedHabits(
+                rawHabits.map(habit => ({
+                    ...habit,
+                    days: generateDayObjects(habit)
+                })) 
+            );
             // clear useRef optimistic data once updated data is fetched
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
