@@ -28,6 +28,8 @@
 .logreg_form label {
     color: var(--secondary-text);
     font-size: 13px;
+    display: flex;
+    justify-content: space-between
 }
 
 .logreg_form button {
@@ -37,6 +39,7 @@
     color: var(--primary-text);
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 .logreg_form_message {
     color: vaR(--secondary-text);
@@ -45,4 +48,12 @@
 .logreg_form a {
     color: var(--primary-theme);
     font-weight: 500;
+}
+.mobile_error {
+    color: var(--red);
+    display: none;
+}
+
+.active_error {
+    display: block;
 }

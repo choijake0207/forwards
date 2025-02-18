@@ -26,7 +26,7 @@ const LoginRegForm = ({type}) => {
             const response = await register(firstName, lastName, username, password)
             setFirstName("")
             setLastName("")
-            setUsername("")
+            setUsername("") 
             setPassword("")
             router.push("/")
         } catch (error) {
@@ -54,14 +54,32 @@ const LoginRegForm = ({type}) => {
         {type === "login" ? 
             
             <form className={`${styles.logreg_form} ${styles.login_form}`} onSubmit={handleLogin}>
-                <label>Username</label>
+                <label>Username 
+                    <span 
+                        className={`
+                            ${styles.mobile_error}
+                            ${alert && alert.message === "Username Does Not Exist" ? styles.active_error : ""}
+                        `}
+                    >
+                        Username Doesn't Exist
+                    </span>
+                </label>
                 <input 
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
-                <label>Password</label>
+                <label>Password 
+                    <span 
+                        className={`
+                            ${styles.mobile_error}
+                            ${alert && alert.message === "Incorrect Password" ? styles.active_error : ""}
+                        `}
+                    >
+                    Password Incorrect
+                    </span>
+                </label>
                 <input
                     type="password"
                     value={password}
@@ -89,7 +107,15 @@ const LoginRegForm = ({type}) => {
                     onChange={(e) => setLastName(e.target.value)}
                     required
                 />
-                <label>Username</label>
+                <label>Username 
+                    <span className={`
+                            ${styles.mobile_error}
+                            ${alert && alert.message === "Username Already Exists" ? styles.active_error : ""}
+                        `}
+                    >
+                        Username Already Taken
+                    </span>
+                </label>
                 <input 
                     type="text"
                     value={username}
