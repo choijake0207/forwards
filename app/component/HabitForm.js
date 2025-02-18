@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import styles from "../styles/habitForm.module.css"
-import { XCircle, CheckCircle, SunDim } from 'phosphor-react'
+import { XCircle, CheckCircle, SunDim, X } from 'phosphor-react'
 import { createHabitAPI } from '../api/protected/habit/HabitCalls'
 import { AuthContext } from '@/context/AuthContext'
 import { HabitContext } from '@/context/HabitContext'
@@ -114,7 +114,7 @@ const HabitForm = ({onClose, status}) => {
                                 <p>Step 1 of 2</p>
                                 <h1>Create A New Habit</h1>
                     
-                                <button onClick={handleClose} className={styles.habit_form_exit_btn}>X</button>
+                                <button onClick={handleClose} className={styles.habit_form_exit_btn}><X/></button>
                             
                             </header>
                             <label>Name your habit <span className={styles.input_character_limit}>15 characters max</span></label>
