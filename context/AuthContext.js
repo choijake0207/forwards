@@ -82,7 +82,15 @@ export const AuthProvider = ({children}) => {
             try {
                 const token = localStorage.getItem("token")
                 if (!token) {
-                    throw new Error("No Token Found")
+                    setAuthUser({
+                        id: "",
+                        firstName: "",
+                        username: "",
+                        status: false
+                    })
+                    setLoading(false)
+
+                    return
                 }
                 const response = await fetch("/api/auth/check", {
                     method: "POST",
@@ -105,7 +113,7 @@ export const AuthProvider = ({children}) => {
                 console.error("User Verification Failed", error)
                 setAuthUser({
                     id: "",
-                    firstName: "",
+                    firstName: "",  
                     username: "",
                     status: false,
                 })
