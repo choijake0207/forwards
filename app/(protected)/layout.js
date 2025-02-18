@@ -67,7 +67,7 @@ export default function ProtectedLayout({children}) {
 
   return (
     <HabitProvider>
-      <div className={`${styles.protected_layout} protected_layout ${darkMode ? "dark" : "light"}`}>
+      <div className={`${styles.protected_layout}`}>
         <div className={styles.protected_floating_tool}>
           <button 
             className={`${styles.hamburger_menu_btn} ${navVisible && `${styles.visible}`}`}
