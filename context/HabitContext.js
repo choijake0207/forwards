@@ -18,7 +18,6 @@ export const HabitProvider = ({children}) => {
     // SOLUTION: useRef for render persistence
 
     const optimisticCheckIns = useRef(new Map())
-
     // INITIAL ALL HABITS FETCH
     const fetchHabits = async () => {
         try {
@@ -27,7 +26,8 @@ export const HabitProvider = ({children}) => {
             // clear useRef optimistic data once updated data is fetched
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
-                    const checkInKey = `${habit.id}-${new Date(new Date(checkIn.date).setHours(0,0,0,0))}`;
+                    let current = new Date().toISOString().split("T")[0]
+                    const checkInKey = `${habit.id}-${current}`;
                     if (optimisticCheckIns.current.has(checkInKey)) {
                         optimisticCheckIns.current.delete(checkInKey); 
                     }
@@ -64,8 +64,8 @@ export const HabitProvider = ({children}) => {
         let days = []
         while (current <= getTimeFrame.end) {
             let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
-            let formattedCurrent = format(current, "yyyy-MM-dd")
-            let checkInKey = `${habit.id}-${current.toISOString().split("T")[0]}`
+            let formattedCurrent = current.toISOString().split("T")[0]
+            let checkInKey = `${habit.id}-${formattedCurrent}`
             // is today a check in day (boolean)
             const isCheckInDay = habit.frequency === "DAILY" || Array.isArray(habit.daysOfWeek) && habit.daysOfWeek.includes(stringFormat)
             // has today been checked (boolean)
@@ -103,7 +103,7 @@ export const HabitProvider = ({children}) => {
  // CREATE CHECKIN
     const checkIn = async (habitId) => {
         const previousHabits = [...processedHabits]
-        const today = new Date ( new Date().setHours(0,0,0,0))
+        const today = new Date().toISOString().split("T")[0]
         // store in ref for optimistic render persistence
         optimisticCheckIns.current.set(`${habitId}-${today}`, true)
         try {
@@ -112,7 +112,7 @@ export const HabitProvider = ({children}) => {
             prev.map(habit => 
               habit.id === habitId ? 
                 {...habit, 
-                  lastCheck: new Date(), 
+                  lastCheck: new Date().toISOString().split("T")[0], 
                   checkIns: [...habit.checkIns, {date: today}],
                   days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: today}]})
                 } 
@@ -130,7 +130,7 @@ export const HabitProvider = ({children}) => {
       // DELETE CHECKIN
     const undoCheck = async (habitId) => {
         const previousHabits = [...processedHabits]
-        const today = new Date(new Date().setHours(0,0,0,0))
+        const today = new Date().toISOString().split("T")[0]
         try {
         // delete ref persistent optimistic data
         optimisticCheckIns.current.set(`${habitId}-${today}`, false)
