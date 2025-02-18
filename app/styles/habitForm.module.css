@@ -11,7 +11,7 @@
 }
 .habit_form_container {
     width: 800px;
-    height: 600px;
+    height: 650px;
     margin-top: 50px;
     padding: 50px;
     position: relative;
@@ -249,7 +249,9 @@
     margin-top: auto;
     font-size: 15px;
     font-weight: 600;
+    margin-top: auto
 }
+
     .habit_form_btn_next {
         background: var(--primary-theme);
         align-self: flex-end;
@@ -261,6 +263,7 @@
         margin-top: auto;
         display: flex;
         justify-content: space-between;
+
     }
     .habit_form_btn_prev {
         background: none;
@@ -303,9 +306,6 @@
 }
 
 @media (max-width: 600px) {
-    .habit_form_container {
-        height: 90%;
-    }
     .habit_form_container p:not(.step_2_display) {
         font-size: 12px;
     }
@@ -314,6 +314,8 @@
     }
     .habit_form_container {
         padding: 25px; 
+        height: 650px;
+
     }
     .habit_form_step_1 {
         gap: 10px;
@@ -347,14 +349,22 @@
         font-size: 20px;
     }
     .habit_form_freq_selector {
-        width: 80%;
+        width: 75vw;
     }
     .days_container {
         gap: 7px;
+        flex-wrap: wrap;
     }
     .habit_form_day_btn {
         width: 35px;
         height: 35px;
     }
-
+   
+    .habit_form_btn {
+        margin-top: auto;
+    }
+    .habit_form_btn_container {
+        margin-top: auto;
+    }
+  
 }
