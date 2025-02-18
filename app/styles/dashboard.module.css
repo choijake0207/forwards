@@ -35,6 +35,7 @@
 @media (max-width: 600px) {
     .dashboard_page {
         padding-top: 70px;
+        padding-bottom: 150px;
     }
     .dashboard_page {
         gap: 10px;
