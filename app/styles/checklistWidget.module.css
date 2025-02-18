@@ -45,6 +45,9 @@
         width: 100%;
         align-self: center;
     }
+    .empty_checklist_message {
+        margin: auto
+    }
 }
 
 @media (max-width: 600px) {
