@@ -14,7 +14,7 @@ export default function ProgressCard({habit, displayType, days}) {
         </p>
         {
             displayType === "grid" ?
-            <ProgressGrid days={days} color={habit.color}/>
+            <ProgressGrid days={days} color={habit.color} habit={habit}/>
             : <ProgressBar days={days} color={habit.color}/>
         }
     </div>
