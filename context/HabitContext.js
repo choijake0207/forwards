@@ -23,9 +23,7 @@ export const HabitProvider = ({children}) => {
     const fetchHabits = async () => {
         try {
             const response = await fetchHabitsAPI()
-            console.log("State before setting", rawHabits)
             setRawHabits(response)
-            console.log("State after setting", rawHabits)
             // clear useRef optimistic data once updated data is fetched
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
