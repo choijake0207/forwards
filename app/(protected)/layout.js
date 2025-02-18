@@ -6,14 +6,12 @@ import { AuthContext } from '@/context/AuthContext'
 import { HabitProvider } from '@/context/HabitContext'
 import { useRouter, usePathname } from 'next/navigation'
 import ClientLoading from '../component/ClientLoading'
-import { ThemeContext } from '@/context/ThemeContext'
 import { SquaresFour, Users, GearSix, User, SignOut, House, ChartPie, Bell, List   } from 'phosphor-react'
 
 export default function ProtectedLayout({children}) {
   const {authUser, loading, logout} = useContext(AuthContext)
   const router = useRouter()
   const pathname = usePathname()
-  const {darkMode, toggleMode} = useContext(ThemeContext)
 
   // floating tool modal toggle
   const [floatingToolModal, setFloatingToolModal] = useState(false)
