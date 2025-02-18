@@ -37,8 +37,8 @@ export default function ProgressWidget({toggleForm, formattedWindow}) {
       <header className={styles.progress_header}>
         <div className={styles.header_date}>
           <div className={styles.date_btn_container}>
-            <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev - 1)} disabled={progressWindow === "All"}><CaretLeft/></button>
-            <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev + 1)} disabled={progressWindow === "All"}><CaretRight/></button>
+            <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev - 1)} disabled={progressWindow === "All" || processedHabits.length === 0}><CaretLeft/></button>
+            <button className={styles.date_btn} onClick={() => setWindowOffset(prev => prev + 1)} disabled={progressWindow === "All" || processedHabits.length === 0}><CaretRight/></button>
           </div>
           <h2>{formattedWindow}</h2>
           {windowOffset !== 0 && progressWindow !== "All" && <button className={styles.revert_offset_btn} onClick={() => setWindowOffset(0)}>Today</button>}
