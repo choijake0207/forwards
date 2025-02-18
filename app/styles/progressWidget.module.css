@@ -211,8 +211,9 @@
         padding: 10px;
     }
     .form_toggle_btn {
-        padding: 7px;
+        padding: 5px;
         width: 120px;
+        font-size: 12px;
     }
   
     .date_interval_selector button {
@@ -239,8 +240,10 @@
         gap: 10px;
     }
     .form_toggle_btn {
-        font-size: 12px;
-        padding: 7px;
+        font-size: 11px;
+        padding: 3px;
+        padding-top: 6px;
+        padding-bottom: 6px;
         width: 110px;
     }
     .date_interval_selector, .display_type_selector {
