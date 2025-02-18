@@ -26,7 +26,6 @@ export default function Dashboard () {
     fetchHabits()
   }, [])
 
-  console.log(processedHabits)
   // FORMAT TIME FRAME FOR UI
   const formatTimeFrame = (start, end) => {
     return `${format(start, "M/d")} - ${format(end, "M/d")}`
