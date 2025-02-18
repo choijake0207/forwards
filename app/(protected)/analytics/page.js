@@ -73,7 +73,7 @@ export default function Analytics() {
     analyticsHabits.forEach(habit => {
       checks += habit.days.filter(day => day.isChecked).length
     })
-  })
+  }, [analyticsHabits])
 
 
 
