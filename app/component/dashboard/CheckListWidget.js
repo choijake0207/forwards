@@ -29,7 +29,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                     return bCheckInToday - aCheckInToday; // Move `true` values to the front
                 })
                 .map(habit => { 
-                    const checkInKey = `${habit.id}-${new Date(new Date().setHours(0,0,0,0))}`
+                    const checkInKey = `${habit.id}-${current.toISOString().split("T")[0]}`
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)
                         : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0) === today
