@@ -94,7 +94,7 @@
     align-items: center;
     gap: 5px;
     justify-content: right;
-    transition: .2s;
+    transition: .2s; 
 }
 .undo_check_btn:hover {
     color: white;
@@ -173,6 +173,13 @@
 }
 .delete_btn:hover {
     color: var(--red)
+}
+.habit_card.waiting {
+    cursor: wait;
+    opacity: .9;
+}
+.habit_card.waiting button {
+    cursor: wait !important;
 }
  
 @keyframes completion {
