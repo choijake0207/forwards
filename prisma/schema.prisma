@@ -33,7 +33,7 @@ model Habit {
  type Type
  frequency Frequency 
  daysOfWeek Json?
- lastCheck DateTime?
+ lastCheck String?
  createdAt DateTime @default(now())
  checkIns CheckIn[]
 }
@@ -44,7 +44,7 @@ model CheckIn {
   userId String
   habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  date DateTime
+  date String
   @@unique([habitId, date])
 
 }
