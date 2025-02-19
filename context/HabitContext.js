@@ -18,7 +18,6 @@ export const HabitProvider = ({children}) => {
     // SOLUTION: useRef for render persistence
 
     const optimisticCheckIns = useRef(new Map())
-    console.log(optimisticCheckIns)
     // INITIAL ALL HABITS FETCH
     const fetchHabits = async () => {
         try {
