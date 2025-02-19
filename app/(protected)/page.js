@@ -22,10 +22,6 @@ export default function Dashboard () {
   } = useContext(HabitContext)
   const [formVisible, setFormVisible] = useState(false)
 
-  // trigger fetchHabits on dashboard mount
-  useEffect(() => {
-    fetchHabits()
-  }, [])
 
   // FORMAT TIME FRAME FOR UI
   const formatTimeFrame = (start, end) => {
