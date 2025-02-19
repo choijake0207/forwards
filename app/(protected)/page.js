@@ -9,7 +9,7 @@ import CheckListWidget from '../component/dashboard/CheckListWidget'
 import ProgressWidget from '../component/dashboard/ProgressWidget'
 import {format} from 'date-fns'
 
-
+ 
 
 export default function Dashboard () {
   const {authUser} = useContext(AuthContext)
@@ -33,11 +33,11 @@ export default function Dashboard () {
   let time = new Date().getHours()
   const generateGreeting = () => {
     if (time < 12 && time > 3) {
-      return "Good Morning,"
-    } else if (time >= 12 && time < 6 ) {
-      return "Good Afternoon,"
+      return <h1>Good Morning, {formattedName} <img src="/sun.png"/></h1>
+    } else if (time >= 12 && time < 18 ) {
+      return <h1>Good Afternoon, {formattedName} <img src="/sun(1).png"/></h1>
     } else {
-      return "Good Evening,"
+      return <h1>Good Evening, {formattedName} <img src="/moon.png"/></h1>
     }
   }
   
@@ -47,7 +47,7 @@ export default function Dashboard () {
     <div className={`${styles.dashboard_page} page`}>
 
       <header className={styles.dashboard_header}>
-        <h1>{generateGreeting()} {formattedName}</h1>
+        {generateGreeting()}
       </header>
   
       {loading ? <ClientLoading/> 
