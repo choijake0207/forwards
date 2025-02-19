@@ -63,7 +63,7 @@ function CardModal ({isOpen, onClose, handleDelete, id, submitting}) {
 
   return (
     <div className={`${styles.card_modal} `} ref={modalRef}>
-      <button className={styles.delete_btn} disable={submitting} onClick={() => handleDelete(id)}><Trash/>Delete Habit</button>
+      <button className={styles.delete_btn} disabled={submitting} onClick={() => handleDelete(id)}><Trash/>Delete Habit</button>
     </div>
 
   )

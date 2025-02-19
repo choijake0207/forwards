@@ -174,13 +174,15 @@
 .delete_btn:hover {
     color: var(--red)
 }
+.delete_btn:disabled {
+    opacity: .7;
+    cursor: wait;
+}
 .habit_card.waiting {
     cursor: wait;
-    opacity: .9;
+    opacity: .7;
 }
-.habit_card.waiting button {
-    cursor: wait !important;
-}
+
  
 @keyframes completion {
     0% {
