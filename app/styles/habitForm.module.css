@@ -274,6 +274,7 @@
     }
     .habit_form_btn_submit:disabled {
         opacity: .5;
+        cursor: wait;
     }
 
     .habit_form_step_2.waiting {
