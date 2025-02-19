@@ -12,6 +12,7 @@
 Forward is a habit tracking application based off of a previous full-stack application that I had built. The purpose of this project was to mainly improve my full stack capabilities along with handling frequent data interactions. This repository contains all the code for the user portal of Forward seperate from the landing page (currently being built).
 
 You can see the live app here => https://forward-ashen.vercel.app/
+- Demo Account (Username: johnappleseed, Password: password)
 
 ## Tech Stack
 - Framework/Library: Next.js, Node.js
