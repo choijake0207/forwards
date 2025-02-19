@@ -21,6 +21,7 @@ export async function DELETE (request) {
         const {habitId} = await request.json()
         const today = new Date().setHours(0, 0, 0, 0)
         const normalizedToday = new Date(today) 
+        console.log(normalizedToday)
         const prisma = new PrismaClient()
         const target = await prisma.checkIn.findFirst({
             where: {
