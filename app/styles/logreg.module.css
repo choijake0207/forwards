@@ -56,6 +56,9 @@
 .logreg_form.waiting {
     cursor: wait;
 }
+.logreg_form button:disabled {
+    opacity: .6;
+}
 @media (max-width: 600px) {
     .active_error {
         display: block;
