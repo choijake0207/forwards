@@ -64,7 +64,7 @@ const LoginRegForm = ({type}) => {
         {alert && <Alert message={alert.message} type={alert.type} onClose={() => setAlert(null)}/>}
         {type === "login" ? 
             
-            <form className={`${styles.logreg_form} ${styles.login_form}`} onSubmit={handleLogin}>
+            <form className={`${styles.logreg_form} ${styles.login_form} ${submitting ? `${styles.waiting}` : ""}`} onSubmit={handleLogin}>
                 <label>Username 
                     <span 
                         className={`

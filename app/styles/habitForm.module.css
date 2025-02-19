@@ -276,6 +276,9 @@
         opacity: .5;
     }
 
+    .habit_form_step_2.waiting {
+        cursor: wait;
+    }
 
 @keyframes formAnimation{
     0% {    

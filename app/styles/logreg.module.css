@@ -53,7 +53,9 @@
     color: var(--red);
     display: none;
 }
-
+.logreg_form.waiting {
+    cursor: wait;
+}
 @media (max-width: 600px) {
     .active_error {
         display: block;

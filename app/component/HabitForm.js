@@ -165,7 +165,7 @@ const HabitForm = ({onClose, status}) => {
                     </form>
 
             ) : (
-                <form className={styles.habit_form_step_2}>
+                <form className={`${styles.habit_form_step_2} ${submitting ? `${styles.waiting}` : ""}`}>
                     <header className={styles.step_header}>
                         <p>Step 2 of 2</p>
                         <h1>Configure Your Habit</h1>
