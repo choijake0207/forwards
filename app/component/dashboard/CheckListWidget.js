@@ -14,7 +14,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
   return (
     <div className={styles.checklist_widget}>
         <header className={styles.checklist_header}>
-            <h2>{longFormattedToday}'s Checklist</h2>
+            <h2>{longFormattedToday}'s Checklist</h2> 
             {/* <p className={styles.checklist_counter}>
                 {`( ${unchecked.length} / ${habits.length} )`}
             </p> */}
@@ -30,7 +30,7 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                     return bCheckInToday - aCheckInToday; // Move `true` values to the front
                 })
                 .map(habit => { 
-                    let current = new Date().toISOString().split("T")[0]
+                    let current = new Date().setHours(0, 0, 0, 0)
                     const checkInKey = `${habit.id}-${current}`
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)

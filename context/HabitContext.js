@@ -18,21 +18,17 @@ export const HabitProvider = ({children}) => {
     // SOLUTION: useRef for render persistence
 
     const optimisticCheckIns = useRef(new Map())
+    console.log(optimisticCheckIns)
     // INITIAL ALL HABITS FETCH
     const fetchHabits = async () => {
         try {
             const response = await fetchHabitsAPI()
             setRawHabits(response)
-            setProcessedHabits(
-                rawHabits.map(habit => ({
-                    ...habit,
-                    days: generateDayObjects(habit)
-                })) 
-            );
+
             // clear useRef optimistic data once updated data is fetched
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
-                    let current = new Date().toISOString().split("T")[0]
+                    let current = new Date().setHours(0, 0, 0, 0)
                     const checkInKey = `${habit.id}-${current}`;
                     if (optimisticCheckIns.current.has(checkInKey)) {
                         optimisticCheckIns.current.delete(checkInKey); 
@@ -70,7 +66,7 @@ export const HabitProvider = ({children}) => {
         let days = []
         while (current <= getTimeFrame.end) {
             let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
-            let formattedCurrent = current.toISOString().split("T")[0]
+            let formattedCurrent = current.setHours(0, 0, 0, 0)
             let checkInKey = `${habit.id}-${formattedCurrent}`
             // is today a check in day (boolean)
             const isCheckInDay = habit.frequency === "DAILY" || Array.isArray(habit.daysOfWeek) && habit.daysOfWeek.includes(stringFormat)
@@ -79,9 +75,8 @@ export const HabitProvider = ({children}) => {
                 optimisticCheckIns.current.has(checkInKey) ?
                     optimisticCheckIns.current.get(checkInKey)
                     : habit.checkIns.some(checkIn => {
-                        let checkInDate = new Date(checkIn.date)
-                        let checkInFormatted = checkInDate.toISOString().split("T")[0]
-                        return checkInFormatted === formattedCurrent;
+                        let checkInDate = new Date(checkIn.date).setHours(0, 0, 0, 0)
+                        return checkInDate === formattedCurrent;
                     })
             // append booleans and date as object into days array
             days.push({
@@ -109,7 +104,7 @@ export const HabitProvider = ({children}) => {
  // CREATE CHECKIN
     const checkIn = async (habitId) => {
         const previousHabits = [...processedHabits]
-        const today = new Date().toISOString().split("T")[0]
+        const today = new Date().setHours(0, 0, 0, 0)
         // store in ref for optimistic render persistence
         optimisticCheckIns.current.set(`${habitId}-${today}`, true)
         try {
@@ -118,7 +113,7 @@ export const HabitProvider = ({children}) => {
             prev.map(habit => 
               habit.id === habitId ? 
                 {...habit, 
-                  lastCheck: new Date().toISOString().split("T")[0], 
+                  lastCheck: new Date().setHours(0, 0, 0, 0), 
                   checkIns: [...habit.checkIns, {date: today}],
                   days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: today}]})
                 } 
@@ -136,10 +131,13 @@ export const HabitProvider = ({children}) => {
       // DELETE CHECKIN
     const undoCheck = async (habitId) => {
         const previousHabits = [...processedHabits]
-        const today = new Date().toISOString().split("T")[0]
+        const today = new Date().setHours(0, 0, 0, 0)
         try {
         // delete ref persistent optimistic data
+  
         optimisticCheckIns.current.set(`${habitId}-${today}`, false)
+
+        
 
         setProcessedHabits(prev => 
             prev.map(habit => 
