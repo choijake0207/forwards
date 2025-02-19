@@ -149,7 +149,7 @@ export const HabitProvider = ({children}) => {
                 : habit
             )  
         )
-        const response = await deleteCheckInAPI({habitId})
+        const response = await deleteCheckInAPI({habitId, today})
         } catch (error) {
             console.error("Error Undoing Check", error)
             setProcessedHabits(previousHabits)
