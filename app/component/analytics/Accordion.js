@@ -32,11 +32,15 @@ export default function Accordion({habits}) {
                             <div className={`${styles.data_table}`}>
                                 <div className={styles.checkCt_data}>
                                     <p className={styles.data_label}>Check Ins:</p>
-                                    <p className={styles.data_display}>{habit.checkIns.length}</p>
+                                    <p className={styles.data_display}>{habit.days.filter(day => day.isChecked).length}</p>
                                 </div>
                                 <div className={styles.checkRt_data}>
                                     <p className={styles.data_label}>Rate:</p>
-                                    <p className={styles.data_display}>{Math.round((habit.checkIns.length / habit.days.length) * 100)}%</p>
+                                    <p className={styles.data_display}>
+                                        {Math.round((habit.days.filter(day => 
+                                            day.isChecked === true).length 
+                                            / habit.days.length) * 100)}%
+                                    </p>
                                 </div>
                                 <div className={styles.start_data}>
                                     <p className={styles.data_label}>Days Since Start:</p>

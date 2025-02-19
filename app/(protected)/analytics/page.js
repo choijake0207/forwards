@@ -11,7 +11,6 @@ export default function Analytics() {
 
   const {rawHabits, loading, optimisticCheckIns, fetchHabits} = useContext(HabitContext)
 
-  console.log("raw habits", rawHabits)
   // get date of first habit creation (starting point for graph component)
   const firstHabitDate = useMemo(() => {
     if (!rawHabits || rawHabits.length === 0) return new Date()
@@ -22,22 +21,23 @@ export default function Analytics() {
 
   // generate days array
   const generateAnalyticDays = (habit) => {
-    let current = new Date(new Date(habit.createdAt).setHours(0,0,0,0))
+    let current = new Date()
+    let formattedCurrent = current.setHours(0,0,0,0)
     let days = []
     let today = new Date()
 
     while (current <= today) {
-      let formattedCurrent = format(current, "yyyy-MM-dd" )
       let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
 
       // isCheckInDay Today
       const isCheckInDay = habit.frequency === "DAILY" || habit.daysOfWeek.includes(stringFormat)
 
       // optimistic check-in storage check
-      const checkInKey = `${habit.id}-${new Date(new Date(current).setHours(0,0,0,0))}`
+      const checkInKey = `${habit.id}-${formattedCurrent}`
+      console.log(checkInKey)
       const isChecked = optimisticCheckIns.current.has(checkInKey) 
         ? optimisticCheckIns.current.get(checkInKey)
-        : habit.checkIns.some(checkIn => format(new Date(checkIn.date).setHours(0,0,0,0), "yyyy-MM-dd") === formattedCurrent)
+        : habit.checkIns.some(checkIn => new Date(checkIn.date).setHours(0,0,0,0) === formattedCurrent)
 
       days.push({
         date: current,
@@ -58,22 +58,23 @@ export default function Analytics() {
       ...habit,
       days: generateAnalyticDays(habit)
     }))
-  }, [rawHabits])
+  }, [rawHabits, generateAnalyticDays])
     
+  console.log(analyticsHabits)
   
 
-    // total check ins
-  // const totalCheckIns = useMemo(() => {
-  //   let checkIns = []
-  //   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {checkIns.push(checkIn)}))
-  //   return checkIns.length
+  //   // total check ins
+  // // const totalCheckIns = useMemo(() => {
+  // //   let checkIns = []
+  // //   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {checkIns.push(checkIn)}))
+  // //   return checkIns.length
+  // // }, [analyticsHabits])
+  // let checks = 0
+  // const totalChecks = useMemo(() => {
+  //   analyticsHabits.forEach(habit => {
+  //     checks += habit.days.filter(day => day.isChecked).length
+  //   })
   // }, [analyticsHabits])
-  let checks = 0
-  const totalChecks = useMemo(() => {
-    analyticsHabits.forEach(habit => {
-      checks += habit.days.filter(day => day.isChecked).length
-    })
-  }, [analyticsHabits])
 
 
 
@@ -106,18 +107,26 @@ export default function Analytics() {
   }, [start, today, analyticsHabits])
 
 
+  // total check calculations
+  const totalCheckIns = () => {
+    let totalChecks = 0
+    analyticsHabits.forEach(habit => {
+      totalChecks += habit.days.filter(day => day.isChecked === true).length
+    })
+    return totalChecks
+  }
   // avg check in rate calculator
   let rateSum = dataSetGenerator.reduce((a, b) => a + b, 0)
   let avg = Math.round(rateSum/dataSetGenerator.length)
 
-
+  console.log(dataSetGenerator)
 
 
   return (
     <div className={`${styles.analytics} page}`}>
       <h1 className={styles.analytics_heading}>Analytics</h1>
 
-      {loading ? <ClientLoading/>
+      {loading && analyticsHabits ? <ClientLoading/>
         :
         <div className={styles.analytics_wrap}>
        
@@ -137,7 +146,7 @@ export default function Analytics() {
               </div>
               <div className={styles.total_check_widget}>
                 <p className={styles.widget_label}>Total Check Ins:</p>
-                <p className={styles.widget_data}>{checks}</p>
+                <p className={styles.widget_data}>{totalCheckIns()}</p>
               </div> 
               <div className={styles.avg_rate_widget}>
                 <p className={styles.widget_label}>Avg. Check In Rate:</p>
