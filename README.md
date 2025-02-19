@@ -11,14 +11,16 @@
 
 Forward is a habit tracking application based off of a previous full-stack application that I had built. The purpose of this project was to mainly improve my full stack capabilities along with handling frequent data interactions. This repository contains all the code for the user portal of Forward seperate from the landing page (currently being built).
 
-You can see the live app here => (not deployed on vercel yet)
-
+You can see the live app here => https://forward-ashen.vercel.app/
 
 ## Tech Stack
 - Framework/Library: Next.js, Node.js
 - DB: MySQL
 - ORM: Prisma
 - Misc: Chart.js, JWT
+
+## Updates 
+- 2/18/25: There might be a few bugs in the check in functionality due to the different time zones of users and servers. Currently being fixed!
 
 ## How/Why I Made It
 
@@ -28,6 +30,8 @@ Besides the fact that this was a great challenge to tackle as a still-learning s
 **How:**
 The how of this project can mostly be inferred through a quick skim of the code base and the tech stack. However, I'll note some things that I personally found very challenging. First, I struggled with how to best display habit check ins over a continuous time period. Rather than keeping track of time progression in the database, I decided to make a data processing layer in a centralized context file to append new day objects with boolean properties as time progressed. Second, there was a lot of optimistic rendering that had to be done with 3 major components requiring seamless UI updates (progress tracker, checklist, analytics graph). I traditionally would've opted for the "append response object to current state and rollback if error" method, however, with the data processing, this wouldn't have worked due to rerenders. As a result, I opted for a render persistent cache of optimistic objects with the useRef hook. Lastly, I have to say nothing was more frustrating than working with JS date objects and formatting them for calculations and UI.
 
-
+## Credits
+- The dashboard UI was inspired by Danny Sapio's https://tryconfetti.io/
+- SVG credits go to Freepik at https://www.flaticon.com/free-icons/user
 
 
