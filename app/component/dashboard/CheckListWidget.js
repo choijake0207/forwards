@@ -31,10 +31,11 @@ export default function CheckListWidget({habits, checkIn, undoCheck}) {
                 })
                 .map(habit => { 
                     let current = new Date().setHours(0, 0, 0, 0)
-                    const checkInKey = `${habit.id}-${current}`
+                    let stringCurrent = current.toString()
+                    const checkInKey = `${habit.id}-${stringCurrent}`
                     const isChecked = optimisticCheckIns.current.has(checkInKey) ? 
                         optimisticCheckIns.current.get(checkInKey)
-                        : habit.lastCheck && new Date(habit.lastCheck).setHours(0,0,0,0) === today
+                        : habit.lastCheck && habit.lastCheck === stringCurrent
                     const checkInToday = habit.frequency === "DAILY" || habit.daysOfWeek.includes(formattedToday)
                     return (
                         <Card

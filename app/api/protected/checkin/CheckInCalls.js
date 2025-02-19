@@ -1,7 +1,7 @@
 
 
 // create new checkin
-export async function createCheckInAPI ({habitId}) {
+export async function createCheckInAPI ({habitId, stringToday}) {
     try {
         const token  = localStorage.getItem("token")
         const response = await fetch("/api/protected/checkin/create", {
@@ -10,7 +10,7 @@ export async function createCheckInAPI ({habitId}) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({habitId})
+            body: JSON.stringify({habitId, stringToday})
         })
         if (!response.ok) {
             const errorData = await response.json()
@@ -25,7 +25,7 @@ export async function createCheckInAPI ({habitId}) {
 }
 
 //delete/undo checkin
-export async function deleteCheckInAPI ({habitId}) {
+export async function deleteCheckInAPI ({habitId, today}) {
     try {
         const token = localStorage.getItem("token")
         const response = await fetch("/api/protected/checkin/delete", {
@@ -34,7 +34,7 @@ export async function deleteCheckInAPI ({habitId}) {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({habitId})
+            body: JSON.stringify({habitId, today})
         })
         if (!response.ok) {
             const errorData = await response.json()

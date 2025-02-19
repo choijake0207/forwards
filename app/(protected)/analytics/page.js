@@ -21,8 +21,8 @@ export default function Analytics() {
 
   // generate days array
   const generateAnalyticDays = (habit) => {
-    let current = new Date()
-    let formattedCurrent = current.setHours(0,0,0,0)
+    let current = new Date().setHours(0,0,0,0)
+    let stringCurrent = current.toString()
     let days = []
     let today = new Date()
 
@@ -33,18 +33,18 @@ export default function Analytics() {
       const isCheckInDay = habit.frequency === "DAILY" || habit.daysOfWeek.includes(stringFormat)
 
       // optimistic check-in storage check
-      const checkInKey = `${habit.id}-${formattedCurrent}`
+      const checkInKey = `${habit.id}-${stringCurrent}`
       console.log(checkInKey)
       const isChecked = optimisticCheckIns.current.has(checkInKey) 
         ? optimisticCheckIns.current.get(checkInKey)
-        : habit.checkIns.some(checkIn => new Date(checkIn.date).setHours(0,0,0,0) === formattedCurrent)
+        : habit.checkIns.some(checkIn => checkIn.date === stringCurrent)
 
       days.push({
-        date: current,
+        date: stringCurrent,
         isCheckInDay,
         isChecked
       })
-      current = new Date(current.getTime() + 86400000)
+      current = new Date(current + 86400000)
       
     }
     return days
@@ -58,23 +58,10 @@ export default function Analytics() {
       ...habit,
       days: generateAnalyticDays(habit)
     }))
-  }, [rawHabits, generateAnalyticDays])
+  }, [rawHabits])
     
   console.log(analyticsHabits)
   
-
-  //   // total check ins
-  // // const totalCheckIns = useMemo(() => {
-  // //   let checkIns = []
-  // //   analyticsHabits.map(habit => habit.checkIns.forEach(checkIn => {checkIns.push(checkIn)}))
-  // //   return checkIns.length
-  // // }, [analyticsHabits])
-  // let checks = 0
-  // const totalChecks = useMemo(() => {
-  //   analyticsHabits.forEach(habit => {
-  //     checks += habit.days.filter(day => day.isChecked).length
-  //   })
-  // }, [analyticsHabits])
 
 
 
@@ -84,15 +71,16 @@ export default function Analytics() {
    const today = new Date().setHours(0,0,0,0)
 
    const dataSetGenerator = useMemo(() => {
-    let current = new Date(start)
+    let current = new Date(start).setHours(0,0,0,0)
+    let stringCurrent = current.toString()
     let rate = []
     while (current <= today) {
-      let formattedDate = new Date(new Date(current).setHours(0,0,0,0))
+      // let stringCurrent = new Date(new Date(current).setHours(0,0,0,0))
       let totalCheckInDays = 0
       let totalCheckIns = 0
 
       analyticsHabits.forEach(habit => {
-        const dayObject = habit.days.find(day => format(new Date(day.date).setHours(0,0,0,0), "yyyy-MM-dd") == format(new Date(formattedDate).setHours(0,0,0,0), "yyyy-MM-dd"))
+        const dayObject = habit.days.find(day => day.date === stringCurrent)
         if (dayObject) {
           if (dayObject.isCheckInDay) totalCheckInDays++
           if (dayObject.isChecked) totalCheckIns++
@@ -101,7 +89,7 @@ export default function Analytics() {
 
       let dailyRate = totalCheckInDays > 0 ? (totalCheckIns / totalCheckInDays) * 100 : 0
       rate.push(dailyRate)
-      current.setDate(current.getDate() + 1)
+      current = new Date(current + 86400000)
     }
     return rate
   }, [start, today, analyticsHabits])

@@ -18,15 +18,16 @@ export async function POST (request) {
             console.error("JWT verification failed", error)
             return NextResponse.json({error: "Invalid Token"}, {status: 403})
         }
-        const {habitId} = await request.json()
+        const {habitId, stringToday} = await request.json()
         const prisma = new PrismaClient()
-        const today = new Date().setHours(0, 0, 0, 0)
-        const normalizedToday = new Date(today)
+    
+        // const today = new Date().setHours(0, 0, 0, 0)
+        // const normalizedToday = new Date(today)
         const newCheckIn = await prisma.checkIn.create({
             data: {
                 habitId: habitId,
                 userId: verified.id,
-                date: normalizedToday
+                date: stringToday
 
             }
         })
@@ -35,7 +36,7 @@ export async function POST (request) {
                 id: habitId
             },
             data: {
-                lastCheck: normalizedToday
+                lastCheck: stringToday
             }
 
         })

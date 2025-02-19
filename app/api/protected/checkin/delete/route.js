@@ -18,16 +18,17 @@ export async function DELETE (request) {
             console.error("JWT verification failed", error)
             return NextResponse.json({error: "Invalid Token"})
         }
-        const {habitId, today} = await request.json()
+        const {habitId, stringToday} = await request.json()
         // const today = new Date().setHours(0, 0, 0, 0)
         // const normalizedToday = new Date(today) 
         const prisma = new PrismaClient()
+   
 
         const target = await prisma.checkIn.findFirst({
             where: {
                 habitId: habitId,
                 userId: verified.id,
-                date: today
+                date: stringToday
             }
         })
         await prisma.checkIn.delete({

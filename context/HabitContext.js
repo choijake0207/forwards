@@ -28,7 +28,8 @@ export const HabitProvider = ({children}) => {
             response.forEach(habit => {
                 habit.checkIns.forEach(checkIn => {
                     let current = new Date().setHours(0, 0, 0, 0)
-                    const checkInKey = `${habit.id}-${current}`;
+                    let stringCurrent = current.toString()
+                    const checkInKey = `${habit.id}-${stringCurrent}`;
                     if (optimisticCheckIns.current.has(checkInKey)) {
                         optimisticCheckIns.current.delete(checkInKey); 
                     }
@@ -65,8 +66,8 @@ export const HabitProvider = ({children}) => {
         let days = []
         while (current <= getTimeFrame.end) {
             let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
-            let formattedCurrent = current.setHours(0, 0, 0, 0)
-            let checkInKey = `${habit.id}-${formattedCurrent}`
+            let stringCurrent = current.setHours(0, 0, 0, 0).toString()
+            let checkInKey = `${habit.id}-${stringCurrent}`
             // is today a check in day (boolean)
             const isCheckInDay = habit.frequency === "DAILY" || Array.isArray(habit.daysOfWeek) && habit.daysOfWeek.includes(stringFormat)
             // has today been checked (boolean)
@@ -74,8 +75,7 @@ export const HabitProvider = ({children}) => {
                 optimisticCheckIns.current.has(checkInKey) ?
                     optimisticCheckIns.current.get(checkInKey)
                     : habit.checkIns.some(checkIn => {
-                        let checkInDate = new Date(checkIn.date).setHours(0, 0, 0, 0)
-                        return checkInDate === formattedCurrent;
+                        return checkIn.date === stringCurrent;
                     })
             // append booleans and date as object into days array
             days.push({
@@ -104,22 +104,23 @@ export const HabitProvider = ({children}) => {
     const checkIn = async (habitId) => {
         const previousHabits = [...processedHabits]
         const today = new Date().setHours(0, 0, 0, 0)
+        const stringToday = today.toString()
         // store in ref for optimistic render persistence
-        optimisticCheckIns.current.set(`${habitId}-${today}`, true)
+        optimisticCheckIns.current.set(`${habitId}-${stringToday}`, true)
         try {
           //optimistic render for current render
           setProcessedHabits(prev => 
             prev.map(habit => 
               habit.id === habitId ? 
                 {...habit, 
-                  lastCheck: new Date().setHours(0, 0, 0, 0), 
-                  checkIns: [...habit.checkIns, {date: today}],
-                  days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: today}]})
+                  lastCheck: stringToday, 
+                  checkIns: [...habit.checkIns, {date: stringToday}],
+                  days: generateDayObjects({...habit, checkIns: [...habit.checkIns, {date: stringToday}]})
                 } 
                 : habit
             )
           )
-          const response = await createCheckInAPI({habitId})
+          const response = await createCheckInAPI({habitId, stringToday})
         } catch (error) {
           console.error("Error Checking In", error)
           // revert optimistic render
@@ -131,10 +132,11 @@ export const HabitProvider = ({children}) => {
     const undoCheck = async (habitId) => {
         const previousHabits = [...processedHabits]
         const today = new Date().setHours(0, 0, 0, 0)
+        const stringToday = today.toString()
         try {
         // delete ref persistent optimistic data
   
-        optimisticCheckIns.current.set(`${habitId}-${today}`, false)
+        optimisticCheckIns.current.set(`${habitId}-${stringToday}`, false)
 
         
 
@@ -143,13 +145,13 @@ export const HabitProvider = ({children}) => {
             habit.id === habitId ? 
                 {...habit, 
                 lastCheck: null,
-                checkIns: habit.checkIns.filter(checkIn => format(checkIn.date, "yyyy-MM-dd") !== format(today, "yyyy-MM-dd")),
-                days: generateDayObjects({...habit, checkIns: habit.checkIns.filter(checkIn => format(checkIn.date, "yyyy-MM-dd") !== format(today, "yyyy-MM-dd"))})
+                checkIns: habit.checkIns.filter(checkIn => checkIn.date !== stringToday),
+                days: generateDayObjects({...habit, checkIns: habit.checkIns.filter(checkIn => checkIn.date !== stringToday)})
                 } 
                 : habit
             )  
         )
-        const response = await deleteCheckInAPI({habitId, today})
+        const response = await deleteCheckInAPI({habitId, stringToday})
         } catch (error) {
             console.error("Error Undoing Check", error)
             setProcessedHabits(previousHabits)
