@@ -21,13 +21,14 @@ export async function DELETE (request) {
         const {habitId, today} = await request.json()
         // const today = new Date().setHours(0, 0, 0, 0)
         // const normalizedToday = new Date(today) 
-        console.log(normalizedToday)
         const prisma = new PrismaClient()
+        const date = new Date(new Date(today).setHours(0,0,0,0))
+        console.log(date)
         const target = await prisma.checkIn.findFirst({
             where: {
                 habitId: habitId,
                 userId: verified.id,
-                date: today
+                date: date
             }
         })
         await prisma.checkIn.delete({
