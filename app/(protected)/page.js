@@ -35,7 +35,7 @@ export default function Dashboard () {
     if (time < 12 && time > 3) {
       return <h1>Good Morning, {formattedName} <img src="/sun.png"/></h1>
     } else if (time >= 12 && time < 18 ) {
-      return <h1>Good Afternoon, {formattedName} <img src="/sun(1).png"/></h1>
+      return <h1>Good Afternoon, {formattedName} <img src="/sun (1).png"/></h1>
     } else {
       return <h1>Good Evening, {formattedName} <img src="/moon.png"/></h1>
     }
