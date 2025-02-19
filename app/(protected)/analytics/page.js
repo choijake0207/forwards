@@ -18,15 +18,14 @@ export default function Analytics() {
   }, [rawHabits])
 
 
-
   // generate days array
   const generateAnalyticDays = (habit) => {
-    let current = new Date().setHours(0,0,0,0)
-    let stringCurrent = current.toString()
+    let current = new Date(habit.createdAt)
     let days = []
     let today = new Date()
 
     while (current <= today) {
+      let stringCurrent = current.setHours(0,0,0,0).toString()
       let stringFormat = current.toLocaleString("en-US", {weekday: "short"})
 
       // isCheckInDay Today
@@ -34,7 +33,6 @@ export default function Analytics() {
 
       // optimistic check-in storage check
       const checkInKey = `${habit.id}-${stringCurrent}`
-      console.log(checkInKey)
       const isChecked = optimisticCheckIns.current.has(checkInKey) 
         ? optimisticCheckIns.current.get(checkInKey)
         : habit.checkIns.some(checkIn => checkIn.date === stringCurrent)
@@ -44,7 +42,7 @@ export default function Analytics() {
         isCheckInDay,
         isChecked
       })
-      current = new Date(current + 86400000)
+      current = new Date(current.getTime() + 86400000)
       
     }
     return days
@@ -60,7 +58,6 @@ export default function Analytics() {
     }))
   }, [rawHabits])
     
-  console.log(analyticsHabits)
   
 
 
@@ -107,7 +104,6 @@ export default function Analytics() {
   let rateSum = dataSetGenerator.reduce((a, b) => a + b, 0)
   let avg = Math.round(rateSum/dataSetGenerator.length)
 
-  console.log(dataSetGenerator)
 
 
   return (
