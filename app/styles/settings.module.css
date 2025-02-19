@@ -96,6 +96,10 @@
     bordeR: none;
     cursor: pointer;
 }
+.form_submit_btn:disabled {
+    cursor: wait;
+    opacity: .7;
+}
 .mobile_error {
     color: var(--red);
     display: none;

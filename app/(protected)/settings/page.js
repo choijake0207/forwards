@@ -12,6 +12,7 @@ export default function SettingsPage() {
   const [user, setUser] = useState()
   const [edit, setEdit] = useState(false)
   const [alert, setAlert] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
   const [passwordForm, setPasswordForm] = useState({
     old: "",
     new: ""
@@ -37,6 +38,7 @@ export default function SettingsPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setSubmitting(true)
     try {
       const response = await changePasswordAPI(passwordForm.old, passwordForm.new)
       triggerAlert("Password Reset", "Success")
@@ -45,6 +47,8 @@ export default function SettingsPage() {
     } catch (error) {
       triggerAlert(error.message, "Failure")
       console.error(error)
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -106,7 +110,7 @@ export default function SettingsPage() {
                   />
                   <div className={styles.btn_container}>
                     <button onClick={handleCancel} className={styles.form_cancel_btn}>Cancel</button>
-                    <button className={styles.form_submit_btn}>Change</button>
+                    <button className={styles.form_submit_btn} disabled={submitting}>Change</button>
                   </div>
                 </form>
               : 
