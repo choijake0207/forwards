@@ -14,6 +14,7 @@ const LoginRegForm = ({type}) => {
     const router = useRouter()
     const {login, register} = useContext(AuthContext)
     const [alert, setAlert] = useState(null)
+    const [submitting, setSubmitting] = useState(false)
 
     const triggerAlert = (message, type) => {
         setAlert({message, type})
@@ -22,29 +23,39 @@ const LoginRegForm = ({type}) => {
 
     const handleRegister = async(e) => {
         e.preventDefault()
+        setSubmitting(true)
         try {
             const response = await register(firstName, lastName, username, password)
+            router.push("/")
             setFirstName("")
             setLastName("")
             setUsername("") 
             setPassword("")
-            router.push("/")
+          
         } catch (error) {
+            setSubmitting(false)
             triggerAlert(error.message, "Failure")
             console.error("Error submitting form:", error)
+        } finally {
+            setSubmitting(false)
         }
     } 
 
     const handleLogin = async(e) => {
+        setSubmitting(true)
         e.preventDefault()
         try {
             const response = await login(username, password)
+            router.push("/")
             setUsername("")
             setPassword("")
-            router.push("/")
+            
         } catch (error) {
+            setSubmitting(false)
             triggerAlert(error.message, "Failure")
             console.error(error)
+        } finally {
+            setSubmitting(false)
         }
     }
 
@@ -86,7 +97,7 @@ const LoginRegForm = ({type}) => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <button type="submit" disabled={submitting}>Login</button>
                 <p className={styles.logreg_form_message}>
                     Don't have an account? Click <Link href="/register">here</Link> to sign up
                 </p>
@@ -129,7 +140,7 @@ const LoginRegForm = ({type}) => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Join</button>
+                <button type="submit" disabled={submitting}>Join</button>
                 <p className={styles.logreg_form_message}>
                     Already have an account? Click <Link href="/login">here</Link> to login
                 </p>
