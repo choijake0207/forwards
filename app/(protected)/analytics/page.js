@@ -10,7 +10,6 @@ import { Wrench } from "phosphor-react"
 export default function Analytics() {
 
   const {rawHabits, loading, optimisticCheckIns, fetchHabits} = useContext(HabitContext)
-
   // get date of first habit creation (starting point for graph component)
   const firstHabitDate = useMemo(() => {
     if (!rawHabits || rawHabits.length === 0) return new Date()
@@ -68,14 +67,14 @@ export default function Analytics() {
    const today = new Date().setHours(0,0,0,0)
 
    const dataSetGenerator = useMemo(() => {
-    let current = new Date(start).setHours(0,0,0,0)
-    let stringCurrent = current.toString()
+    let current = new Date(start)
     let rate = []
     while (current <= today) {
       // let stringCurrent = new Date(new Date(current).setHours(0,0,0,0))
+      let stringCurrent = current.setHours(0,0,0,0).toString()
+
       let totalCheckInDays = 0
       let totalCheckIns = 0
-
       analyticsHabits.forEach(habit => {
         const dayObject = habit.days.find(day => day.date === stringCurrent)
         if (dayObject) {
@@ -86,7 +85,7 @@ export default function Analytics() {
 
       let dailyRate = totalCheckInDays > 0 ? (totalCheckIns / totalCheckInDays) * 100 : 0
       rate.push(dailyRate)
-      current = new Date(current + 86400000)
+      current = new Date(current.getTime() + 86400000)
     }
     return rate
   }, [start, today, analyticsHabits])
