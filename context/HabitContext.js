@@ -105,9 +105,11 @@ export const HabitProvider = ({children}) => {
         const previousHabits = [...processedHabits]
         const today = new Date().setHours(0, 0, 0, 0)
         const stringToday = today.toString()
+
         // store in ref for optimistic render persistence
-        optimisticCheckIns.current.set(`${habitId}-${stringToday}`, true)
         try {
+            optimisticCheckIns.current.set(`${habitId}-${stringToday}`, true)
+
           //optimistic render for current render
           setProcessedHabits(prev => 
             prev.map(habit => 
