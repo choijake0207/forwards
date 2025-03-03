@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import styles from "../../styles/logreg.module.css"
 import LoginRegForm from '@/app/component/LoginRegForm'
