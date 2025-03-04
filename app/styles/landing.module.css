@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+.landing_page {
+    background:  rgb(21, 21, 22);
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: "Manrope";
+}
+.landing_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.logo_container {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+.logo {
+    height: 20px;
+}
+.logo_title {
+    color: var(--primary-theme);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user_portal_links {
+    display: flex;
+    gap: 25px;
+}
+.user_portal_links > * {
+    cursor: pointer;
+}
+.login_btn {
+    background: var(--primary-theme);
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--primary-text)
+}
+.sign_up_btn {
+    font-size: 17px;
+    color: var(--primary-theme);
+    font-weight:500;
+    background: none;
+    border: none;
+}
+.landing_page > * {
+    padding: 25px;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+/* Greeting */
+.greeting_section {
+    display: flex; 
+    gap: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    justify-content: center;
+}
+.greeting_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    min-width: 350px;
+}
+.primary_text {
+    font-size:35px;
+    font-weight: 500
+}
+.highlight {
+    position: relative;
+}
+/* .highlight::before {
+    position: absolute;
+    content: "";
+    border-bottom:5px dashed var(--primary-theme);
+    border-radius: 5px;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    animation: highlight .5s ease-out forwards 
+} */
+.secondary_text {
+    color: var(--secondary-text);
+    font-size: 20px;
+}
+.greeting_image_container {
+    position: relative;
+    border-radius: 50px;
+    min-height: 500px;
+    filter: drop-shadow(10px 10px 20px rgb(40, 61, 80, 0.5));
+}
+.mobile_demo {
+    width: 170px;
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 25px;
+    position: absolute;
+    z-index: 10;
+    background: rgb(60, 61, 97);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(0, 0, 0, 0.3);
+    bottom: 90px;
+    left: 50px;
+}
+.laptop_demo {
+    width: 750px;
+    filter: drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.5));
+    aspect-ratio: l;
+}
+
+/* Dummy Walkthrough */
+
+.walkthrough_section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.walkthrough_section h2 {
+    font-size: 30px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--secondary-text);
+    margin-bottom: 50px;
+}
+.walkthrough_text {
+    font-size: 30px;
+    text-align: center;
+}
+.walkthrough_demos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+}
+.walkthrough_demos > *{
+    height: 320px;
+    min-width: 300px;
+    width: 100%;
+    max-width: 550px;
+    border: 1px solid vaR(--subtle-border);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 25px;
+    padding: 25px;
+    padding-top: 40px;
+    position: relative;
+    background: rgba(15, 15, 15, 0.3);
+    
+}
+.walkthrough_demos > *:hover .dummy_wrap {
+    transform: translateY(-5px);
+    scale: 1.02;
+}
+.walkthrough_demos > * > h3 {
+    font-size: 25px;
+    font-weight: 500;
+    width: 200px;
+    text-align: center;
+}
+.create_walkthrough::before {
+    position: absolute;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "1";
+    background: var(--fg);
+    color: var(--primary-theme);
+    font-weight: bolder;
+    z-index: 10;
+}
+.check_in_walkthrough::before {
+    position: absolute;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "2";
+    color: var(--primary-theme);
+    font-weight: bolder;
+    background: var(--fg);
+    z-index: 10;
+}
+.progress_walkthrough::before {
+    position: absolute;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "3";
+    color: var(--primary-theme);
+    font-weight: bolder;
+    background: var(--fg);
+    z-index: 10;
+}
+.dummy_wrap {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+}
+/* INPUT */
+.dummy_input {
+    border: 1px solid var(--subtle-border);
+    width: 100%;
+    min-width: 270px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.dummy_text {
+    font-size: 20px;
+    animation: typing 4s steps(10, end) infinite, cursor .75s step-end infinite;
+    letter-spacing: .7px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* CHECKIN*/
+.dummy_check_card {
+    width: 300px;
+    height: 120px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-theme);
+    display: flex;
+    flex-direction: column;
+    background: var(--fg);
+    padding: 10px;
+    position: relative;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);;
+}
+.card_title {
+    font-size: 20px;
+    align-self: flex-start;
+    z-index: 10;
+}
+.check_btn {
+    text-align: center;
+    border: 1px solid var(--subtle-border);
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 5px;
+    color: vaR(--secondary-text);
+    margin-top: auto;
+    z-index: 10;
+    cursor: pointer;
+}
+.check_btn:hover {
+    background: vaR(--primary-theme);
+    color: var(--primary-text);
+}
+/* PROGRESSBAR*/
+.dummy_chart {
+    width: 90%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes highlight {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+@keyframes typing{
+    0% {
+        width: 0
+    }
+    20% {
+        width: 150px;
+    }
+    100% {
+        width: 150px;
+    }
+}
+@keyframes cursor {
+    from, to {border: none}
+    50% {
+        border-right: 2px solid white;
+    }
+}
+
+
