@@ -6,15 +6,10 @@ import { useRouter } from 'next/navigation'
 
 
 export default function Header() {
-    const {authUser} = useContext(AuthContext)
-    const [loaded, setLoaded] = useState(false)
+    const {authUser, loading} = useContext(AuthContext)
     const router = useRouter()
 
-    useEffect(() => {
-        if (authUser.status) {
-            setLoaded(true);
-        }
-    }, [authUser]);
+
 
 
 
@@ -24,7 +19,7 @@ export default function Header() {
                 <img src="./navigation.png" className={styles.logo} alt="logo"/>
                 <p className={styles.logo_title}>Forward</p>
             </div>
-            <div className={styles.user_portal_links} style={{visibility: loaded ? "visible" : "hidden"}}>
+            <div className={styles.user_portal_links} style={{visibility: loading  ? "hidden" : "visible"}}>
                 {authUser.status ? 
                     <button className={styles.user_portal} onClick={() =>router.push("/")}>
                         User Portal
