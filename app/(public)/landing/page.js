@@ -23,8 +23,8 @@ export default function Landing() {
                 </p>
             </div>
             <div className={styles.greeting_image_container}>
-                <img src="/mobile.png" className={styles.mobile_demo} alt="laptop_demo"/>
-                <img src="laptop.png" className={styles.laptop_demo} alt="mobile_demo"/>
+                <img src="./mobile.png" className={styles.mobile_demo} alt="laptop_demo"/>
+                <img src="./laptop.png" className={styles.laptop_demo} alt="mobile_demo"/>
             </div>
         </section>
 
