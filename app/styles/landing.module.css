@@ -30,12 +30,14 @@
 
 .user_portal_links {
     display: flex;
+    align-items: center;
     gap: 25px;
 }
 .user_portal_links > * {
     cursor: pointer;
 }
-.login_btn {
+
+.login_btn, .user_portal {
     background: var(--primary-theme);
     padding: 5px;
     padding-left: 20px;

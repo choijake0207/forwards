@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from "../../styles/landing.module.css"
+import Header from '@/app/component/landing/header'
 
 export default function Landing() {
 
@@ -8,16 +9,7 @@ export default function Landing() {
   return (
     <div className={styles.landing_page}>
 
-        <header className={styles.landing_header}>
-            <div className={styles.logo_container}>
-                <img src="./navigation.png" className={styles.logo} alt="logo"/>
-                <p className={styles.logo_title}>Forward</p>
-            </div>
-            <div className={styles.user_portal_links}>
-                <button className={styles.sign_up_btn}>Join Today</button>
-                <button className={styles.login_btn}>Login</button>
-            </div>
-        </header>
+        <Header/>
 
         <section className={styles.greeting_section}>
             <div className={styles.greeting_text}>
