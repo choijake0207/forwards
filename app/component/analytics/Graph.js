@@ -35,7 +35,7 @@ export default function Graph({firstDate, habits, rate}) {
         let current = new Date(start)
         while (current <= today) {
           labels.push(format(new Date(current), "MM-dd"))
-          current.seDate(current.getDate() + 7)
+          current.setDate(current.getDate() + 7)
       }
     } else {
       while (current <= today) {
